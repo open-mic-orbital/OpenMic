@@ -4,14 +4,10 @@ import openMicLogo from "../../utils/images/OpenMicLogo.png";
 function Header() {
   return (
     <header>
-      <div
-        className="Header"
-        style={{ display: "flex", flexFlow: "row nowrap" }}
-      >
-        <img src={openMicLogo} height={50} alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className="Header">
+        <img src={openMicLogo} className="Logo" height={50} alt="logo" />
+        {/* <NavBar /> */}
+        {/* <Login /> */}
       </div>
     </header>
   );

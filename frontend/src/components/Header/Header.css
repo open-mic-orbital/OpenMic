@@ -2,9 +2,14 @@
     background-color: #10182e;
     min-height: 15vh;
     display: flex;
-    flex-direction: column;
+    flex-flow: row nowrap;
+    /* flex-direction: row; */
     align-items: left;
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white; /* font color */
+}
+
+.Logo {
+    padding: 4vh;
 }
