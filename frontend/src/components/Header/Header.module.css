@@ -1,0 +1,14 @@
+.Header.module{
+    background-color: #10182e;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    /* color: white; */
+}
+
+.Header.module-logo {
+    height: 40vmin;
+}  
