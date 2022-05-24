@@ -6,6 +6,7 @@ function Header() {
     <header>
       <div className="Header">
         <img src={openMicLogo} className="Logo" height={50} alt="logo" />
+        <h1>Welcome to OpenMic</h1>
         {/* <NavBar /> */}
         {/* <Login /> */}
       </div>
