@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Header from "./components/Header/Header";
 import AuthAppBar from "./components/AuthAppBar/AuthAppBar";
+import UnauthAppBar from "./components/UnauthAppBar/UnauthAppBar";
 // import Container from "@mui/material/Container";
 
 function App() {
@@ -22,10 +23,10 @@ function App() {
           fontWeight: 'bold',
         }}
       > */}
-      <Box sx={{flexGrow: 1, color: 'white'}}>
+      <Box sx={{flexGrow: 1, color: 'white', overflow: 'scroll'}}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <AuthAppBar />
+            <UnauthAppBar />
           </Grid>
           <Grid item xs={8}>
             <Header />
