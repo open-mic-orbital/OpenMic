@@ -11,5 +11,6 @@
 }
 
 .Logo {
+    max-height: 80vh;
     padding: 4vh;
 }

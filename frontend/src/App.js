@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import Header from "./components/Header/Header";
 import AuthAppBar from "./components/AuthAppBar/AuthAppBar";
 import UnauthAppBar from "./components/UnauthAppBar/UnauthAppBar";
+import MainText from "./components/MainText/MainText";
 import Icons from "./utils/images/Icons.png";
 // import Container from "@mui/material/Container";
 
@@ -30,7 +31,7 @@ function App() {
             <UnauthAppBar />
           </Grid>
           <Grid item xs={6}>
-            <Header />
+            <MainText />
           </Grid>
           <Grid item xs={6}>
             <img src={Icons} className="Logo" alt="logo" />
