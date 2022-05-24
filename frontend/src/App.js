@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import Header from "./components/Header/Header";
 import AuthAppBar from "./components/AuthAppBar/AuthAppBar";
 import UnauthAppBar from "./components/UnauthAppBar/UnauthAppBar";
+import Icons from "./utils/images/Icons.png";
 // import Container from "@mui/material/Container";
 
 function App() {
@@ -28,15 +29,11 @@ function App() {
           <Grid item xs={12}>
             <UnauthAppBar />
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={6}>
             <Header />
           </Grid>
-          <Grid item xs={4}>
-            <p>
-              In a grid, setting the item xs value to 12 makes that particular grid item take up the whole viewport size horizontally.
-              Currently, this text you're reading is of size 4, compared to the header section you see to the left, which takes up the reminaing 8.
-              So this text should be one-third of the browser width.
-            </p>
+          <Grid item xs={6}>
+            <img src={Icons} className="Logo" alt="logo" />
           </Grid>
         </Grid>
       </Box>

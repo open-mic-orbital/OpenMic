@@ -14,6 +14,8 @@ import MenuItem from '@mui/material/MenuItem';
 import openMicLogo from '../../utils/images/OpenMicLogo.png';
 import './UnauthAppBar.css';
 import { ButtonGroup } from '@mui/material';
+import { styled } from "@mui/material/styles";
+import LoginSignupButton from '../LoginSignupButton/LoginSignupButton';
 
 const pages = ['Discover', 'About Us'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -36,6 +38,17 @@ const UnauthAppBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const StyledButtonGroup = styled(ButtonGroup)({
+    // change the text color for all buttons
+    '& .MuiButtonGroup-grouped': {
+      color: "white",
+    },
+    // change the button group dividers color
+    '& .MuiButtonGroup-grouped:not(:last-of-type)': {
+      borderColor: "white"
+    }
+  });
 
   return (
     <AppBar position="static" sx={{ bgcolor: '#009c95' }}>
@@ -92,11 +105,13 @@ const UnauthAppBar = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <ButtonGroup variant="text" aria-label="text button group">
+            <LoginSignupButton />
+            {/*}   
+            <StyledButtonGroup variant="text">
               <Button>Login</Button>
               <Button>Signup</Button>
-            </ButtonGroup>
-            {/*
+            </StyledButtonGroup>
+            
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Login" src="/static/images/avatar/2.jpg" />
               </IconButton>
