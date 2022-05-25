@@ -39,17 +39,6 @@ const UnauthAppBar = () => {
     setAnchorElUser(null);
   };
 
-  const StyledButtonGroup = styled(ButtonGroup)({
-    // change the text color for all buttons
-    '& .MuiButtonGroup-grouped': {
-      color: "white",
-    },
-    // change the button group dividers color
-    '& .MuiButtonGroup-grouped:not(:last-of-type)': {
-      borderColor: "white"
-    }
-  });
-
   return (
     <AppBar position="static" sx={{ bgcolor: '#009c95' }}>
       <Container maxWidth="xl">
