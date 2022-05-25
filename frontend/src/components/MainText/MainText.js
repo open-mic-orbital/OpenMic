@@ -4,12 +4,12 @@ function MainText() {
     return (
         <>
         <Box sx={{
-            justifyContent: 'left'
+            textAlign: 'left',  padding: '3vh', paddingLeft: '15vh',
         }}>
-        <h1 style={{ fontSize: '9vh', textAlign: 'left', paddingLeft: '10vh' }}>
+        <h1 style={{ fontSize: '9vh' }}>
             Live Entertainment,<br></br>just a tap away.
         </h1>
-        <p>
+        <p style={{ fontSize: '3vh', color:'grey' }}>
             Sign up now.
         </p>
         </Box>
