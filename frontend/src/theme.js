@@ -6,6 +6,11 @@ const theme = createTheme({
       main: '#f78104',
       contrastText: '#fff',
       borderColor: '#fff'
+    },
+    secondary: {
+      main: '#009c95',
+      contrastText: '#fff',
+      borderColor: '#fff'
     }
   }
 });

@@ -1,24 +1,24 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import openMicLogo from '../../utils/images/OpenMicLogo.png';
-import './UnauthAppBar.css';
-import { ButtonGroup } from '@mui/material';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import openMicLogo from "../../utils/images/OpenMicLogo.png";
+import "./UnauthAppBar.css";
+import { ButtonGroup } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import LoginSignupButton from '../LoginSignupButton/LoginSignupButton';
+import LoginSignupButton from "../LoginSignupButton/LoginSignupButton";
 
-const pages = ['Discover', 'About Us'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ["Discover", "About Us"];
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const UnauthAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -40,12 +40,20 @@ const UnauthAppBar = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ bgcolor: '#009c95' }}>
+    <AppBar
+      position="static"
+      sx={{
+        bgcolor: "#009c95",
+        paddingLeft: "12vh",
+        paddingTop: "2vh",
+        paddingBottom: "2vh",
+      }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <img src={openMicLogo} className="Logo" height={50} alt="logo" />
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -60,18 +68,18 @@ const UnauthAppBar = () => {
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: "bottom",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: "block", md: "none" },
               }}
             >
               {pages.map((page) => (
@@ -81,12 +89,17 @@ const UnauthAppBar = () => {
               ))}
             </Menu>
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{
+                  paddingLeft: "5vh",
+                  my: 2,
+                  color: "white",
+                  display: "block",
+                }}
               >
                 {page}
               </Button>
