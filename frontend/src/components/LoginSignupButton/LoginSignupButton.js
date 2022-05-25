@@ -1,26 +1,18 @@
 import React from 'react';
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import { styled } from "@mui/material/styles";
-
-const StyledButtonGroup = styled(ButtonGroup)({
-  // change the text color for all buttons
-  '& .MuiButtonGroup-grouped': {
-    color: "white",
-  },
-  // change the button group dividers color
-  '& .MuiButtonGroup-grouped:not(:last-of-type)': {
-    borderColor: "white"
-  }
-});
+import { ThemeProvider } from '@emotion/react';
+import theme from '../../theme';
 
 const LoginSignupButton = () => {
   return (
     <>
-    <StyledButtonGroup variant="text">
+    <ThemeProvider theme={theme}>
+    <ButtonGroup disableElevation color="primary" variant="contained">
       <Button>Login</Button>
       <Button>Signup</Button>
-    </StyledButtonGroup>
+    </ButtonGroup>
+    </ThemeProvider>
     </>
   );
 }
