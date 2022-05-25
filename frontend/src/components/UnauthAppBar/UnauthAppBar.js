@@ -16,6 +16,7 @@ import "./UnauthAppBar.css";
 import { ButtonGroup } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import LoginSignupButton from "../LoginSignupButton/LoginSignupButton";
+import Discover from "../../Discover/Discover";
 
 const pages = ["Discover", "About Us"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -90,20 +91,29 @@ const UnauthAppBar = () => {
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{
-                  paddingLeft: "5vh",
-                  my: 2,
-                  color: "white",
-                  display: "block",
-                }}
-              >
-                {page}
-              </Button>
-            ))}
+            <Button
+              href="../../Discover"
+              onClick={handleCloseNavMenu}
+              sx={{
+                paddingLeft: "5vh",
+                my: 2,
+                color: "white",
+                display: "block",
+              }}
+            >
+              Discover
+            </Button>
+            <Button
+              onClick={handleCloseNavMenu}
+              sx={{
+                paddingLeft: "5vh",
+                my: 2,
+                color: "white",
+                display: "block",
+              }}
+            >
+              About us
+            </Button>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
