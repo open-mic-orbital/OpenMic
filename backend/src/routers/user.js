@@ -13,8 +13,22 @@ router.post('/users', async (req, res) => {
         // const token = await user.generateAuthToken();
         res.status(201).send(user); // check response in Postman
     } catch(e) {
-        res.status(400).send(e) // Unsuccessful signup (wrong format password, etc)
+        res.status(400).send(e); // Unsuccessful signup (wrong format password, etc)
     }
 });
+
+// Read ALL users (remove later, currently only for dev purposes)
+router.get('/users', async (req, res) => {
+    try {
+        const users = await User.find({});
+        
+        if (!users) { // No users found
+            return res.status(404).send();
+        }
+        res.send(users);
+    } catch (e) {
+        res.status(500).send(); // server error
+    }
+})
 
 module.exports = router;
