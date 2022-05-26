@@ -14,7 +14,8 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
+  Link,
+  Navigate
 } from 'react-router-dom';
 
 import Landing from "./Landing/Landing";
@@ -27,6 +28,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/Discover" element={<Discover />} />
+          <Route path="*" element={<Navigate to="/"/>} />
         </Routes>
         {/* <Box sx={{ flexGrow: 1, color: "white", overflow: "scroll" }}>
           <Grid container spacing={2}>
