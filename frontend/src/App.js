@@ -18,8 +18,8 @@ import {
   Navigate
 } from 'react-router-dom';
 
-import Landing from "./Landing/Landing";
-import Discover from "./Discover/Discover";
+import Landing from "./pages/Landing/Landing";
+import Discover from "./pages/Discover/Discover";
 
 function App() {
   return (

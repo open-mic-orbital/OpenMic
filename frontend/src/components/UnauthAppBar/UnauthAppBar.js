@@ -16,7 +16,7 @@ import "./UnauthAppBar.css";
 import { ButtonGroup } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import LoginSignupButton from "../LoginSignupButton/LoginSignupButton";
-import Discover from "../../Discover/Discover";
+import Discover from "../../pages/Discover/Discover";
 
 const pages = ["Discover", "About Us"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
