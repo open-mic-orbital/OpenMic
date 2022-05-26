@@ -17,26 +17,35 @@ import {
   Link
 } from 'react-router-dom';
 
+import Landing from "./Landing/Landing";
+import Discover from "./Discover/Discover";
+
 function App() {
   return (
     <div className="App">
-      <Box sx={{ flexGrow: 1, color: "white", overflow: "scroll" }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sx={{ paddingBottom: "5vh" }}>
-            <UnauthAppBar />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/Discover" element={<Discover />} />
+        </Routes>
+        {/* <Box sx={{ flexGrow: 1, color: "white", overflow: "scroll" }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sx={{ paddingBottom: "5vh" }}>
+              <UnauthAppBar />
+            </Grid>
+            <Grid item xs={6}>
+              <MainText />
+              <Stack direction="row" spacing={2} sx={{ paddingLeft: "15vh" }}>
+                <ForArtistsButton />
+                <ForVenuesButton />
+              </Stack>
+            </Grid>
+            <Grid item xs={6}>
+              <img src={Icons} className="Logo" alt="logo"/>
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <MainText />
-            <Stack direction="row" spacing={2} sx={{ paddingLeft: "15vh" }}>
-              <ForArtistsButton />
-              <ForVenuesButton />
-            </Stack>
-          </Grid>
-          <Grid item xs={6}>
-            <img src={Icons} className="Logo" alt="logo"/>
-          </Grid>
-        </Grid>
-      </Box>
+        </Box> */}
+      </Router>
     </div>
   );
 }
