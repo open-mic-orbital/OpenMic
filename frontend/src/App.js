@@ -20,6 +20,7 @@ import {
 
 import Landing from "./pages/Landing/Landing";
 import Discover from "./pages/Discover/Discover";
+import Signup from "./pages/Signup/Signup";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/Discover" element={<Discover />} />
+          <Route path="/Signup" element={<Signup />} />
           <Route path="*" element={<Navigate to="/"/>} />
         </Routes>
         {/* <Box sx={{ flexGrow: 1, color: "white", overflow: "scroll" }}>
