@@ -38,6 +38,10 @@ const userSchema = new mongoose.Schema({
         enum: ['artist', 'venue'],
         required: true
     },
+    date: {
+        type: Date,
+        default: Date.now
+    },
     tokens: [{
         token: {
             type: String,

@@ -6,7 +6,7 @@ const router = new express.Router();
 
 
 // Create user
-router.post('/users', async (req, res) => {
+router.post('/signup', async (req, res) => {
     const user = new User(req.body);
     try {
         await user.save();
@@ -17,7 +17,7 @@ router.post('/users', async (req, res) => {
     }
 });
 
-router.post('/users/login', async (req, res) => {
+router.post('/login', async (req, res) => {
     try{
         const user = await User.findByCredentials(req.body.email, req.body.password);
         const token = await user.generateAuthToken();
@@ -28,7 +28,7 @@ router.post('/users/login', async (req, res) => {
 })
 
 // Read ALL users (remove later, currently only for dev purposes)
-router.get('/users', async (req, res) => {
+router.get('/readAll', async (req, res) => {
     try {
         const users = await User.find({});
 

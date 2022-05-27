@@ -7,7 +7,7 @@ const app = express();
 const port = process.env.PORT;
 
 app.use(express.json()); // to parse incoming json
-app.use(userRouter);
+app.use('/users', userRouter);
 
 app.listen(port, () => {
     console.log('Server up on port ' + port);
