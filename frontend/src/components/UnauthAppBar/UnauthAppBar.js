@@ -14,7 +14,6 @@ import "./UnauthAppBar.css";
 import LoginSignupButton from "../LoginSignupButton/LoginSignupButton";
 import { Link } from "react-router-dom";
 
-const pages = ["Discover", "About Us"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const UnauthAppBar = () => {
@@ -24,6 +23,7 @@ const UnauthAppBar = () => {
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -80,10 +80,20 @@ const UnauthAppBar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              <MenuItem key={"Discover"} onClick={handleCloseNavMenu} component={Link} to="Discover">
+              <MenuItem
+                key={"Discover"}
+                onClick={handleCloseNavMenu}
+                component={Link}
+                to="Discover"
+              >
                 <Typography textAlign="center">Discover</Typography>
               </MenuItem>
-              <MenuItem key={"AboutUs"} onClick={handleCloseNavMenu} component={Link} to="AboutUs">
+              <MenuItem
+                key={"AboutUs"}
+                onClick={handleCloseNavMenu}
+                component={Link}
+                to="AboutUs"
+              >
                 <Typography textAlign="center">About Us</Typography>
               </MenuItem>
             </Menu>
@@ -97,7 +107,7 @@ const UnauthAppBar = () => {
                 my: 2,
                 color: "white",
                 display: "block",
-                marginRight: "4vh"
+                marginRight: "4vh",
               }}
             >
               Discover
