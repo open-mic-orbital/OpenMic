@@ -11,6 +11,7 @@ import Landing from "./pages/Landing";
 import Discover from "./pages/Discover";
 import Signup from "./pages/Signup";
 import AboutUs from "./pages/AboutUs";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/Signup" element={<Signup />} />
           <Route path="*" element={<Navigate to="/" />} />
           <Route path="/AboutUs" element={<AboutUs />} />
+          <Route path="/Login" element={<Login />} />
         </Routes>
       </Router>
     </div>

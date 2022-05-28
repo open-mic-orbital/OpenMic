@@ -42,7 +42,7 @@ const StyledTextField = styled(TextField)({
   },
 });
 
-export default function Signup() {
+export default function Login() {
   // States for registration
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -123,7 +123,7 @@ export default function Signup() {
           <UnauthAppBar />
         </Grid>
         <Grid item xs={12}>
-          <h1>Signup</h1>
+          <h1>Login</h1>
           <Box
             component="form"
             sx={{
@@ -135,35 +135,6 @@ export default function Signup() {
           >
             <FormControl>
               <ThemeProvider theme={theme}>
-                <InputLabel
-                  required
-                  id="select-label"
-                  sx={{ color: "#f78104" }}
-                >
-                  User Type
-                </InputLabel>
-                <Select
-                  variant="outlined"
-                  labelId="simple-select"
-                  id="demo-simple-select"
-                  value={userType}
-                  // Label text needs to be the same as the InputLabel text
-                  // Add * if the field is required
-                  label="User Type *"
-                  sx={{ color: "white" }}
-                  onChange={handleUserTypeChange}
-                >
-                <MenuItem value="default">Please Select</MenuItem>
-                  <MenuItem value={"artist"}>Artist</MenuItem>
-                  <MenuItem value={"venue"}>Venue</MenuItem>
-                </Select>
-                <StyledTextField
-                  required
-                  id="outlined-required"
-                  label="Name"
-                  sx={{ input: { color: "white" } }}
-                  onChange={handleNameChange}
-                />
                 <StyledTextField
                   required
                   id="outlined-required"

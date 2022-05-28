@@ -1,23 +1,34 @@
 import React from "react";
 import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
+import { Stack } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import theme from "../../theme";
+import { fontSize } from "@mui/system";
 
 const LoginSignupButton = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <ButtonGroup
-          disableElevation
-          color="primary"
-          variant="contained"
-          size="large"
-          sx={{ paddingRight: "5vh" }}
-        >
-          <Button sx={{ width: 100, marginRight: "1vh" }}>Login</Button>
-          <Button href="Signup" sx={{ width: 100 }}>Signup</Button>
-        </ButtonGroup>
+        <Stack direction="row" spacing={2} sx={{ paddingRight: "5vh" }}>
+          <Button
+            disableElevation
+            variant="contained"
+            href="Login"
+            size="large"
+            sx={{ width: 100 }}
+          >
+            Login
+          </Button>
+          <Button
+            disableElevation
+            variant="contained"
+            href="Signup"
+            size="large"
+            sx={{ width: 100 }}
+          >
+            Signup
+          </Button>
+        </Stack>
       </ThemeProvider>
     </>
   );
