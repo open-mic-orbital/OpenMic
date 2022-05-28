@@ -78,14 +78,9 @@ export default function Signup() {
   const postSignUp = async (user) => {
     const response = await fetch(url + '/users/signup', {
       method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
       headers: {
         'Content-Type': 'application/json'
       },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
       body: JSON.stringify(user)
     });
     return response.json();
