@@ -1,10 +1,10 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import UnauthAppBar from "../../components/UnauthAppBar/UnauthAppBar";
-import MainText from "../../components/MainText/MainText";
-import Icons from "../../utils/images/Icons.png";
-import ForArtistsButton from "../../components/ForEachButton/ForArtistsButton";
-import ForVenuesButton from "../../components/ForEachButton/ForVenuesButton";
+import UnauthAppBar from "../components/UnauthAppBar/UnauthAppBar";
+import MainText from "../components/MainText/MainText";
+import Icons from "../utils/images/Icons.png";
+import ForArtistsButton from "../components/ForEachButton/ForArtistsButton";
+import ForVenuesButton from "../components/ForEachButton/ForVenuesButton";
 import Stack from "@mui/material/Stack";
 
 function Landing() {

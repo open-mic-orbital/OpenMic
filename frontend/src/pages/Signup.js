@@ -5,12 +5,12 @@ import Grid from "@mui/material/Grid";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
-import UnauthAppBar from "../../components//UnauthAppBar/UnauthAppBar";
+import UnauthAppBar from "../components/UnauthAppBar/UnauthAppBar";
 import { styled } from "@mui/material/styles";
 import InputLabel from "@mui/material/InputLabel";
 import { Button } from "@mui/material";
 import { ThemeProvider } from "@mui/material";
-import theme from "../../theme";
+import theme from "../theme";
 
 const StyledTextField = styled(TextField)({
   "& defaultValue": {

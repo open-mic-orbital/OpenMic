@@ -18,9 +18,9 @@ import {
   Navigate,
 } from "react-router-dom";
 
-import Landing from "./pages/Landing/Landing";
-import Discover from "./pages/Discover/Discover";
-import Signup from "./pages/Signup/Signup";
+import Landing from "./pages/Landing";
+import Discover from "./pages/Discover";
+import Signup from "./pages/Signup";
 import AboutUs from "./pages/AboutUs";
 
 function App() {

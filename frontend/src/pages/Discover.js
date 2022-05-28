@@ -1,7 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import UnauthAppBar from "../../components/UnauthAppBar/UnauthAppBar";
+import UnauthAppBar from "../components/UnauthAppBar/UnauthAppBar";
 
 const Discover = () => {
   return (
