@@ -12,6 +12,8 @@ import { Button, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material";
 import theme from "../theme";
 
+const url = 'http://localhost:4000';
+
 const StyledTextField = styled(TextField)({
   "& defaultValue": {
     color: "white",
@@ -73,18 +75,42 @@ export default function Signup() {
     setSubmitted(false);
   };
 
+  const postSignUp = async (user) => {
+    const response = await fetch(url + '/users/signup', {
+      method: 'POST',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify(user)
+    });
+    return response.json();
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
       name === "" ||
       email === "" ||
       password === "" ||
-      userType === "User Type"
+      userType === "default"
     ) {
       setError(true);
     } else {
-      setSubmitted(true);
-      setError(false);
+      const registered = {
+        name, email, password, userType
+      };
+      try {
+        console.log(postSignUp(registered));
+        setSubmitted(true);
+        setError(false);
+      } catch (e) {
+        setError(true);
+      }
     }
   };
 
@@ -185,6 +211,7 @@ export default function Signup() {
                   type="submit"
                   variant="contained"
                   sx={{ height: 40, paddingUp: "100vh" }}
+                  onClick={handleSubmit}
                 >
                   Submit
                 </Button>
