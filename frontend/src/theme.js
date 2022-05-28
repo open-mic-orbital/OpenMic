@@ -1,18 +1,21 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#f78104',
-      contrastText: '#fff',
-      borderColor: '#fff'
+      main: "#f78104",
+      contrastText: "#fff",
+      borderColor: "#fff",
     },
     secondary: {
-      main: '#009c95',
-      contrastText: '#fff',
-      borderColor: '#fff'
-    }
-  }
+      main: "#009c95",
+      contrastText: "#fff",
+      borderColor: "#fff",
+    },
+    multilineColor: {
+      color: "#fff",
+    },
+  },
 });
 
 export default theme;
