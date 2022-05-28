@@ -8,6 +8,7 @@ const ForArtistsButton = () => {
     <>
       <ThemeProvider theme={theme}>
         <Button
+          href="Discover"
           disableElevation
           color="secondary"
           variant="contained"
