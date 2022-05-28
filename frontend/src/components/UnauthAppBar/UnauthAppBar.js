@@ -80,11 +80,12 @@ const UnauthAppBar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem key={"Discover"} onClick={handleCloseNavMenu} component={Link} to="Discover">
+                <Typography textAlign="center">Discover</Typography>
+              </MenuItem>
+              <MenuItem key={"AboutUs"} onClick={handleCloseNavMenu} component={Link} to="AboutUs">
+                <Typography textAlign="center">About Us</Typography>
+              </MenuItem>
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
@@ -92,10 +93,11 @@ const UnauthAppBar = () => {
               href="Discover"
               onClick={handleCloseNavMenu}
               sx={{
-                paddingLeft: "5vh",
+                marginLeft: "4vh",
                 my: 2,
                 color: "white",
                 display: "block",
+                marginRight: "4vh"
               }}
             >
               Discover
@@ -104,13 +106,12 @@ const UnauthAppBar = () => {
               href="AboutUs"
               onClick={handleCloseNavMenu}
               sx={{
-                paddingLeft: "5vh",
                 my: 2,
                 color: "white",
                 display: "block",
               }}
             >
-              About Us 
+              About Us
             </Button>
           </Box>
 
