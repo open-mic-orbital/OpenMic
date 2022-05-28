@@ -15,12 +15,13 @@ import {
   Routes,
   Route,
   Link,
-  Navigate
-} from 'react-router-dom';
+  Navigate,
+} from "react-router-dom";
 
 import Landing from "./pages/Landing/Landing";
 import Discover from "./pages/Discover/Discover";
 import Signup from "./pages/Signup/Signup";
+import AboutUs from "./pages/AboutUs";
 
 function App() {
   return (
@@ -30,25 +31,9 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/Discover" element={<Discover />} />
           <Route path="/Signup" element={<Signup />} />
-          <Route path="*" element={<Navigate to="/"/>} />
+          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="/AboutUs" element={<AboutUs />} />
         </Routes>
-        {/* <Box sx={{ flexGrow: 1, color: "white", overflow: "scroll" }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sx={{ paddingBottom: "5vh" }}>
-              <UnauthAppBar />
-            </Grid>
-            <Grid item xs={6}>
-              <MainText />
-              <Stack direction="row" spacing={2} sx={{ paddingLeft: "15vh" }}>
-                <ForArtistsButton />
-                <ForVenuesButton />
-              </Stack>
-            </Grid>
-            <Grid item xs={6}>
-              <img src={Icons} className="Logo" alt="logo"/>
-            </Grid>
-          </Grid>
-        </Box> */}
       </Router>
     </div>
   );
@@ -56,10 +41,9 @@ function App() {
 
 export default App;
 
-
 /* Below came with Box, is white background, with centered content. Goes below classname="App" if necessary.
       Can switch to this to see borders against the white background later on if needed */
-      /* <Box
+/* <Box
         sx={{
           display: 'flex',
           flexDirection: { xs: 'column', md: 'row' },

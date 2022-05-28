@@ -7,16 +7,12 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import openMicLogo from "../../utils/images/OpenMicLogo.png";
 import "./UnauthAppBar.css";
-import { ButtonGroup } from "@mui/material";
-import { styled } from "@mui/material/styles";
 import LoginSignupButton from "../LoginSignupButton/LoginSignupButton";
-import Discover from "../../pages/Discover/Discover";
+import { Link } from "react-router-dom";
 
 const pages = ["Discover", "About Us"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -52,8 +48,9 @@ const UnauthAppBar = () => {
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <img src={openMicLogo} className="Logo" height={50} alt="logo" />
-
+          <Link to="/">
+            <img src={openMicLogo} className="Logo" height={50} alt="logo" />
+          </Link>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -92,7 +89,7 @@ const UnauthAppBar = () => {
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Button
-              href="../../Discover"
+              href="Discover"
               onClick={handleCloseNavMenu}
               sx={{
                 paddingLeft: "5vh",
@@ -104,6 +101,7 @@ const UnauthAppBar = () => {
               Discover
             </Button>
             <Button
+              href="AboutUs"
               onClick={handleCloseNavMenu}
               sx={{
                 paddingLeft: "5vh",
@@ -118,16 +116,6 @@ const UnauthAppBar = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <LoginSignupButton />
-            {/*}   
-            <StyledButtonGroup variant="text">
-              <Button>Login</Button>
-              <Button>Signup</Button>
-            </StyledButtonGroup>
-            
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Login" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-              */}
           </Box>
         </Toolbar>
       </Container>

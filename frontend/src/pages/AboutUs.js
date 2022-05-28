@@ -1,9 +1,9 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import UnauthAppBar from "../../components/UnauthAppBar/UnauthAppBar";
+import UnauthAppBar from "../components/UnauthAppBar/UnauthAppBar";
 
-const Discover = () => {
+const AboutUs = () => {
   return (
     <Box sx={{ flexGrow: 1, color: "white", overflow: "scroll" }}>
       <Grid container spacing={2}>
@@ -11,9 +11,9 @@ const Discover = () => {
           <UnauthAppBar />
         </Grid>
       </Grid>
-      <h1>Discover.</h1>
+      <h1>About Us.</h1>
     </Box>
   );
 };
 
-export default Discover;
+export default AboutUs;

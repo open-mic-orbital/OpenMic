@@ -8,6 +8,9 @@ import TextField from "@mui/material/TextField";
 import UnauthAppBar from "../../components//UnauthAppBar/UnauthAppBar";
 import { styled } from "@mui/material/styles";
 import InputLabel from "@mui/material/InputLabel";
+import { Button } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
+import theme from "../../theme";
 
 const StyledTextField = styled(TextField)({
   "& defaultValue": {
@@ -120,7 +123,7 @@ export default function Signup() {
           <UnauthAppBar />
         </Grid>
         <Grid item xs={12}>
-            <h1>Sign Up Form</h1>
+          <h1>Welcome!</h1>
           <Box
             component="form"
             sx={{
@@ -170,6 +173,15 @@ export default function Signup() {
                 autoComplete="current-password"
                 onChange={handlePasswordChange}
               />
+              <ThemeProvider theme={theme}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{ height: 40, paddingUp: "100vh" }}
+                >
+                  Submit
+                </Button>
+              </ThemeProvider>
             </FormControl>
           </Box>
         </Grid>

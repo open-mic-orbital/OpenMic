@@ -16,7 +16,7 @@ const LoginSignupButton = () => {
           sx={{ paddingRight: "5vh" }}
         >
           <Button sx={{ width: 100 }}>Login</Button>
-          <Button sx={{ width: 100 }}>Signup</Button>
+          <Button href="Signup" sx={{ width: 100 }}>Signup</Button>
         </ButtonGroup>
       </ThemeProvider>
     </>
