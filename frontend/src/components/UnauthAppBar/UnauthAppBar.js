@@ -110,7 +110,7 @@ const UnauthAppBar = () => {
                 display: "block",
               }}
             >
-              About us
+              About Us 
             </Button>
           </Box>
 
