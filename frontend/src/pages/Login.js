@@ -12,6 +12,8 @@ import { Button, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material";
 import theme from "../theme";
 
+const url = 'http://localhost:4000';
+
 const StyledTextField = styled(TextField)({
   "& defaultValue": {
     color: "white",
@@ -43,20 +45,13 @@ const StyledTextField = styled(TextField)({
 });
 
 export default function Login() {
-  // States for registration
-  const [name, setName] = React.useState("");
+  // States for login
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [userType, setUserType] = React.useState("default"); // Default value selected
 
   // States for checking error
   const [submitted, setSubmitted] = React.useState(false);
   const [error, setError] = React.useState(false);
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-    setSubmitted(false);
-  };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -68,23 +63,40 @@ export default function Login() {
     setSubmitted(false);
   };
 
-  const handleUserTypeChange = (e) => {
-    setUserType(e.target.value);
-    setSubmitted(false);
-  };
+  const postLogin = async () => {
+      const response = await fetch(url + '/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email,
+          password
+        })
+      })
+      const data = await response.json();
+      return data;
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
-      name === "" ||
       email === "" ||
-      password === "" ||
-      userType === "User Type"
+      password === ""
     ) {
       setError(true);
     } else {
-      setSubmitted(true);
-      setError(false);
+      try {
+        const data = postLogin();
+        console.log(data);
+        alert('Login succesful!');
+        window.location.href = '/';
+        setSubmitted(true);
+        setError(false);
+      } catch (e) {
+        alert('Login unsuccesful.')
+        setError(true);
+      }
     }
   };
 
@@ -97,7 +109,7 @@ export default function Login() {
           display: submitted ? "" : "none",
         }}
       >
-        <h1>User {name} successfully registered!!</h1>
+        <h1>User successfully logged in!!</h1>
       </div>
     );
   };
@@ -156,6 +168,7 @@ export default function Login() {
                   type="submit"
                   variant="contained"
                   sx={{ height: 40, paddingUp: "100vh" }}
+                  onClick={handleSubmit}
                 >
                   Submit
                 </Button>

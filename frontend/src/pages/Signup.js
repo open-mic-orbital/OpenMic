@@ -83,7 +83,8 @@ export default function Signup() {
       },
       body: JSON.stringify(user)
     });
-    return response.json();
+    const data = await response.json();
+    return data;
   }
 
   const handleSubmit = (e) => {
