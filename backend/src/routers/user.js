@@ -1,6 +1,7 @@
 // Define routes for user-related requests
 
 const express = require('express');
+const auth = require('../middleware/auth');
 const User = require('../models/user');
 const router = new express.Router();
 
@@ -27,8 +28,13 @@ router.post('/login', async (req, res) => {
     }
 })
 
+// Read current profile
+router.get('/me', auth, async (req, res) => {
+    res.send(req.user);
+})
+
 // Read ALL users (remove later, currently only for dev purposes)
-router.get('/readAll', async (req, res) => {
+router.get('/readAll', auth, async (req, res) => {
     try {
         const users = await User.find({});
 
