@@ -3,7 +3,6 @@ import Button from "@mui/material/Button";
 import { Stack } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import theme from "../../theme";
-import { fontSize } from "@mui/system";
 
 const LoginSignupButton = () => {
   return (
