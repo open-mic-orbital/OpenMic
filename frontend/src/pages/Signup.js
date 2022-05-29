@@ -12,7 +12,7 @@ import { Button, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material";
 import theme from "../theme";
 
-const url = 'http://localhost:4000';
+const url = "http://localhost:4000";
 
 const StyledTextField = styled(TextField)({
   "& defaultValue": {
@@ -76,16 +76,16 @@ export default function Signup() {
   };
 
   const postSignUp = async (user) => {
-    const response = await fetch(url + '/users/signup', {
-      method: 'POST',
+    const response = await fetch(url + "/users/signup", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify(user),
     });
     const data = await response.json();
     return data;
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -98,7 +98,10 @@ export default function Signup() {
       setError(true);
     } else {
       const registered = {
-        name, email, password, userType
+        name,
+        email,
+        password,
+        userType,
       };
       try {
         console.log(postSignUp(registered));
@@ -155,27 +158,28 @@ export default function Signup() {
             autoComplete="off"
             justifyContent="flex-end"
           >
-            <FormControl>
+            <FormControl sx={{ m: 1 }}>
               <ThemeProvider theme={theme}>
-                <InputLabel
+                {/* <InputLabel
                   required
-                  id="select-label"
+                  id="simple-select"
                   sx={{ color: "#f78104" }}
                 >
                   User Type
-                </InputLabel>
+                </InputLabel> */}
                 <Select
+                  required
                   variant="outlined"
                   labelId="simple-select"
                   id="demo-simple-select"
                   value={userType}
+                  // label="User Type *"
                   // Label text needs to be the same as the InputLabel text
                   // Add * if the field is required
-                  label="User Type *"
-                  sx={{ color: "white" }}
+                  sx={{ color: "#f78104", border: "1px solid #f78104" }}
                   onChange={handleUserTypeChange}
                 >
-                <MenuItem value="default">Please Select</MenuItem>
+                  <MenuItem value="default">Select User Type *</MenuItem>
                   <MenuItem value={"artist"}>Artist</MenuItem>
                   <MenuItem value={"venue"}>Venue</MenuItem>
                 </Select>
