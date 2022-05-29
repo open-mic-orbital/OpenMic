@@ -14,8 +14,6 @@ import "./UnauthAppBar.css";
 import LoginSignupButton from "../LoginSignupButton/LoginSignupButton";
 import { Link } from "react-router-dom";
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
-
 const UnauthAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -124,7 +122,6 @@ const UnauthAppBar = () => {
               About Us
             </Button>
           </Box>
-
           <Box sx={{ flexGrow: 0 }}>
             <LoginSignupButton />
           </Box>
