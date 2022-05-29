@@ -1,31 +1,13 @@
 import React from "react";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Stack } from "@mui/material";
+import { Divider, Stack, Typography } from "@mui/material";
 import SocialNetwork from "../../utils/images/SocialNetwork.png";
-import { Divider } from "@mui/material";
 
-const ArtistAccordion = () => {
+const ForArtistsDiscover = () => {
   return (
-    <Accordion
-      sx={{
-        backgroundColor: "#009c95",
-        color: "white",
-        width: "50%",
-      }}
-    >
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1a-content"
-        id="panel1a-header"
-        sx={{ justifyContent: "center" }}
+    <>
+      <Stack
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
-        <Typography>For Artists</Typography>
-      </AccordionSummary>
-      <AccordionDetails>
         <Stack
           direction="row"
           divider={<Divider orientation="vertical" flexItem />}
@@ -48,9 +30,9 @@ const ArtistAccordion = () => {
           </Typography>
           <img src={SocialNetwork} alt="Social Networking" />
         </Stack>
-      </AccordionDetails>
-    </Accordion>
+      </Stack>
+    </>
   );
 };
 
-export default ArtistAccordion;
+export default ForArtistsDiscover;

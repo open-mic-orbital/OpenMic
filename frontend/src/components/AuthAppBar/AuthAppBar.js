@@ -14,7 +14,6 @@ import MenuItem from "@mui/material/MenuItem";
 import openMicLogo from "../../utils/images/OpenMicLogo.png";
 import { Link } from "react-router-dom";
 
-const pages = ["Discover", "About Us"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const AuthAppBar = () => {
