@@ -31,7 +31,7 @@ const NavCard = () => {
         <Button
           size="small"
           target="_blank"
-          href="https://www.linkedin.com/mwlite/in/navaneeth-ramapurath-47ba35216"
+          href="https://www.linkedin.com/in/NavaneethRamapurath"
         >
           LinkedIn
         </Button>
