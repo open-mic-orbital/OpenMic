@@ -1,15 +1,13 @@
 # Quickstart Instructions
 
-Requirements:
+## Requirements
 * `npm`
 
-Backend:
-* Navigate to `./backend`.
-* Run `npm install`.
-* After the packages finish installing, run `npm dev`.
+## Backend
+The backend is hosted on Heroku, and does not require any setting up. The files here are purely for reference.
 
-Frontend:
+## Frontend
 * Navigate to `./frontend`.
 * Run `npm install`.
 * After the packages finish installing, ensure port 3000 is clear and run `npm start`.
-* Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* Navigate to [http://localhost:3000](http://localhost:3000) in your browser to view the frontend interface.
