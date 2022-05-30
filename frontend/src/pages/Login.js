@@ -9,7 +9,7 @@ import { Button, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material";
 import theme from "../theme";
 
-const url = 'http://localhost:4000';
+const url = 'https://openmic-backend-api.herokuapp.com';
 
 const StyledTextField = styled(TextField)({
   "& defaultValue": {
@@ -85,11 +85,20 @@ export default function Login() {
     } else {
       try {
         const data = postLogin();
-        console.log(data);
-        alert('Login succesful!');
-        window.location.href = '/';
-        setSubmitted(true);
-        setError(false);
+        data.then((obj) => {
+          if (obj.token) {
+            alert('Login succesful!');
+            window.location.href = '/Dashboard';
+            setError(false);
+            setSubmitted(true);
+          } else {
+            throw new Error('Invalid login');
+          }
+        }).catch((e) => {
+          alert('Login failed!');
+          console.log(e);
+          setError(true);
+        });
       } catch (e) {
         alert('Login unsuccesful.')
         setError(true);

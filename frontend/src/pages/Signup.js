@@ -11,7 +11,7 @@ import { Button, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material";
 import theme from "../theme";
 
-const url = "http://localhost:4000";
+const url = "https://openmic-backend-api.herokuapp.com";
 
 const StyledTextField = styled(TextField)({
   "& defaultValue": {
