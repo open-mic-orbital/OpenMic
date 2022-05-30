@@ -103,10 +103,23 @@ export default function Signup() {
         userType,
       };
       try {
-        console.log(postSignUp(registered));
-        setSubmitted(true);
-        setError(false);
+        const promise = postSignUp(registered);
+        console.log(promise);
+        promise.then((obj) => {
+          if (obj._id) {
+            setSubmitted(true);
+            setError(false);
+            window.location.href = '/Dashboard';
+          } else {
+            throw new Error('Signup failed');
+          }
+        }).catch((e) => {
+          alert('Signup failed!');
+          console.log(e);
+          setError(true);
+        });
       } catch (e) {
+        alert('Signup failed!');
         setError(true);
       }
     }
