@@ -12,7 +12,6 @@ const Dashboard = () => {
         color: "white",
         overflow: "scroll",
         backgroundColor: "#fff",
-        color: "#000",
       }}
     >
       <Grid container spacing={2}>

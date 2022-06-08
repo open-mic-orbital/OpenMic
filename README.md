@@ -6,11 +6,8 @@
 
 **OpenMic** is a MERN stack project implementing CRUD operations, allowing users to create, update or delete their profiles, and read other profiles. Users will be either artists or venues, and each can connect with the other and leave ratings/reviews on their profiles.
 
-## Access
+## Demo 
 
 The backend is hosted through Heroku, and the source code can be viewed [here](https://github.com/open-mic-orbital/OpenMicBackend).
 
-To access the frontend interface:
-1. Clone the repository.
-2. Run `npm install`.
-3. Run `npm start`.
+The frontend is also hosted through Heroku, and a live demo can be viewed [here](https://openmic-orbital.herokuapp.com/).
