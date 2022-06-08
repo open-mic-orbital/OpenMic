@@ -9,16 +9,18 @@ const Dashboard = () => {
     <Box
       sx={{
         flexGrow: 1,
-        color: "white",
+        color: "#000",
         overflow: "scroll",
         backgroundColor: "#fff",
       }}
     >
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
+      <Grid container>
+      <Grid item xs={2}>
+          <DashboardSidebar />
+        </Grid>
+        <Grid item xs={10}>
           <AuthAppBar />
           <h1>Dashboard</h1>
-          <DashboardSidebar />
         </Grid>
       </Grid>
     </Box>

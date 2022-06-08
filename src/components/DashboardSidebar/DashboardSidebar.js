@@ -31,7 +31,7 @@ const items = [
 
 const DashboardSidebar = () => {
   return (
-  <Box sx={{ flexGrow: 1, flexDirection: 'column', width: 280 }}>
+  <Box sx={{ flexGrow: 1, flexDirection: 'column' }}>
     {items.map((item) => (
             <DashboardButton
               imgsrc={item.imgsrc}
