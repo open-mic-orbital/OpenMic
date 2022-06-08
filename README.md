@@ -8,6 +8,6 @@
 
 ## Demo 
 
-The backend is hosted through Heroku, and the source code can be viewed [here](https://github.com/open-mic-orbital/OpenMicBackend).
+A live demo of the website is viewable here: https://openmic-orbital.herokuapp.com/
 
-The frontend is also hosted through Heroku, and a live demo can be viewed [here](https://openmic-orbital.herokuapp.com/).
+The backend is hosted through Heroku, and the source code can be viewed [here](https://github.com/open-mic-orbital/OpenMicBackend).
