@@ -3,7 +3,7 @@ import { Box, Button, ListItem } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const DashboardButton = (props) => {
-  const { href, imgsrc, title } = props;
+  const { href, unselected, selected, title } = props;
 
   return (
     <ListItem
@@ -29,12 +29,12 @@ const DashboardButton = (props) => {
             color:
               window.location.pathname === href
                 ? "#009c95"
-                : "rgba(255,255,255, 0.5)",
+                : "rgba(255,255,255, 0.5)", // Hex: #888C97
             justifyContent: "flex-start",
             px: 3,
             textAlign: "left",
             textTransform: "none",
-            width: "100%",
+            width: "25vh",
             "& .MuiButton-startIcon": {
               color: "#f78104",
             },
@@ -48,7 +48,8 @@ const DashboardButton = (props) => {
           }}
         >
           <img
-            src={imgsrc}
+            fill="white"
+            src={window.location.pathname === href ? selected : unselected}
             alt={title}
             width={20}
             style={{ paddingRight: "2vh" }}

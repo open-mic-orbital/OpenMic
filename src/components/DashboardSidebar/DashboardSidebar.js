@@ -1,32 +1,41 @@
 import React from "react";
 import { Box, Divider } from "@mui/material";
-import DashboardIcon from "../../utils/svg/dashboard.svg";
-import ChatIcon from "../../utils/svg/chat.svg";
-import ProfileIcon from "../../utils/svg/profile.svg";
-import SettingsIcon from "../../utils/svg/settings.svg";
-import DashboardButton from "./DashboardButton";
 import { Link } from "react-router-dom";
 import OpenMicLogo from "../../utils/images/OpenMicLogo.png";
+import DashboardButton from "./DashboardButton";
+
+import dashboardUnselected from "../../utils/svg/dashboardUnselected.svg";
+import dashboardSelected from "../../utils/svg/dashboardSelected.svg";
+import chatUnselected from "../../utils/svg/chatUnselected.svg";
+import chatSelected from "../../utils/svg/chatSelected.svg";
+import profileUnselected from "../../utils/svg/profileUnselected.svg";
+import profileSelected from "../../utils/svg/profileSelected.svg";
+import settingsUnselected from "../../utils/svg/settingsUnselected.svg";
+import settingsSelected from "../../utils/svg/settingsSelected.svg";
 
 const items = [
   {
     href: "/Dashboard",
-    imgsrc: DashboardIcon,
+    unselected: dashboardUnselected,
+    selected: dashboardSelected,
     title: "Dashboard",
   },
   {
     href: "/Chat",
-    imgsrc: ChatIcon,
+    unselected: chatUnselected,
+    selected: chatSelected,
     title: "Chat",
   },
   {
     href: "/Profile",
-    imgsrc: ProfileIcon,
+    unselected: profileUnselected,
+    selected: profileSelected,
     title: "Profile",
   },
   {
     href: "/Settings",
-    imgsrc: SettingsIcon,
+    unselected: settingsUnselected,
+    selected: settingsSelected,
     title: "Settings",
   },
 ];
@@ -61,7 +70,8 @@ const DashboardSidebar = () => {
       >
         {items.map((item) => (
           <DashboardButton
-            imgsrc={item.imgsrc}
+            unselected={item.unselected}
+            selected={item.selected}
             href={item.href}
             title={item.title}
           />
