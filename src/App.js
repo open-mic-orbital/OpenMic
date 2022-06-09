@@ -13,6 +13,9 @@ import Signup from "./pages/Signup";
 import AboutUs from "./pages/AboutUs";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Chat from "./pages/Chat";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 
 function App() {
   return (
@@ -26,6 +29,9 @@ function App() {
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Dashboard" element={<Dashboard />} />
+          <Route path="/Chat" element={<Chat />} />
+          <Route path="/Profile" element={<Profile />} />
+          <Route path="/Settings" element={<Settings />} />
         </Routes>
       </Router>
     </div>

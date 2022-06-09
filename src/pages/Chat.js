@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import AuthAppBar from "../components/AuthAppBar/AuthAppBar";
 import DashboardSidebar from "../components/DashboardSidebar/DashboardSidebar";
 
-const Dashboard = () => {
+const Chat = () => {
   return (
     <Box
       sx={{
@@ -20,11 +20,11 @@ const Dashboard = () => {
         </Grid>
         <Grid item xs={10}>
           <AuthAppBar />
-          <h1>Dashboard</h1>
+          <h1>Chat</h1>
         </Grid>
       </Grid>
     </Box>
   );
 };
 
-export default Dashboard;
+export default Chat;
