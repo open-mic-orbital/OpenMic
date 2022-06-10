@@ -6,6 +6,7 @@ import { Tab, Tabs, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import ForArtistsDiscover from "../components/DiscoverContent/ForArtistsDiscover";
 import ForVenuesDiscover from "../components/DiscoverContent/ForVenuesDiscover";
+import { useLocation } from "react-router-dom";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -42,6 +43,8 @@ function a11yProps(index) {
 
 const Discover = () => {
   const [value, setValue] = React.useState(0);
+  const location = useLocation();
+  const { tabToDisplay } = location.state || { tabToDisplay: "artists" };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -74,7 +77,7 @@ const Discover = () => {
             sx={{ borderBottom: 1, borderColor: "rgba(255, 255, 255, 0.1)" }}
           >
             <Tabs
-              value={value}
+              value={tabToDisplay === "artists" ? 0 : 1}
               onChange={handleChange}
               aria-label="basic tabs example"
               TabIndicatorProps={{
