@@ -1,10 +1,9 @@
 import React from "react";
-import { Box, Button, ListItem } from "@mui/material";
 import { Link } from "react-router-dom";
+import { Button, Box, ListItem } from "@mui/material";
+import logout from "../../utils/svg/logout.svg";
 
-const DashboardButton = (props) => {
-  const { href, unselected, selected, title } = props;
-
+const LogoutButton = () => {
   return (
     <ListItem
       disableGutters
@@ -15,20 +14,14 @@ const DashboardButton = (props) => {
         px: "1.2rem",
       }}
     >
-      <Link to={href} style={{ textDecoration: "none" }}>
+      <Link to="/" style={{ textDecoration: "none" }}>
         <Button
           disableRipple
           sx={{
             padding: "0.5rem",
-            backgroundColor:
-              window.location.pathname === href
-                ? "rgba(255,255,255,0.08)"
-                : "#10182e",
+            backgroundColor: "#db3a37",
             borderRadius: 1,
-            color:
-              window.location.pathname === href
-                ? "#009c95"
-                : "rgba(255,255,255, 0.5)", // Hex: #888C97
+            color: "#fff",
             justifyContent: "flex-start",
             px: 2,
             textAlign: "center",
@@ -39,22 +32,22 @@ const DashboardButton = (props) => {
             },
             "&:hover": {
               backgroundColor: "rgba(255,255,255, 0.08)",
-              color: window.location.pathname === href ? "#009c95" : "#fff",
+              color: "#db3a37",
             },
           }}
         >
           <img
             fill="white"
-            src={window.location.pathname === href ? selected : unselected}
-            alt={title}
-            width={20}
+            src={logout}
+            alt="Logout Button"
+            width={25}
             style={{ paddingRight: "2vh" }}
           />
-          <Box sx={{ flexGrow: 1 }}>{title}</Box>
+          <Box sx={{ flexGrow: 1 }}>Logout</Box>
         </Button>
       </Link>
     </ListItem>
   );
 };
 
-export default DashboardButton;
+export default LogoutButton;

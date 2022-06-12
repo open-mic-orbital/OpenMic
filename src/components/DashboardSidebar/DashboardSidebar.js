@@ -3,6 +3,7 @@ import { Box, Divider } from "@mui/material";
 import { Link } from "react-router-dom";
 import OpenMicLogo from "../../utils/images/OpenMicLogo.png";
 import DashboardButton from "./DashboardButton";
+import LogoutButton from "./LogoutButton";
 
 import dashboardUnselected from "../../utils/svg/dashboardUnselected.svg";
 import dashboardSelected from "../../utils/svg/dashboardSelected.svg";
@@ -43,9 +44,12 @@ const items = [
 const DashboardSidebar = () => {
   return (
     <Box
-      height="100vh"
-      bgcolor="#10182e"
-      sx={{ flexGrow: 1, flexDirection: "column" }}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100vh",
+        bgcolor: "#10182e",
+      }}
     >
       {/* Logo */}
       <Box sx={{ p: 3 }}>
@@ -65,7 +69,8 @@ const DashboardSidebar = () => {
       <Box
         sx={{
           flexGrow: 1,
-          paddingTop: "2vh"
+          paddingTop: "2vh",
+          justifyContent: "center",
         }}
       >
         {items.map((item) => (
@@ -76,6 +81,7 @@ const DashboardSidebar = () => {
             title={item.title}
           />
         ))}
+        <LogoutButton />
       </Box>
     </Box>
   );
