@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import AuthAppBar from "../components/AuthAppBar/AuthAppBar";
 import DashboardSidebar from "../components/DashboardSidebar/DashboardSidebar";
+import { UserContext } from "../components/UserContext";
+
+const url = 'https://openmic-backend-api.herokuapp.com';
+
+const getUsers = async () => {
+  const response = await fetch(url + '/users/readAll', {
+    method: 'GET',
+    headers: {
+      'Authorization': localStorage.getItem("token")
+    }
+  });
+  const data = await response.json();
+  return data;
+}
 
 const Dashboard = () => {
+  const { user, setUser } = useContext(UserContext);
   return (
     <Box
       sx={{
@@ -21,6 +36,7 @@ const Dashboard = () => {
         <Grid item xs={10}>
           <AuthAppBar />
           <h1>Dashboard</h1>
+          <h2>{user}</h2>
         </Grid>
       </Grid>
     </Box>

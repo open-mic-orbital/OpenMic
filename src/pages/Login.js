@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -8,6 +8,7 @@ import { styled } from "@mui/material/styles";
 import { Button, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material";
 import theme from "../theme";
+import { UserContext } from "../components/UserContext";
 
 const url = 'https://openmic-backend-api.herokuapp.com';
 
@@ -42,6 +43,9 @@ const StyledTextField = styled(TextField)({
 });
 
 export default function Login() {
+  // State for final user
+  const { user, setUser } = useContext(UserContext);
+  
   // States for login
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -70,7 +74,7 @@ export default function Login() {
           email,
           password
         })
-      })
+      });
       const data = await response.json();
       return data;
   }
@@ -88,6 +92,9 @@ export default function Login() {
         data.then((obj) => {
           if (obj.token) {
             alert('Login succesful!');
+            setUser(obj.user);
+            localStorage.setItem("user", JSON.stringify(obj.user));
+            localStorage.setItem("token", "Bearer " + obj.token);
             window.location.href = '/Dashboard';
             setError(false);
             setSubmitted(true);
