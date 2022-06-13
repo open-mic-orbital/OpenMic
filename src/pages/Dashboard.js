@@ -36,7 +36,7 @@ const Dashboard = () => {
         <Grid item xs={10}>
           <AuthAppBar />
           <h1>Dashboard</h1>
-          <h2>{user}</h2>
+          <h2>Welcome, {JSON.parse(localStorage.getItem("user")).name}</h2>
         </Grid>
       </Grid>
     </Box>

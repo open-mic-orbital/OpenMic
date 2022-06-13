@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -10,6 +10,7 @@ import { styled } from "@mui/material/styles";
 import { Button, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material";
 import theme from "../theme";
+import { UserContext } from "../components/UserContext";
 
 const url = "https://openmic-backend-api.herokuapp.com";
 
@@ -44,6 +45,9 @@ const StyledTextField = styled(TextField)({
 });
 
 export default function Signup() {
+  // State for final user
+  const { user, setUser } = useContext(UserContext);
+
   // States for registration
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -109,6 +113,9 @@ export default function Signup() {
           if (obj._id) {
             setSubmitted(true);
             setError(false);
+            setUser(obj.user);
+            localStorage.setItem("user", JSON.stringify(obj.user));
+            localStorage.setItem("token", "Bearer " + obj.token);
             window.location.href = '/Dashboard';
           } else {
             throw new Error('Signup failed');
