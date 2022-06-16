@@ -7,7 +7,7 @@ import { Button, CardActionArea, CardActions, Box } from "@mui/material";
 
 const ProfileCard = () => {
   return (
-    <Card sx={{ maxWidth: 345, bgcolor: "#fff", borderRadius: '20px' }}>
+    <Card sx={{ maxWidth: 345, bgcolor: "#fff", borderRadius: "20px" }}>
       <CardActionArea disableRipple>
         <Box
           display="flex"
@@ -53,7 +53,7 @@ const ProfileCard = () => {
           size="small"
           style={{ marginLeft: "20%", width: "60%", color: "#f78104" }}
         >
-          Chat
+          Contact
         </Button>
       </CardActions>
     </Card>

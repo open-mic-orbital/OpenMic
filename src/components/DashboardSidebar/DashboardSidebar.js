@@ -21,12 +21,13 @@ const items = [
     selected: dashboardSelected,
     title: "Dashboard",
   },
-  {
-    href: "/Chat",
-    unselected: chatUnselected,
-    selected: chatSelected,
-    title: "Chat",
-  },
+  // Chat will be added in Milestone 3.
+  // {
+  //   href: "/Chat",
+  //   unselected: chatUnselected,
+  //   selected: chatSelected,
+  //   title: "Chat",
+  // },
   {
     href: "/Profile",
     unselected: profileUnselected,
