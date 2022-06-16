@@ -2,6 +2,21 @@ import React from "react";
 import { Card, TextField, Button } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 
+const url = "https://openmic-backend-api.herokuapp.com";
+
+const updateUser = async (user) => {
+  const response = await fetch(url + "/users/me", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": localStorage.getItem("token"),
+    },
+    body: JSON.stringify(user),
+  });
+  const data = await response.json();
+  return data;
+};
+
 const UpdateForm = ({ handleClose }) => {
   const { handleSubmit, control } = useForm();
 

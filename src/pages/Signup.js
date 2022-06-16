@@ -49,7 +49,7 @@ export default function Signup() {
   const { user, setUser } = useContext(UserContext);
 
   // States for registration
-  const [name, setName] = React.useState("");
+  const [userName, setUserName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [userType, setUserType] = React.useState("default"); // Default value selected
@@ -58,8 +58,8 @@ export default function Signup() {
   const [submitted, setSubmitted] = React.useState(false);
   const [error, setError] = React.useState(false);
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
+  const handleUserNameChange = (e) => {
+    setUserName(e.target.value);
     setSubmitted(false);
   };
 
@@ -93,7 +93,7 @@ export default function Signup() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
-      name === "" ||
+      userName === "" ||
       email === "" ||
       password === "" ||
       userType === "default"
@@ -101,7 +101,7 @@ export default function Signup() {
       setError(true);
     } else {
       const registered = {
-        name,
+        userName,
         email,
         password,
         userType,
@@ -141,7 +141,7 @@ export default function Signup() {
           display: submitted ? "" : "none",
         }}
       >
-        <h1>User {name} successfully registered!!</h1>
+        <h1>User {userName} successfully registered!!</h1>
       </div>
     );
   };
@@ -205,9 +205,9 @@ export default function Signup() {
                 <StyledTextField
                   required
                   id="outlined-required"
-                  label="Name"
+                  label="Username"
                   sx={{ input: { color: "white" } }}
-                  onChange={handleNameChange}
+                  onChange={handleUserNameChange}
                 />
                 <StyledTextField
                   required
