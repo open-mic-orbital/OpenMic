@@ -1,14 +1,17 @@
 import React, { useContext } from "react";
-import FormControl from "@mui/material/FormControl";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import TextField from "@mui/material/TextField";
 import UnauthAppBar from "../components/UnauthAppBar/UnauthAppBar";
 import { styled } from "@mui/material/styles";
 import { Button, Typography } from "@mui/material";
-import { ThemeProvider } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  Grid,
+  MenuItem,
+  Select,
+  TextField,
+  ThemeProvider,
+  CircularProgress,
+} from "@mui/material";
 import theme from "../theme";
 import { UserContext } from "../components/UserContext";
 
@@ -58,6 +61,9 @@ export default function Signup() {
   const [submitted, setSubmitted] = React.useState(false);
   const [error, setError] = React.useState(false);
 
+  // State for loading indicator
+  const [loading, setLoading] = React.useState(false);
+
   const handleUserNameChange = (e) => {
     setUserName(e.target.value);
     setSubmitted(false);
@@ -91,6 +97,7 @@ export default function Signup() {
   };
 
   const handleSubmit = (e) => {
+    setLoading(true);
     e.preventDefault();
     if (
       userName === "" ||
@@ -98,6 +105,7 @@ export default function Signup() {
       password === "" ||
       userType === "default"
     ) {
+      setLoading(false);
       setError(true);
     } else {
       const registered = {
@@ -109,24 +117,29 @@ export default function Signup() {
       try {
         const promise = postSignUp(registered);
         console.log(promise);
-        promise.then((obj) => {
-          if (obj._id) {
-            setSubmitted(true);
-            setError(false);
-            setUser(obj.user);
-            localStorage.setItem("user", JSON.stringify(obj.user));
-            localStorage.setItem("token", "Bearer " + obj.token);
-            window.location.href = '/Dashboard';
-          } else {
-            throw new Error('Signup failed');
-          }
-        }).catch((e) => {
-          alert('Signup failed! (Promise error)');
-          console.log(e);
-          setError(true);
-        });
+        promise
+          .then((obj) => {
+            if (obj._id) {
+              setSubmitted(true);
+              setError(false);
+              setUser(obj.user);
+              localStorage.setItem("user", JSON.stringify(obj.user));
+              localStorage.setItem("token", "Bearer " + obj.token);
+              window.location.href = "/Dashboard";
+            } else {
+              setLoading(false);
+              throw new Error("Signup failed");
+            }
+          })
+          .catch((e) => {
+            setLoading(false);
+            alert("Signup failed! (Promise error)");
+            console.log(e);
+            setError(true);
+          });
       } catch (e) {
-        alert('Signup failed!');
+        setLoading(false);
+        alert("Signup failed!");
         setError(true);
       }
     }
@@ -229,10 +242,11 @@ export default function Signup() {
                 <Button
                   type="submit"
                   variant="contained"
+                  disabled={loading}
                   sx={{ height: 40, paddingUp: "100vh" }}
                   onClick={handleSubmit}
                 >
-                  Submit
+                  {(!loading && "Submit") || <CircularProgress size={20} />}
                 </Button>
                 <Typography align="right" variant="caption">
                   * Required

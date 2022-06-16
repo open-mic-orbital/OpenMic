@@ -1,16 +1,20 @@
 import React, { useContext } from "react";
-import FormControl from "@mui/material/FormControl";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
 import UnauthAppBar from "../components/UnauthAppBar/UnauthAppBar";
 import { styled } from "@mui/material/styles";
-import { Button, Typography } from "@mui/material";
-import { ThemeProvider } from "@mui/material";
+import {
+  Button,
+  Typography,
+  ThemeProvider,
+  CircularProgress,
+  FormControl,
+  Box,
+  Grid,
+  TextField,
+} from "@mui/material";
 import theme from "../theme";
 import { UserContext } from "../components/UserContext";
 
-const url = 'https://openmic-backend-api.herokuapp.com';
+const url = "https://openmic-backend-api.herokuapp.com";
 
 const StyledTextField = styled(TextField)({
   "& defaultValue": {
@@ -45,7 +49,7 @@ const StyledTextField = styled(TextField)({
 export default function Login() {
   // State for final user
   const { user, setUser } = useContext(UserContext);
-  
+
   // States for login
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -53,6 +57,9 @@ export default function Login() {
   // States for checking error
   const [submitted, setSubmitted] = React.useState(false);
   const [error, setError] = React.useState(false);
+
+  // State for loading indicator
+  const [loading, setLoading] = React.useState(false);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -65,49 +72,53 @@ export default function Login() {
   };
 
   const postLogin = async () => {
-      const response = await fetch(url + '/users/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email,
-          password
-        })
-      });
-      const data = await response.json();
-      return data;
-  }
+    const response = await fetch(url + "/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+    const data = await response.json();
+    return data;
+  };
 
   const handleSubmit = (e) => {
+    setLoading(true);
     e.preventDefault();
-    if (
-      email === "" ||
-      password === ""
-    ) {
+    if (email === "" || password === "") {
+      setLoading(false);
       setError(true);
     } else {
       try {
         const data = postLogin();
-        data.then((obj) => {
-          if (obj.token) {
-            alert('Login succesful!');
-            setUser(obj.user);
-            localStorage.setItem("user", JSON.stringify(obj.user));
-            localStorage.setItem("token", "Bearer " + obj.token);
-            window.location.href = '/Dashboard';
-            setError(false);
-            setSubmitted(true);
-          } else {
-            throw new Error('Invalid login');
-          }
-        }).catch((e) => {
-          alert('Login failed!');
-          console.log(e);
-          setError(true);
-        });
+        data
+          .then((obj) => {
+            if (obj.token) {
+              alert("Login succesful!");
+              setUser(obj.user);
+              localStorage.setItem("user", JSON.stringify(obj.user));
+              localStorage.setItem("token", "Bearer " + obj.token);
+              window.location.href = "/Dashboard";
+              setError(false);
+              setSubmitted(true);
+            } else {
+              setLoading(false);
+              throw new Error("Invalid login");
+            }
+          })
+          .catch((e) => {
+            setLoading(false);
+            alert("Login failed!");
+            console.log(e);
+            setError(true);
+          });
       } catch (e) {
-        alert('Login unsuccesful.')
+        setLoading(false);
+        alert("Login unsuccesful.");
         setError(true);
       }
     }
@@ -180,10 +191,11 @@ export default function Login() {
                 <Button
                   type="submit"
                   variant="contained"
+                  disabled={loading}
                   sx={{ height: 40, paddingUp: "100vh" }}
                   onClick={handleSubmit}
                 >
-                  Submit
+                  {(!loading && "Submit") || <CircularProgress size={20} />}
                 </Button>
                 <Typography align="right" variant="caption">
                   * Required
