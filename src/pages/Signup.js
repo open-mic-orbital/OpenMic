@@ -121,7 +121,7 @@ export default function Signup() {
             throw new Error('Signup failed');
           }
         }).catch((e) => {
-          alert('Signup failed!');
+          alert('Signup failed! (Promise error)');
           console.log(e);
           setError(true);
         });

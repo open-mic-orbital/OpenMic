@@ -6,6 +6,8 @@ import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions, Box } from "@mui/material";
 
 const ProfileCard = () => {
+  const myProfile = JSON.parse(localStorage.getItem("user"));
+
   return (
     <Card sx={{ maxWidth: 345, bgcolor: "#fff", borderRadius: "20px" }}>
       <CardActionArea disableRipple>
@@ -29,7 +31,10 @@ const ProfileCard = () => {
           >
             <CardMedia
               component="img"
-              image="https://cdn.costumewall.com/wp-content/uploads/2018/09/jon-arbuckle.jpg"
+              image={
+                myProfile.image ||
+                "https://cdn.costumewall.com/wp-content/uploads/2018/09/jon-arbuckle.jpg"
+              }
               alt="green iguana"
               style={{
                 borderRadius: "50%",
@@ -41,15 +46,17 @@ const ProfileCard = () => {
         </Box>
         <CardContent>
           <Typography gutterBottom variant="h6" align="center" color="#009c95">
-            John Arbuckle
+            {myProfile.name || "Jon Arbuckle"}
           </Typography>
           <Typography variant="body" align="center">
-            Professional bass player available weekends.
+            {myProfile.desc || "Professional bass player available weekends."}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
         <Button
+          target="_blank"
+          href= {"https://instagram.com/" + (myProfile.contact || "garfield")}
           size="small"
           style={{ marginLeft: "20%", width: "60%", color: "#f78104" }}
         >

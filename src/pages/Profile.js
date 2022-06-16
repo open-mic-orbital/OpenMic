@@ -12,7 +12,7 @@ const Profile = () => {
         flexGrow: 1,
         color: "#000",
         overflow: "scroll",
-        backgroundColor: "#fff",
+        backgroundColor: "#fcfcfc",
       }}
     >
       <Grid container>
@@ -27,7 +27,7 @@ const Profile = () => {
               style={{
                 marginLeft: "5%",
                 width: "90%",
-                marginTop: "10%",
+                marginTop: "8%",
               }}
             >
               <ProfileCard />
@@ -35,8 +35,8 @@ const Profile = () => {
             <Box
               style={{
                 width: "100%",
-                marginRight:"5%",
-                marginTop: "5%",
+                marginRight: "5%",
+                marginTop: "1%",
               }}
             >
               <UpdateForm />

@@ -7,8 +7,8 @@ import LogoutButton from "./LogoutButton";
 
 import dashboardUnselected from "../../utils/svg/dashboardUnselected.svg";
 import dashboardSelected from "../../utils/svg/dashboardSelected.svg";
-import chatUnselected from "../../utils/svg/chatUnselected.svg";
-import chatSelected from "../../utils/svg/chatSelected.svg";
+// import chatUnselected from "../../utils/svg/chatUnselected.svg";
+// import chatSelected from "../../utils/svg/chatSelected.svg";
 import profileUnselected from "../../utils/svg/profileUnselected.svg";
 import profileSelected from "../../utils/svg/profileSelected.svg";
 import settingsUnselected from "../../utils/svg/settingsUnselected.svg";

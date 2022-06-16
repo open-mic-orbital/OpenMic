@@ -5,15 +5,21 @@ import { useForm, Controller } from "react-hook-form";
 const UpdateForm = ({ handleClose }) => {
   const { handleSubmit, control } = useForm();
 
+  const myProfile = JSON.parse(localStorage.getItem("user"));
+
+  const [count, setCount] = React.useState(0);
+
   const onSubmit = (data) => {
     console.log(data);
+    myProfile.name = data.name;
+    myProfile.desc = data.desc;
+    myProfile.contact = data.contact;
+    myProfile.image = data.image;
   };
 
   return (
     <Card
       sx={{
-        // maxWidth: 345,
-        // background: "linear-gradient(45deg, #009c95, #8ec7c3)",
         bgcolor: "#fff",
         borderRadius: "20px",
       }}
@@ -22,13 +28,13 @@ const UpdateForm = ({ handleClose }) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <Controller
-            name="Name"
+            name="Display Name"
             control={control}
-            defaultValue=""
+            defaultValue={myProfile.name}
             rules={{ required: "Name required" }}
             render={({ field: { onChange, value } }) => (
               <TextField
-                label="Name"
+                label="Display Name"
                 variant="outlined"
                 value={value}
                 onChange={onChange}
@@ -36,7 +42,7 @@ const UpdateForm = ({ handleClose }) => {
                   input: { color: "#10182e" },
                 }}
                 InputLabelProps={{
-                  style: { color: "#10182e" },
+                  style: { color: "gray" },
                 }}
               />
             )}
@@ -46,7 +52,7 @@ const UpdateForm = ({ handleClose }) => {
           <Controller
             name="Description"
             control={control}
-            defaultValue=""
+            defaultValue={myProfile.desc || "Professional bass player available weekends"}
             rules={{ required: "Description required" }}
             render={({ field: { onChange, value } }) => (
               <TextField
@@ -54,28 +60,31 @@ const UpdateForm = ({ handleClose }) => {
                 variant="outlined"
                 value={value}
                 onChange={onChange}
+                {...setCount(value.length)}
                 multiline
-                rows={4}
+                rows={6}
                 sx={{
                   marginTop: "2vh",
                   input: { color: "#10182e" },
                 }}
+                inputProps={{ maxLength: 100 }}
                 InputLabelProps={{
-                  style: { color: "#10182e" },
+                  style: { color: "gray" },
                 }}
+                helperText={`${count}/100`}
               />
             )}
           />
         </div>
         <div>
           <Controller
-            name="Contact Link"
+            name="Instagram"
             control={control}
-            defaultValue=""
-            rules={{ required: "Contact link required" }}
+            defaultValue={myProfile.contact || "garfield"}
+            rules={{ required: "Instagram username required" }}
             render={({ field: { onChange, value } }) => (
               <TextField
-                label="Contact Link"
+                label="Instagram"
                 variant="outlined"
                 value={value}
                 onChange={onChange}
@@ -84,7 +93,7 @@ const UpdateForm = ({ handleClose }) => {
                   input: { color: "#10182e" },
                 }}
                 InputLabelProps={{
-                  style: { color: "#10182e" },
+                  style: { color: "gray" },
                 }}
               />
             )}
@@ -98,11 +107,11 @@ const UpdateForm = ({ handleClose }) => {
               color: "#009c95",
               backgroundColor: "white",
               borderColor: "#009c95",
-              height:"8%"
+              height: "8%",
             }}
             style={{ marginTop: "2vh" }}
           >
-            Upload Avatar
+            Upload Image
             <input type="file" hidden />
           </Button>
         </div>
@@ -110,7 +119,7 @@ const UpdateForm = ({ handleClose }) => {
           <Button
             disableElevation
             variant="contained"
-            onClick={handleClose}
+            onClick={() => window.location.reload(true)}
             sx={{
               color: "white",
               backgroundColor: "#db3a37",

@@ -8,6 +8,7 @@ const DashboardButton = (props) => {
   return (
     <ListItem
       disableGutters
+      key={title}
       sx={{
         display: "flex",
         mb: 0.5,

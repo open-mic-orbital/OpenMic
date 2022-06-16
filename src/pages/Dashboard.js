@@ -20,6 +20,8 @@ const getUsers = async () => {
 
 const Dashboard = () => {
   const { user, setUser } = useContext(UserContext);
+  const allUsers = getUsers();
+  console.log(allUsers);
   return (
     <Box
       sx={{
