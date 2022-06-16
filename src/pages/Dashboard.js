@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import AuthAppBar from "../components/AuthAppBar/AuthAppBar";
@@ -7,12 +7,6 @@ import { UserContext } from "../components/UserContext";
 import ProfileCard from "../components/ProfileCard/ProfileCard";
 
 const url = "https://openmic-backend-api.herokuapp.com";
-
-const testUser = {
-  name: "Test User",
-  desc: "This is a test user",
-  contact: "test",
-};
 
 const getUsers = async () => {
   const response = await fetch(url + "/users/viewProfiles", {
@@ -27,9 +21,12 @@ const getUsers = async () => {
 
 const Dashboard = () => {
   const { user, setUser } = useContext(UserContext);
-  let allUsers = [];
-  const promise = getUsers();
-  promise.then((data) => allUsers.push(...data));
+  const [allUsers, setAllUsers] = useState([]);
+  useEffect(() => {
+    const promise = getUsers();
+    promise.then((data) => setAllUsers((allUsers) => allUsers.concat(data)));
+    console.log(promise);
+  }, []);
   return (
     <Box
       sx={{
@@ -47,19 +44,17 @@ const Dashboard = () => {
           <AuthAppBar />
           <h1>Dashboard</h1>
           <h2>Welcome, {JSON.parse(localStorage.getItem("user")).name}</h2>
-          {JSON.stringify(allUsers)}
-          {allUsers.map((user) => (
-            <ProfileCard
-              name={user.name}
-              contact={user.contact}
-              desc={user.desc}
-            />
-          ))}
-          <ProfileCard
-            name={testUser.name}
-            contact={testUser.contact}
-            desc={testUser.desc}
-          />
+          <Box display="flex" flexWrap="wrap" justifyContent="center" marginTop="5vh">
+            {allUsers.map((user) => (
+              <div style={{ marginBottom: "8vh", marginLeft: "8vh" }}>
+                <ProfileCard
+                  name={user.name}
+                  contact={user.contact}
+                  desc={user.desc}
+                />
+              </div>
+            ))}
+          </Box>
         </Grid>
       </Grid>
     </Box>

@@ -5,8 +5,8 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions, Box } from "@mui/material";
 
-const ProfileCard = props => {
-  const myProfile = JSON.parse(localStorage.getItem("user"));
+const ProfileCard = (props) => {
+  // const myProfile = JSON.parse(localStorage.getItem("user"));
 
   return (
     <Card sx={{ maxWidth: 345, bgcolor: "#fff", borderRadius: "20px" }}>
@@ -32,7 +32,7 @@ const ProfileCard = props => {
             <CardMedia
               component="img"
               image={
-                myProfile.image ||
+                props.image ||
                 "https://cdn.costumewall.com/wp-content/uploads/2018/09/jon-arbuckle.jpg"
               }
               alt="green iguana"
@@ -46,17 +46,17 @@ const ProfileCard = props => {
         </Box>
         <CardContent>
           <Typography gutterBottom variant="h6" align="center" color="#009c95">
-            {props.name || myProfile.name || "Jon Arbuckle"}
+            {props.name || "Jon Arbuckle"}
           </Typography>
           <Typography variant="body" align="center">
-            {props.desc || myProfile.desc || "Professional bass player available weekends."}
+            {props.desc || "Professional bass player available weekends."}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
         <Button
           target="_blank"
-          href= {"https://instagram.com/" + (props.contact || myProfile.contact || "garfield")}
+          href={"https://instagram.com/" + (props.contact || "garfield")}
           size="small"
           style={{ marginLeft: "20%", width: "60%", color: "#f78104" }}
         >

@@ -9,7 +9,7 @@ const updateUser = async (user) => {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": localStorage.getItem("token"),
+      Authorization: localStorage.getItem("token"),
     },
     body: JSON.stringify(user),
   });
@@ -17,19 +17,22 @@ const updateUser = async (user) => {
   return data;
 };
 
-const UpdateForm = ({ handleClose }) => {
+const UpdateForm = (props, { handleClose }) => {
   const { handleSubmit, control } = useForm();
 
-  const myProfile = JSON.parse(localStorage.getItem("user"));
+  const myProfile = props.props.user;
+  const setUser = props.props.setUser;
 
   const [count, setCount] = React.useState(0);
 
   const onSubmit = (data) => {
-    console.log(data);
-    myProfile.name = data.name;
-    myProfile.desc = data.desc;
-    myProfile.contact = data.contact;
-    myProfile.image = data.image;
+    console.log(data); // Debugging
+    const newData = {
+      name: data.DisplayName,
+      desc: data.Description,
+      contact: data.Contact,
+    }
+    setUser(newData);
   };
 
   return (
@@ -43,7 +46,7 @@ const UpdateForm = ({ handleClose }) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <Controller
-            name="Display Name"
+            name="DisplayName"
             control={control}
             defaultValue={myProfile.name}
             rules={{ required: "Name required" }}
@@ -67,7 +70,9 @@ const UpdateForm = ({ handleClose }) => {
           <Controller
             name="Description"
             control={control}
-            defaultValue={myProfile.desc || "Professional bass player available weekends"}
+            defaultValue={
+              myProfile.desc || "Professional bass player available weekends."
+            }
             rules={{ required: "Description required" }}
             render={({ field: { onChange, value } }) => (
               <TextField
@@ -93,7 +98,7 @@ const UpdateForm = ({ handleClose }) => {
         </div>
         <div>
           <Controller
-            name="Instagram"
+            name="Contact"
             control={control}
             defaultValue={myProfile.contact || "garfield"}
             rules={{ required: "Instagram username required" }}
