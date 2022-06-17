@@ -16,6 +16,7 @@ import Dashboard from "./pages/Dashboard";
 import Chat from "./pages/Chat";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
+import Auth from "./pages/Auth";
 import { UserContext } from "./components/UserContext";
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
               <Route path="/Chat" element={<Chat />} />
               <Route path="/Profile" element={<Profile />} />
               <Route path="/Settings" element={<Settings />} />
+              <Route path="/Auth" element={<Auth />} />
               <Route path="/Dashboard" element={<Dashboard />} />
           </Routes>
         </Router>

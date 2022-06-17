@@ -41,7 +41,7 @@ function a11yProps(index) {
   };
 }
 
-const Discover = () => {
+const Auth = () => {
   const location = useLocation();
   const { tabToDisplay } = location.state || { tabToDisplay: "artists" };
   const current = tabToDisplay === "artists" ? 0 : 1;
@@ -59,20 +59,7 @@ const Discover = () => {
             <UnauthAppBar />
           </Grid>
         </Grid>
-        <h1>Discover</h1>
-        <Typography
-          width="50%"
-          align="center"
-          sx={{ paddingLeft: "25%", paddingBottom: "2vh" }}
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </Typography>
+        <h1>Auth</h1>
         <Box sx={{ width: "100%" }}>
           <Box
             sx={{ borderBottom: 1, borderColor: "rgba(255, 255, 255, 0.1)" }}
@@ -122,4 +109,4 @@ const Discover = () => {
   );
 };
 
-export default Discover;
+export default Auth;
