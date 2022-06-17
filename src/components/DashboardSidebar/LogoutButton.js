@@ -3,9 +3,27 @@ import { Link } from "react-router-dom";
 import { Button, Box, ListItem } from "@mui/material";
 import logout from "../../utils/svg/logout.svg";
 
+const url = "https://openmic-backend-api.herokuapp.com";
+
 const LogoutButton = () => {
-  const clearData = () => {
-    window.localStorage.clear();
+  const postLogout = async () => {
+    const response = await fetch(url + '/users/logout', {
+      method: "POST",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    });
+    return response;
+  }
+  
+  const logoutAndClear = async () => {
+    postLogout()
+      .then(() => {
+        window.localStorage.clear();
+        alert("Logout success");
+      }).catch((e) => {
+        alert("Logout failed! Please try again later...");
+      });
   }
 
   return (
@@ -21,7 +39,7 @@ const LogoutButton = () => {
       <Link to="/" style={{ textDecoration: "none" }}>
         <Button
           disableRipple
-          onClick={clearData}
+          onClick={logoutAndClear}
           sx={{
             padding: "0.5rem",
             backgroundColor: "#db3a37",
