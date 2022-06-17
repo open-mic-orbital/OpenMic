@@ -54,7 +54,7 @@ const UpdateForm = (props, { handleClose }) => {
           <Controller
             name="DisplayName"
             control={control}
-            defaultValue={myProfile.name}
+            defaultValue={myProfile.name || myProfile.userName}
             rules={{ required: "Name required" }}
             render={({ field: { onChange, value } }) => (
               <TextField

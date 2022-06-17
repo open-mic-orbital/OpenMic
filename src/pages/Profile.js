@@ -33,7 +33,7 @@ const Profile = () => {
               }}
             >
               <ProfileCard
-                name={user.name}
+                name={user.name || user.userName}
                 contact={user.contact}
                 description={user.description}
                 image={user.image}

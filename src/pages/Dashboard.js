@@ -43,12 +43,21 @@ const Dashboard = () => {
         <Grid item xs={10}>
           <AuthAppBar />
           <h1>Dashboard</h1>
-          <h2>Welcome, {JSON.parse(localStorage.getItem("user")).name}</h2>
-          <Box display="flex" flexWrap="wrap" justifyContent="center" marginTop="5vh">
+          <h2>
+            Welcome,{" "}
+            {JSON.parse(localStorage.getItem("user")).name ||
+              JSON.parse(localStorage.getItem("user")).userName}
+          </h2>
+          <Box
+            display="flex"
+            flexWrap="wrap"
+            justifyContent="center"
+            marginTop="5vh"
+          >
             {allUsers.map((user) => (
               <div style={{ marginBottom: "8vh", marginLeft: "8vh" }}>
                 <ProfileCard
-                  name={user.name}
+                  name={user.name || user.userName}
                   contact={user.contact}
                   desc={user.desc}
                 />

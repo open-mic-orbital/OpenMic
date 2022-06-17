@@ -1,55 +1,28 @@
-import React from "react";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import React, { useState, useEffect } from "react";
 import UnauthAppBar from "../components/UnauthAppBar/UnauthAppBar";
-import { Tab, Tabs, Typography } from "@mui/material";
-import PropTypes from "prop-types";
-import ForArtistsDiscover from "../components/DiscoverContent/ForArtistsDiscover";
-import ForVenuesDiscover from "../components/DiscoverContent/ForVenuesDiscover";
+import { Box, Card, Divider, Grid, Stack } from "@mui/material";
 import { useLocation } from "react-router-dom";
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
+import LoginSignupTabs from "../components/Auth/LoginSignupTabs";
+import OpenMicLogo from "../utils/images/OpenMicLogoBlack.png";
 
 const Auth = () => {
   const location = useLocation();
-  const { tabToDisplay } = location.state || { tabToDisplay: "artists" };
-  const current = tabToDisplay === "artists" ? 0 : 1;
-  const [value, setValue] = React.useState(current);
+  const { tabToDisplay } = location.state || { tabToDisplay: "signup" };
+  const current = tabToDisplay === "signup" ? 0 : 1;
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  const [width, setWidth] = useState(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
+
+  const isMobile = width <= 768;
 
   return (
     <>
@@ -59,50 +32,33 @@ const Auth = () => {
             <UnauthAppBar />
           </Grid>
         </Grid>
-        <h1>Auth</h1>
-        <Box sx={{ width: "100%" }}>
-          <Box
-            sx={{ borderBottom: 1, borderColor: "rgba(255, 255, 255, 0.1)" }}
+        <Box style={{ marginTop: "5%", margin: "5%" }}>
+          <h1>Welcome to OpenMic!</h1>
+          <Card
+            sx={{
+              bgcolor: "#f9f9f9",
+              color: "black",
+              borderRadius: "20px",
+            }}
           >
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="basic tabs example"
-              TabIndicatorProps={{
-                style: {
-                  backgroundColor: "rgba(255, 255, 255, 0.4)",
-                },
-              }}
-              centered
-            >
-              <Tab
-                style={{
-                  color: "#f78104",
-                  paddingLeft: "5vh",
-                  paddingRight: "5vh",
-                }}
-                label="For Artists"
-                {...a11yProps(0)}
-                id="for-artists"
-              />
-              <Tab
-                style={{
-                  color: "#f78104",
-                  paddingLeft: "5vh",
-                  paddingRight: "5vh",
-                }}
-                label="For Venues"
-                {...a11yProps(1)}
-                id="for-venues"
-              />
-            </Tabs>
-          </Box>
-          <TabPanel value={value} index={0}>
-            <ForArtistsDiscover />
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            <ForVenuesDiscover />
-          </TabPanel>
+            {isMobile ? (
+              <LoginSignupTabs current={current} />
+            ) : (
+              <Stack
+                direction="row"
+                divider={<Divider orientation="vertical" flexItem />}
+                spacing={2}
+                sx={{ alignItems: "center", margin: "1%" }}
+              >
+                <Box width="40%">
+                  <img src={OpenMicLogo} alt="Open Mic Logo" width="60%" />
+                </Box>
+                <Box width="60%">
+                  <LoginSignupTabs current={current} />
+                </Box>
+              </Stack>
+            )}
+          </Card>
         </Box>
       </Box>
     </>

@@ -1,32 +1,42 @@
 import React from "react";
-import Button from "@mui/material/Button";
-import { Stack } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import theme from "../../theme";
+import { Link } from "react-router-dom";
 
 const LoginSignupButton = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
         <Stack direction="row" spacing={2} sx={{ paddingRight: "5vh" }}>
-          <Button
-            disableElevation
-            variant="contained"
-            href="Login"
-            size="large"
-            sx={{ width: 100 }}
+          <Link
+            to="/Auth"
+            state={{ tabToDisplay: "login" }}
+            style={{ textDecoration: "none" }}
           >
-            Login
-          </Button>
-          <Button
-            disableElevation
-            variant="contained"
-            href="Signup"
-            size="large"
-            sx={{ width: 100 }}
+            <Button
+              disableElevation
+              variant="contained"
+              size="large"
+              sx={{ width: 100 }}
+            >
+              Login
+            </Button>
+          </Link>
+          <Link
+            to="/Auth"
+            state={{ tabToDisplay: "signup" }}
+            style={{ textDecoration: "none" }}
           >
-            Signup
-          </Button>
+            <Button
+              disableElevation
+              variant="contained"
+              size="large"
+              sx={{ width: 100 }}
+            >
+              Signup
+            </Button>
+          </Link>
         </Stack>
       </ThemeProvider>
     </>

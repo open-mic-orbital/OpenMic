@@ -9,7 +9,14 @@ const ProfileCard = (props) => {
   // const myProfile = JSON.parse(localStorage.getItem("user"));
 
   return (
-    <Card sx={{ minWidth: 300, maxWidth: 345, bgcolor: "#fff", borderRadius: "20px" }}>
+    <Card
+      sx={{
+        minWidth: 300,
+        maxWidth: 345,
+        bgcolor: "#fff",
+        borderRadius: "20px",
+      }}
+    >
       <CardActionArea disableRipple>
         <Box
           display="flex"
