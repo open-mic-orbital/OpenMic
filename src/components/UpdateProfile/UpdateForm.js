@@ -29,10 +29,16 @@ const UpdateForm = (props, { handleClose }) => {
     console.log(data); // Debugging
     const newData = {
       name: data.DisplayName,
-      desc: data.Description,
+      description: data.Description,
       contact: data.Contact,
-    }
+      image: data.Image,
+      enabled:
+        data.Description !== "No decription provided" &&
+        data.Contact !== "No username provided",
+    };
     setUser(newData);
+    updateUser(newData);
+    localStorage.setItem("user", JSON.stringify(newData));
   };
 
   return (
@@ -70,9 +76,7 @@ const UpdateForm = (props, { handleClose }) => {
           <Controller
             name="Description"
             control={control}
-            defaultValue={
-              myProfile.desc || "Professional bass player available weekends."
-            }
+            defaultValue={myProfile.description || "No description provided"}
             rules={{ required: "Description required" }}
             render={({ field: { onChange, value } }) => (
               <TextField
@@ -100,7 +104,7 @@ const UpdateForm = (props, { handleClose }) => {
           <Controller
             name="Contact"
             control={control}
-            defaultValue={myProfile.contact || "garfield"}
+            defaultValue={myProfile.contact || "No username provided"}
             rules={{ required: "Instagram username required" }}
             render={({ field: { onChange, value } }) => (
               <TextField
@@ -120,20 +124,31 @@ const UpdateForm = (props, { handleClose }) => {
           />
         </div>
         <div>
-          <Button
-            variant="outlined"
-            component="label"
-            sx={{
-              color: "#009c95",
-              backgroundColor: "white",
-              borderColor: "#009c95",
-              height: "8%",
-            }}
-            style={{ marginTop: "2vh" }}
-          >
-            Upload Image
-            <input type="file" hidden />
-          </Button>
+          <Controller
+            name="Image"
+            control={control}
+            defaultValue={
+              myProfile.image ||
+              "https://cdn.costumewall.com/wp-content/uploads/2018/09/jon-arbuckle.jpg"
+            }
+            rules={{ required: "Image required" }}
+            render={({ field: { onChange, value } }) => (
+              <Button
+                variant="outlined"
+                component="label"
+                sx={{
+                  color: "#009c95",
+                  backgroundColor: "white",
+                  borderColor: "#009c95",
+                  height: "8%",
+                }}
+                style={{ marginTop: "2vh" }}
+              >
+                Upload Image
+                <input type="file" accept="image/*" hidden />
+              </Button>
+            )}
+          />
         </div>
         <div style={{ margin: "2vh" }}>
           <Button
@@ -171,8 +186,8 @@ export default UpdateForm;
 // Suppresses warnings about bad state.
 const backup = console.error;
 console.error = function filterWarnings(msg) {
-  const supressedWarnings = ['Cannot update a component'];
-  if (!supressedWarnings.some(entry => msg.includes(entry))) {
+  const supressedWarnings = ["Cannot update a component"];
+  if (!supressedWarnings.some((entry) => msg.includes(entry))) {
     backup.apply(console, arguments);
   }
 };

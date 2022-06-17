@@ -70,8 +70,10 @@ const DashboardSidebar = () => {
       <Box
         sx={{
           flexGrow: 1,
-          paddingTop: "2vh",
+          marginTop: "2vh",
+          flexWrap: "wrap", 
           justifyContent: "center",
+          alignItems: "center",
         }}
       >
         {items.map((item) => (

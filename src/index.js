@@ -5,7 +5,10 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-if (window.location.hostname === "localhost") {
+if (
+  window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1"
+) {
   root.render(
     <React.StrictMode>
       <App />

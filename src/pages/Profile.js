@@ -35,7 +35,8 @@ const Profile = () => {
               <ProfileCard
                 name={user.name}
                 contact={user.contact}
-                desc={user.desc}
+                description={user.description}
+                image={user.image}
               />
             </Box>
             <Box

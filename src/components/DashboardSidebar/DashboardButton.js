@@ -14,6 +14,7 @@ const DashboardButton = (props) => {
         mb: 0.5,
         py: 0,
         px: "1.2rem",
+        marginBottom: "1.5vh",
       }}
     >
       <Link to={href} style={{ textDecoration: "none" }}>
@@ -48,7 +49,7 @@ const DashboardButton = (props) => {
             fill="white"
             src={window.location.pathname === href ? selected : unselected}
             alt={title}
-            width={20}
+            width={"17%"}
             style={{ paddingRight: "2vh" }}
           />
           <Box sx={{ flexGrow: 1 }}>{title}</Box>
@@ -60,11 +61,13 @@ const DashboardButton = (props) => {
 
 export default DashboardButton;
 
-// Ignores warnings about duplicate keys.
+// Suppresses warnings about duplicate keys.
 const backup = console.error;
 console.error = function filterWarnings(msg) {
-  const supressedWarnings = ['Each child in a list should have a unique "key" prop.'];
-  if (!supressedWarnings.some(entry => msg.includes(entry))) {
+  const supressedWarnings = [
+    'Each child in a list should have a unique "key" prop.',
+  ];
+  if (!supressedWarnings.some((entry) => msg.includes(entry))) {
     backup.apply(console, arguments);
   }
 };

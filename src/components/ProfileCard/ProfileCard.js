@@ -9,7 +9,7 @@ const ProfileCard = (props) => {
   // const myProfile = JSON.parse(localStorage.getItem("user"));
 
   return (
-    <Card sx={{ maxWidth: 345, bgcolor: "#fff", borderRadius: "20px" }}>
+    <Card sx={{ minWidth: 300, maxWidth: 345, bgcolor: "#fff", borderRadius: "20px" }}>
       <CardActionArea disableRipple>
         <Box
           display="flex"
@@ -49,7 +49,7 @@ const ProfileCard = (props) => {
             {props.name || "Jon Arbuckle"}
           </Typography>
           <Typography variant="body" align="center">
-            {props.desc || "Professional bass player available weekends."}
+            {props.description || "No description provided."}
           </Typography>
         </CardContent>
       </CardActionArea>
