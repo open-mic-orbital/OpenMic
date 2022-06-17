@@ -167,3 +167,12 @@ const UpdateForm = (props, { handleClose }) => {
 };
 
 export default UpdateForm;
+
+// Suppresses warnings about bad state.
+const backup = console.error;
+console.error = function filterWarnings(msg) {
+  const supressedWarnings = ['Cannot update a component'];
+  if (!supressedWarnings.some(entry => msg.includes(entry))) {
+    backup.apply(console, arguments);
+  }
+};
