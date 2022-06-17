@@ -18,7 +18,6 @@ import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import { UserContext } from "./components/UserContext";
 
-
 function App() {
   const [user, setUser] = useState(null);
 
@@ -29,16 +28,16 @@ function App() {
       <UserContext.Provider value={userMemo}>
         <Router>
           <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/Discover" element={<Discover />} />
-            <Route path="/Signup" element={<Signup />} />
-            <Route path="*" element={<Navigate to="/" />} />
-            <Route path="/AboutUs" element={<AboutUs />} />
-            <Route path="/Login" element={<Login />} />
-            <Route path="/Dashboard" element={<Dashboard />} />
-            <Route path="/Chat" element={<Chat />} />
-            <Route path="/Profile" element={<Profile />} />
-            <Route path="/Settings" element={<Settings />} />
+              <Route path="/" element={<Landing />} />
+              <Route path="/Discover" element={<Discover />} />
+              <Route path="/Signup" element={<Signup />} />
+              <Route path="*" element={<Navigate to="/" />} />
+              <Route path="/AboutUs" element={<AboutUs />} />
+              <Route path="/Login" element={<Login />} />
+              <Route path="/Chat" element={<Chat />} />
+              <Route path="/Profile" element={<Profile />} />
+              <Route path="/Settings" element={<Settings />} />
+              <Route path="/Dashboard" element={<Dashboard />} />
           </Routes>
         </Router>
       </UserContext.Provider>
