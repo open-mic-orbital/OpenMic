@@ -4,6 +4,10 @@ import { Button, Box, ListItem } from "@mui/material";
 import logout from "../../utils/svg/logout.svg";
 
 const LogoutButton = () => {
+  const clearData = () => {
+    window.localStorage.clear();
+  }
+
   return (
     <ListItem
       disableGutters
@@ -17,6 +21,7 @@ const LogoutButton = () => {
       <Link to="/" style={{ textDecoration: "none" }}>
         <Button
           disableRipple
+          onClick={clearData}
           sx={{
             padding: "0.5rem",
             backgroundColor: "#db3a37",
