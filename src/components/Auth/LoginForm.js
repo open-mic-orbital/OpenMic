@@ -123,7 +123,7 @@ const LoginForm = () => {
             name="E-mail"
             control={control}
             defaultValue=""
-            rules={{ required: "E-mail required" }}
+            rules={{ required: "Username or E-mail required" }}
             render={({ field: { onChange, value } }) => (
               <TextField
                 label="Username or Email"
