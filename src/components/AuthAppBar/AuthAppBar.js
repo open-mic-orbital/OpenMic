@@ -14,9 +14,33 @@ import MenuItem from "@mui/material/MenuItem";
 import openMicLogo from "../../utils/images/OpenMicLogo.png";
 import { Link } from "react-router-dom";
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Dashboard", "Profile", "Settings"];
+const url = "https://openmic-backend-api.herokuapp.com";
+
+const postLogout = async () => {
+  const response = await fetch(url + "/users/logout", {
+    method: "POST",
+    headers: {
+      Authorization: localStorage.getItem("token"),
+    },
+  });
+  return response;
+};
+
+const logoutAndClear = async () => {
+  postLogout()
+    .then(() => {
+      window.localStorage.clear();
+      alert("Logout success");
+    })
+    .catch((e) => {
+      alert("Logout failed! Please try again later...");
+    });
+};
 
 const AuthAppBar = () => {
+  const myProfile = JSON.parse(localStorage.getItem("user"));
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -127,8 +151,14 @@ const AuthAppBar = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, paddingRight: "5vh" }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              <IconButton
+                onClick={handleOpenUserMenu}
+                sx={{ p: 0, paddingRight: "5vh" }}
+              >
+                <Avatar
+                  alt={myProfile.name}
+                  src={myProfile.image || "/static/images/avatar/2.jpg"}
+                />
               </IconButton>
             </Tooltip>
             <Menu
@@ -148,10 +178,23 @@ const AuthAppBar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem
+                  key={setting}
+                  onClick={handleCloseUserMenu}
+                  component={Link}
+                  to={"/" + setting}
+                >
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
+              <MenuItem
+                key="logout"
+                onClick={logoutAndClear}
+                component={Link}
+                to="/"
+              >
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
@@ -159,4 +202,5 @@ const AuthAppBar = () => {
     </AppBar>
   );
 };
+
 export default AuthAppBar;
