@@ -126,7 +126,7 @@ const LoginForm = () => {
             rules={{ required: "E-mail required" }}
             render={({ field: { onChange, value } }) => (
               <TextField
-                label="Email"
+                label="Username or Email"
                 variant="outlined"
                 value={value}
                 onChange={onChange}
