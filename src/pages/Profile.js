@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AuthAppBar from "../components/AuthAppBar/AuthAppBar";
 import DashboardSidebar from "../components/DashboardSidebar/DashboardSidebar";
 import ProfileCard from "../components/ProfileCard/ProfileCard";
-import { Box, Grid, Stack } from "@mui/material";
+import { Box, Grid, Stack, Alert } from "@mui/material";
 import UpdateForm from "../components/UpdateProfile/UpdateForm";
 
 const Profile = () => {
@@ -23,6 +23,13 @@ const Profile = () => {
         </Grid>
         <Grid item xs={10}>
           <AuthAppBar />
+          {!user.enabled ? (
+            <Alert severity="error">
+              Just a few more steps to complete your profile. Fill out the form below!
+            </Alert>
+          ) : (
+            ""
+          )}
           <h1>Profile</h1>
           <Stack direction="row">
             <Box
