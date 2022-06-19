@@ -125,7 +125,7 @@ export default function Signup() {
               setUser(obj.user);
               localStorage.setItem("user", JSON.stringify(obj.user));
               localStorage.setItem("token", "Bearer " + obj.token);
-              window.location.href = "/Dashboard";
+              window.location.href = obj.enabled ? "/Dashboard" : "/Profile";
             } else {
               setLoading(false);
               throw new Error("Signup failed");

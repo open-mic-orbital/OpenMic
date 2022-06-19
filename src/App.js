@@ -24,6 +24,8 @@ function App() {
 
   const userMemo = useMemo(() => ({ user, setUser }), [user, setUser]);
 
+  const myProfile = JSON.parse(localStorage.getItem("user"));
+
   return (
     <div className="App">
       <UserContext.Provider value={userMemo}>
@@ -35,11 +37,11 @@ function App() {
               <Route path="*" element={<Navigate to="/" />} />
               <Route path="/AboutUs" element={<AboutUs />} />
               <Route path="/Login" element={<Login />} />
-              <Route path="/Chat" element={<Chat />} />
-              <Route path="/Profile" element={<Profile />} />
-              <Route path="/Settings" element={<Settings />} />
+              <Route path="/Chat" element={myProfile ? <Chat /> : <Navigate to='/Auth' />} />
+              <Route path="/Profile" element={myProfile ? <Profile /> : <Navigate to='/Auth' />} />
+              <Route path="/Settings" element={myProfile ? <Settings /> : <Navigate to='/Auth' />} />
               <Route path="/Auth" element={<Auth />} />
-              <Route path="/Dashboard" element={<Dashboard />} />
+              <Route path="/Dashboard" element={myProfile ? <Dashboard /> : <Navigate to='/Auth' />} />
           </Routes>
         </Router>
       </UserContext.Provider>

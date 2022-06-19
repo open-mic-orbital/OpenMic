@@ -7,7 +7,7 @@ import OpenMicLogo from "../utils/images/OpenMicLogoBlack.png";
 
 const Auth = () => {
   const location = useLocation();
-  const { tabToDisplay } = location.state || { tabToDisplay: "signup" };
+  const { tabToDisplay } = location.state || { tabToDisplay: "login" };
   const current = tabToDisplay === "signup" ? 0 : 1;
 
   const [width, setWidth] = useState(window.innerWidth);
