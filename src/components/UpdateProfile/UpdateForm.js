@@ -26,12 +26,11 @@ const UpdateForm = (props, { handleClose }) => {
   const [count, setCount] = React.useState(0);
 
   const onSubmit = (data) => {
-    console.log(data); // Debugging
     const newData = {
       name: data.DisplayName,
       description: data.Description,
       contact: data.Contact,
-      image: data.Image,
+      // image: data.Image,
       enabled:
         data.Description !== "No decription provided" &&
         data.Contact !== "No username provided",
