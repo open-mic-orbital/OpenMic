@@ -1,8 +1,7 @@
 import React from "react";
 import { Card, TextField, Button } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
-
-const url = "https://openmic-backend-api.herokuapp.com";
+import url from "../../utils/url";
 
 const updateUser = async (user) => {
   const response = await fetch(url + "/users/me", {

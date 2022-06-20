@@ -2,8 +2,7 @@ import React, { useContext } from "react";
 import { UserContext } from "../UserContext";
 import { TextField, Button, MenuItem, CircularProgress } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
-
-const url = "https://openmic-backend-api.herokuapp.com";
+import url from "../../utils/url";
 
 const SignupForm = () => {
   const { handleSubmit, control } = useForm();

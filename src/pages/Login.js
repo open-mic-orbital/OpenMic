@@ -13,8 +13,7 @@ import {
 } from "@mui/material";
 import theme from "../theme";
 import { UserContext } from "../components/UserContext";
-
-const url = "https://openmic-backend-api.herokuapp.com";
+import url from "../utils/url";
 
 const StyledTextField = styled(TextField)({
   "& defaultValue": {

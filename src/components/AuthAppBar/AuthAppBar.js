@@ -13,9 +13,9 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import openMicLogo from "../../utils/images/OpenMicLogo.png";
 import { Link } from "react-router-dom";
+import url from "../../utils/url";
 
 const settings = ["Dashboard", "Profile", "Settings"];
-const url = "https://openmic-backend-api.herokuapp.com";
 
 const postLogout = async () => {
   const response = await fetch(url + "/users/logout", {

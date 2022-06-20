@@ -5,8 +5,7 @@ import AuthAppBar from "../components/AuthAppBar/AuthAppBar";
 import DashboardSidebar from "../components/DashboardSidebar/DashboardSidebar";
 import { UserContext } from "../components/UserContext";
 import ProfileCard from "../components/ProfileCard/ProfileCard";
-
-const url = "https://openmic-backend-api.herokuapp.com";
+import url from "../utils/url";
 
 const getUsers = async () => {
   const response = await fetch(url + "/users/viewProfiles", {

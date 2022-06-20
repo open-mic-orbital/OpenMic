@@ -2,8 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Box, ListItem } from "@mui/material";
 import logout from "../../utils/svg/logout.svg";
-
-const url = "https://openmic-backend-api.herokuapp.com";
+import url from "../../utils/url";
 
 const LogoutButton = () => {
   const postLogout = async () => {
