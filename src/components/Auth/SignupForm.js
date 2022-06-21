@@ -14,6 +14,7 @@ const SignupForm = () => {
   const [userName, setUserName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
   const [userType, setUserType] = React.useState("default"); // Default value selected
 
   // States for checking error
@@ -36,6 +37,11 @@ const SignupForm = () => {
 
   const handlePasswordChange = (e) => {
     setPassword(e);
+    setSubmitted(false);
+  };
+
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e);
     setSubmitted(false);
   };
 
@@ -69,6 +75,10 @@ const SignupForm = () => {
       setLoading(false);
       setError(true);
       alert("Please fill out all fields");
+    } else if (password !== confirmPassword) {
+      setLoading(false);
+      setError(true);
+      alert("Passwords do not match");
     } else {
       const registered = {
         userName,
@@ -88,7 +98,7 @@ const SignupForm = () => {
               localStorage.setItem("user", JSON.stringify(obj.user));
               localStorage.setItem("token", "Bearer " + obj.token);
               window.location.href = obj.enabled ? "/Dashboard" : "/Profile";
-              alert(successMessage)
+              alert(successMessage);
             } else {
               setLoading(false);
               throw new Error("Signup failed");
@@ -243,6 +253,32 @@ const SignupForm = () => {
                 InputLabelProps={{
                   style: { color: "gray" },
                 }}
+              />
+            )}
+          />
+        </div>
+        <div>
+          <Controller
+            name="PasswordConfirmation"
+            control={control}
+            defaultValue=""
+            rules={{ required: "Password required" }}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                label="Confirm Password"
+                type="password"
+                variant="outlined"
+                value={value}
+                onChange={onChange}
+                {...handleConfirmPasswordChange(value)}
+                sx={{
+                  marginTop: "2vh",
+                  input: { color: "#10182e" },
+                }}
+                InputLabelProps={{
+                  style: { color: "gray" },
+                }}
+                helperText="Enter your password again."
               />
             )}
           />
