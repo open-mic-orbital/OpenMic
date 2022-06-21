@@ -25,7 +25,6 @@ const SignupForm = () => {
   const [loading, setLoading] = React.useState(false);
 
   const handleUserNameChange = (e) => {
-    console.log(e);
     setUserName(e);
     setSubmitted(false);
   };
@@ -88,11 +87,13 @@ const SignupForm = () => {
       setError(true);
       alert("Passwords do not match");
     } else {
+      const enabled = false;
       const registered = {
         userName,
         email,
         password,
         userType,
+        enabled
       };
       try {
         const promise = postSignUp(registered);
