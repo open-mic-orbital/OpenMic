@@ -21,6 +21,9 @@ const LoginForm = () => {
   // State for loading indicator
   const [loading, setLoading] = React.useState(false);
 
+  // State for Forgot Password form
+  const [forgotPassword, setForgotPassword] = React.useState(false);
+
   const handleEmailChange = (e) => {
     setEmail(e);
     setSubmitted(false);
@@ -86,33 +89,75 @@ const LoginForm = () => {
     }
   };
 
-  // Showing success message
-  const successMessage = () => {
-    return (
-      <div
-        className="success"
-        style={{
-          display: submitted ? "" : "none",
-        }}
-      >
-        <h1>User successfully logged in!!</h1>
-      </div>
-    );
+  const onSubmitForgotPassword = () => {
+    setLoading(true);
+    alert("Check your email for password reset instructions.");
+    setForgotPassword(false);
+    setLoading(false);
   };
 
-  // Showing error message if error is true
-  const errorMessage = () => {
+  if (forgotPassword) {
     return (
-      <div
-        className="error"
-        style={{
-          display: error ? "" : "none",
-        }}
-      >
-        <h1>Please enter all the fields</h1>
-      </div>
+      <>
+        <form onSubmit={handleSubmit(onSubmitForgotPassword)}>
+          <div>
+            <Controller
+              name="E-mail"
+              control={control}
+              defaultValue=""
+              rules={{ required: "E-mail required" }}
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  label="Email"
+                  variant="outlined"
+                  value={value}
+                  onChange={onChange}
+                  {...handleEmailChange(value)}
+                  sx={{
+                    marginTop: "2vh",
+                    input: { color: "#10182e" },
+                  }}
+                  InputLabelProps={{
+                    style: { color: "gray" },
+                  }}
+                  helperText="Enter your e-mail address to receive a password recovery form."
+                />
+              )}
+            />
+          </div>
+          <div style={{ margin: "2vh" }}>
+            <Button
+              disableElevation
+              variant="contained"
+              color="primary"
+              onClick={() => setForgotPassword(false)}
+              sx={{
+                backgroundColor: "#f87104",
+                color: "white",
+                marginRight: "1%",
+              }}
+            >
+              Back
+            </Button>
+            <Button
+              disableElevation
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={loading}
+              onClick={onSubmitForgotPassword}
+              sx={{
+                backgroundColor: "#009c95",
+                color: "white",
+              }}
+            >
+              {(!loading && "Submit") || <CircularProgress size={20} />}
+            </Button>
+          </div>
+        </form>
+      </>
     );
-  };
+  }
 
   return (
     <>
@@ -180,6 +225,22 @@ const LoginForm = () => {
             }}
           >
             {(!loading && "Submit") || <CircularProgress size={20} />}
+          </Button>
+        </div>
+        <div style={{ margin: "2vh" }}>
+          <Button
+            disableElevation
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={loading}
+            onClick={() => setForgotPassword(true)}
+            sx={{
+              backgroundColor: "#f78104",
+              color: "white",
+            }}
+          >
+            Forgot Password
           </Button>
         </div>
       </form>

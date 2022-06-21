@@ -9,14 +9,13 @@ import {
 
 import Landing from "./pages/Landing";
 import Discover from "./pages/Discover";
-import Signup from "./pages/Signup";
 import AboutUs from "./pages/AboutUs";
-import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Chat from "./pages/Chat";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Auth from "./pages/Auth";
+import AuthRecovery from "./pages/AuthRecovery";
 import { UserContext } from "./components/UserContext";
 
 function App() {
@@ -33,14 +32,13 @@ function App() {
           <Routes>
               <Route path="/" element={<Landing />} />
               <Route path="/Discover" element={<Discover />} />
-              <Route path="/Signup" element={<Signup />} />
               <Route path="*" element={<Navigate to="/" />} />
               <Route path="/AboutUs" element={<AboutUs />} />
-              <Route path="/Login" element={<Login />} />
               <Route path="/Chat" element={myProfile ? <Chat /> : <Navigate to='/Auth' />} />
               <Route path="/Profile" element={myProfile ? <Profile /> : <Navigate to='/Auth' />} />
               <Route path="/Settings" element={myProfile ? <Settings /> : <Navigate to='/Auth' />} />
               <Route path="/Auth" element={<Auth />} />
+              <Route path="/PasswordReset" element={<AuthRecovery />} />
               <Route path="/Dashboard" element={myProfile ? <Dashboard /> : <Navigate to='/Auth' />} />
           </Routes>
         </Router>
