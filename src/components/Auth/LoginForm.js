@@ -89,8 +89,23 @@ const LoginForm = () => {
     }
   };
 
+  const postReset = async () => {
+    const response = await fetch(url + "/users/forgot", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+      }),
+    });
+    const data = await response.json();
+    return data;
+  }
+
   const onSubmitForgotPassword = () => {
     setLoading(true);
+    postReset();
     alert("Check your email for password reset instructions.");
     setForgotPassword(false);
     setLoading(false);
