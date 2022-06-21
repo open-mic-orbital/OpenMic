@@ -9,7 +9,7 @@ const PasswordRecoveryForm = () => {
 
   // State for final user
 
-  // States for password fields 
+  // States for password fields
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
 
@@ -56,6 +56,14 @@ const PasswordRecoveryForm = () => {
       setLoading(false);
       setError(true);
       alert("Passwords do not match");
+    } else if (password.length < 8) {
+      setLoading(false);
+      setError(true);
+      alert("Password must be at least 8 characters long");
+    } else if (password.includes("password")) {
+      setLoading(false);
+      setError(true);
+      alert("Password must not contain the word 'password'");
     } else {
       try {
         // const data = postLogin();
