@@ -1,24 +1,30 @@
-import React, { useContext } from "react";
-import { UserContext } from "../UserContext";
-import { TextField, Button, CircularProgress } from "@mui/material";
+import React from "react";
+import { Card, TextField, Button, CircularProgress } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import url from "../../utils/url";
 
-const PasswordRecoveryForm = () => {
+const updateUser = async (user) => {
+  const response = await fetch(url + "/users/me", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+    body: JSON.stringify(user),
+  });
+  const data = await response.json();
+  return data;
+};
+
+const UpdatePasswordForm = ({ handleClose }) => {
   const { handleSubmit, control } = useForm();
-
-  // State for final user
-
-  // States for password fields 
-  const [password, setPassword] = React.useState("");
-  const [confirmPassword, setConfirmPassword] = React.useState("");
-
-  // States for checking error
-  const [submitted, setSubmitted] = React.useState(false);
-  const [error, setError] = React.useState(false);
 
   // State for loading indicator
   const [loading, setLoading] = React.useState(false);
+
+  // States for password fields
+  const [password, setPassword] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
 
   const handlePasswordChange = (e) => {
     setPassword(e);
@@ -30,24 +36,14 @@ const PasswordRecoveryForm = () => {
     setSubmitted(false);
   };
 
-  const postLogin = async () => {
-    const response = await fetch(url + "/users/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        password,
-      }),
-    });
-    const data = await response.json();
-    return data;
-  };
+  // States for checking error
+  const [submitted, setSubmitted] = React.useState(false);
+  const [error, setError] = React.useState(false);
 
-  const onSubmit = (e) => {
+  const onSubmit = (data) => {
     setError(false);
     setLoading(true);
-    e.preventDefault();
+    data.preventDefault();
     if (password === "") {
       setLoading(false);
       setError(true);
@@ -88,7 +84,13 @@ const PasswordRecoveryForm = () => {
   };
 
   return (
-    <>
+    <Card
+      sx={{
+        bgcolor: "#fff",
+        borderRadius: "20px",
+      }}
+    >
+      <h2 style={{ color: "black" }}>Update Password</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <Controller
@@ -159,8 +161,8 @@ const PasswordRecoveryForm = () => {
           </Button>
         </div>
       </form>
-    </>
+    </Card>
   );
 };
 
-export default PasswordRecoveryForm;
+export default UpdatePasswordForm;
