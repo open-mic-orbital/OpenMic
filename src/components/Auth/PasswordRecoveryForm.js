@@ -30,15 +30,14 @@ const PasswordRecoveryForm = () => {
     setSubmitted(false);
   };
 
-  const postLogin = async () => {
-    const response = await fetch(url + "/users/login", {
-      method: "POST",
+  const updatePassword = async (user) => {
+    const response = await fetch(url + "/users/resetPassword", {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
       },
-      body: JSON.stringify({
-        password,
-      }),
+      body: JSON.stringify(user),
     });
     const data = await response.json();
     return data;
@@ -66,6 +65,16 @@ const PasswordRecoveryForm = () => {
       alert("Password must not contain the word 'password'");
     } else {
       try {
+        const newData = { password };
+        const result = updatePassword(newData);
+        result.then((user) => {
+          setLoading(false);
+          alert("Password reset success!");
+        }).catch((e) => {
+          console.log(e);
+          setLoading(false);
+          alert("Password reset failed")
+        })
         // const data = postLogin();
         // data
         //   .then((obj) => {
