@@ -74,10 +74,10 @@ const SignupForm = () => {
       setLoading(false);
       setError(true);
       alert("Please fill out all fields");
-    } else if (password.length < 8){
+    } else if (password.length < 6){
       setLoading(false);
       setError(true);
-      alert("Password must be at least 8 characters long");
+      alert("Password must be at least 6 characters long");
     } else if (password.includes("password")) {
       setLoading(false);
       setError(true);

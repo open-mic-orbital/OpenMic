@@ -4,10 +4,8 @@ import { TextField, Button, CircularProgress } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import url from "../../utils/url";
 
-const PasswordRecoveryForm = () => {
+const PasswordRecoveryForm = (props) => {
   const { handleSubmit, control } = useForm();
-
-  // State for final user
 
   // States for password fields
   const [password, setPassword] = React.useState("");
@@ -19,6 +17,9 @@ const PasswordRecoveryForm = () => {
 
   // State for loading indicator
   const [loading, setLoading] = React.useState(false);
+
+  // Get token from URL
+  const authToken = window.location.href.split("/")[4];
 
   const handlePasswordChange = (e) => {
     setPassword(e);
@@ -35,7 +36,8 @@ const PasswordRecoveryForm = () => {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
+        // Authorization: localStorage.getItem("token"),
+        Authorization: authToken,
       },
       body: JSON.stringify(user),
     });
@@ -67,14 +69,16 @@ const PasswordRecoveryForm = () => {
       try {
         const newData = { password };
         const result = updatePassword(newData);
-        result.then((user) => {
-          setLoading(false);
-          alert("Password reset success!");
-        }).catch((e) => {
-          console.log(e);
-          setLoading(false);
-          alert("Password reset failed")
-        })
+        result
+          .then((user) => {
+            setLoading(false);
+            alert("Password reset success!");
+          })
+          .catch((e) => {
+            console.log(e);
+            setLoading(false);
+            alert("Password reset failed");
+          });
         // const data = postLogin();
         // data
         //   .then((obj) => {
