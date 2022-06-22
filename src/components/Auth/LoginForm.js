@@ -45,6 +45,11 @@ const LoginForm = () => {
         password,
       }),
     });
+    if (!response.ok) {
+      const error = new Error(`An error occured: ${response.status}`);
+      error.code = response.status;
+      throw error;
+    }
     const data = await response.json();
     return data;
   };
@@ -58,34 +63,29 @@ const LoginForm = () => {
       setError(true);
       alert("Please fill out all fields");
     } else {
-      try {
-        const data = postLogin();
-        data
-          .then((obj) => {
-            if (obj.token) {
-              // alert("Login succesful!");
-              setUser(obj.user);
-              localStorage.setItem("user", JSON.stringify(obj.user));
-              localStorage.setItem("token", "Bearer " + obj.token);
-              window.location.href = obj.enabled ? "/Dashboard" : "/Profile";
-              setError(false);
-              setSubmitted(true);
-            } else {
-              setLoading(false);
-              throw new Error("Invalid login");
-            }
-          })
-          .catch((e) => {
-            setLoading(false);
-            alert("Login failed!");
-            console.log(e);
-            setError(true);
-          });
-      } catch (e) {
-        setLoading(false);
-        alert("Login unsuccesful.");
-        setError(true);
-      }
+      postLogin().then((obj) => {
+        if (obj.token) {
+          setUser(obj.user);
+          localStorage.setItem("user", JSON.stringify(obj.user));
+          localStorage.setItem("token", "Bearer " + obj.token);
+          window.location.href = obj.enabled ? "/Dashboard" : "/Profile";
+          setError(false);
+          setSubmitted(true);
+        } else {
+          setLoading(false);
+          throw new Error("Invalid login");
+        }
+      }).catch((e) => {
+        if (e.code) {
+          setLoading(false);
+          alert("Login failed! Invalid credentials.");
+          setError(true);
+        } else {
+          setLoading(false);
+          alert("Login failed! Please check your network.");
+          setError(true);
+        }
+      });
     }
   };
 
@@ -99,18 +99,33 @@ const LoginForm = () => {
         email,
       }),
     });
-    const data = await response.json();
-    return data;
+    if (!response.ok) {
+      const error = new Error(`An error occured: ${response.status}`);
+      error.code = response.status;
+      throw error;
+    }
+    return response;
   };
 
   const onSubmitForgotPassword = () => {
     setLoading(true);
-    postReset();
-    alert(
-      "Check your email for password reset instructions. If you do not receive an email, please check your spam folder."
-    );
-    setForgotPassword(false);
-    setLoading(false);
+    postReset().then(() => {
+      setLoading(false);
+      setForgotPassword(false);
+      alert(
+        "Check your email for password reset instructions. If you do not receive an email, please check your spam folder."
+      );
+    }).catch((e) => {
+      if (e.code) {
+        setLoading(false);
+        setForgotPassword(true);
+        alert("Password reset unsuccessful. Please check your e-mail or try again later.");
+      } else {
+        setLoading(false);
+        setForgotPassword(true);
+        alert("Password reset unsuccessful. Please check your network.")
+      }
+    });
   };
 
   if (forgotPassword) {
