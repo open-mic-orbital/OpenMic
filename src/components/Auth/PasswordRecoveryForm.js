@@ -36,7 +36,6 @@ const PasswordRecoveryForm = (props) => {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        // Authorization: localStorage.getItem("token"),
         Authorization: authToken,
       },
       body: JSON.stringify(user),
@@ -73,6 +72,7 @@ const PasswordRecoveryForm = (props) => {
           .then((user) => {
             setLoading(false);
             alert("Password reset success!");
+            window.location.href = "/Auth";
           })
           .catch((e) => {
             console.log(e);
