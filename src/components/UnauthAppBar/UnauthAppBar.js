@@ -37,6 +37,7 @@ const UnauthAppBar = () => {
   return (
     <AppBar
       position="static"
+      elevation={0}
       sx={{
         bgcolor: "#009c95",
         paddingLeft: "12vh",

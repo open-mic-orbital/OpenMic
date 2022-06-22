@@ -2,6 +2,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import UnauthAppBar from "../components/UnauthAppBar/UnauthAppBar";
+import AuthAppBar from "../components/AuthAppBar/AuthAppBar";
 import { Tab, Tabs, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import ForArtistsDiscover from "../components/DiscoverContent/ForArtistsDiscover";
@@ -47,6 +48,8 @@ const Discover = () => {
   const current = tabToDisplay === "artists" ? 0 : 1;
   const [value, setValue] = React.useState(current);
 
+  const myProfile = JSON.parse(localStorage.getItem("user"));
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -56,7 +59,7 @@ const Discover = () => {
       <Box sx={{ flexGrow: 1, color: "white", overflow: "scroll" }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <UnauthAppBar />
+          {myProfile ? <AuthAppBar logo={true} /> : <UnauthAppBar />}
           </Grid>
         </Grid>
         <h1>Discover</h1>

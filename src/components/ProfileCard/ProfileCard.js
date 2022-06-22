@@ -42,7 +42,7 @@ const ProfileCard = (props) => {
                 props.image ||
                 "https://cdn.costumewall.com/wp-content/uploads/2018/09/jon-arbuckle.jpg"
               }
-              alt="green iguana"
+              alt="Profile Image"
               style={{
                 borderRadius: "50%",
                 height: "100px",

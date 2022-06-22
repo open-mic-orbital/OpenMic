@@ -101,12 +101,14 @@ const LoginForm = () => {
     });
     const data = await response.json();
     return data;
-  }
+  };
 
   const onSubmitForgotPassword = () => {
     setLoading(true);
     postReset();
-    alert("Check your email for password reset instructions.");
+    alert(
+      "Check your email for password reset instructions. If you do not receive an email, please check your spam folder."
+    );
     setForgotPassword(false);
     setLoading(false);
   };

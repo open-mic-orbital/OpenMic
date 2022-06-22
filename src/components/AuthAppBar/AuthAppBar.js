@@ -38,8 +38,9 @@ const logoutAndClear = async () => {
     });
 };
 
-const AuthAppBar = () => {
+const AuthAppBar = (props) => {
   const myProfile = JSON.parse(localStorage.getItem("user"));
+  const [displayLogo, setDisplayLogo] = React.useState(props.logo || false);
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -62,18 +63,21 @@ const AuthAppBar = () => {
   return (
     <AppBar
       position="static"
+      elevation={0}
       sx={{
         bgcolor: "#009c95",
-        paddingLeft: "12vh",
+        paddingLeft: "5vh",
         paddingTop: "2vh",
         paddingBottom: "2vh",
       }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Link to="/">
-            <img src={openMicLogo} className="Logo" height={50} alt="logo" />
-          </Link>
+          {displayLogo && (
+            <Link to="/">
+              <img src={openMicLogo} className="Logo" height={50} alt="logo" />
+            </Link>
+          )}
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
