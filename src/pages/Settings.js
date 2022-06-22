@@ -11,6 +11,7 @@ import {
 import AuthAppBar from "../components/AuthAppBar/AuthAppBar";
 import UpdatePasswordForm from "../components/Auth/UpdatePasswordForm";
 import DashboardSidebar from "../components/DashboardSidebar/DashboardSidebar";
+import url from "../utils/url";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -27,11 +28,39 @@ const Settings = () => {
     setOpen(false);
   };
 
+  const deleteUser = async () => {
+    const response = await fetch(url + "/users/me", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    });
+    if (!response.ok) {
+      const error = new Error(`An error occured: ${response.status}`);
+      error.code = response.status;
+      throw error;
+    }
+    const data = await response.json();
+    return data;
+  }
   const handleDeleteAccount = () => {
     setOpen(false);
-    window.localStorage.clear();
-    window.location.href = "/";
-    alert("Account Deleted! You will now be redirected to the homepage.");
+    deleteUser().then((obj) => {
+      if (obj._id) {
+        window.localStorage.clear();
+        window.location.href = "/";
+        alert("Account Deleted! You will now be redirected to the homepage.");
+      } else {
+        throw new Error("Deletion failed");
+      }
+    }).catch((e) => {
+      if (e.code) {
+        alert("Deletion failed! Please try again later.");
+      } else {
+        alert("Deletion failed! Please check your network.");
+      }
+    });
   };
 
   return (
