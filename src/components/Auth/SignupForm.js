@@ -57,6 +57,11 @@ const SignupForm = () => {
       },
       body: JSON.stringify(user),
     });
+    if (!response.ok) {
+      const error = new Error(`An error occured: ${response.status}`);
+      error.code = response.status;
+      throw error;
+    }
     const data = await response.json();
     return data;
   };
@@ -95,35 +100,31 @@ const SignupForm = () => {
         userType,
         enabled
       };
-      try {
-        const promise = postSignUp(registered);
-        console.log(promise);
-        promise
-          .then((obj) => {
-            if (obj._id) {
-              setSubmitted(true);
-              setError(false);
-              setUser(obj.user);
-              localStorage.setItem("user", JSON.stringify(obj.user));
-              localStorage.setItem("token", "Bearer " + obj.token);
-              window.location.href = obj.enabled ? "/Dashboard" : "/Profile";
-              alert(successMessage);
-            } else {
-              setLoading(false);
-              throw new Error("Signup failed");
-            }
-          })
-          .catch((e) => {
-            setLoading(false);
-            alert("Signup failed! (Promise error)");
-            console.log(e);
-            setError(true);
-          });
-      } catch (e) {
-        setLoading(false);
-        alert("Signup failed!");
-        setError(true);
-      }
+      postSignUp(registered).then((obj) => {
+        if (obj.token) {
+          setSubmitted(true);
+          setError(false);
+          setUser(obj.user);
+          localStorage.setItem("user", JSON.stringify(obj.user));
+          localStorage.setItem("token", "Bearer " + obj.token);
+          window.location.href = obj.enabled ? "/Dashboard" : "/Profile";
+          // console.log(successMessage);
+          alert("Signup success!");
+        } else {
+          setLoading(false);
+          throw new Error("Signup failed");
+        }
+      }).catch((e) => {
+        if (e.code) {
+          setLoading(false);
+          alert("Signup failed! Username and e-mail must be unique.");
+          setError(true);
+        } else {
+          setLoading(false);
+          alert("Signup failed! Please check your network.");
+          setError(true);
+        }
+      });
     }
   };
 
