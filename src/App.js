@@ -38,7 +38,6 @@ function App() {
               <Route path="/Profile" element={myProfile ? <Profile /> : <Navigate to='/Auth' />} />
               <Route path="/Settings" element={myProfile ? <Settings /> : <Navigate to='/Auth' />} />
               <Route path="/Auth" element={<Auth />} />
-              <Route path="/PasswordReset" element={<AuthRecovery />} />
               <Route path="/PasswordReset/:id" element={<AuthRecovery />} />
               <Route path="/Dashboard" element={myProfile ? <Dashboard /> : <Navigate to='/Auth' />} />
           </Routes>

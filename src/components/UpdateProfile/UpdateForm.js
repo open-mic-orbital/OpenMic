@@ -24,12 +24,18 @@ const UpdateForm = (props, { handleClose }) => {
 
   const [count, setCount] = React.useState(0);
 
+  const [uploadedImage, setUploadedImage] = React.useState(null);
+
+  const fileUploadHandler = (event) => {
+    setUploadedImage(event.target.files[0]);
+  };
+
   const onSubmit = (data) => {
     const newData = {
       name: data.DisplayName,
       description: data.Description,
       contact: data.Contact,
-      // image: data.Image,
+      // image: uploadedImage,
       enabled:
         data.Description !== "No decription provided" &&
         data.Contact !== "No username provided",
@@ -143,7 +149,13 @@ const UpdateForm = (props, { handleClose }) => {
                 style={{ marginTop: "2vh" }}
               >
                 Upload Image
-                <input type="file" accept="image/*" hidden />
+                <input
+                  type="file"
+                  name="file"
+                  accept="image/*"
+                  onChange={fileUploadHandler}
+                  hidden
+                />
               </Button>
             )}
           />

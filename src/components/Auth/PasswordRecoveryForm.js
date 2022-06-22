@@ -56,10 +56,10 @@ const PasswordRecoveryForm = (props) => {
       setLoading(false);
       setError(true);
       alert("Passwords do not match");
-    } else if (password.length < 8) {
+    } else if (password.length < 6) {
       setLoading(false);
       setError(true);
-      alert("Password must be at least 8 characters long");
+      alert("Password must be at least 6 characters long");
     } else if (password.includes("password")) {
       setLoading(false);
       setError(true);
@@ -79,27 +79,6 @@ const PasswordRecoveryForm = (props) => {
             setLoading(false);
             alert("Password reset failed");
           });
-        // const data = postLogin();
-        // data
-        //   .then((obj) => {
-        //     if (obj.token) {
-        //       // alert("Login succesful!");
-        //       localStorage.setItem("user", JSON.stringify(obj.user));
-        //       localStorage.setItem("token", "Bearer " + obj.token);
-        //       window.location.href = obj.enabled ? "/Dashboard" : "/Profile";
-        //       setError(false);
-        //       setSubmitted(true);
-        //     } else {
-        //       setLoading(false);
-        //       throw new Error("Invalid login");
-        //     }
-        //   })
-        //   .catch((e) => {
-        //     setLoading(false);
-        //     alert("Login failed!");
-        //     console.log(e);
-        //     setError(true);
-        //   });
       } catch (e) {
         setLoading(false);
         alert("Password update unsuccesful.");
