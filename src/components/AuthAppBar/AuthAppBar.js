@@ -32,6 +32,7 @@ const logoutAndClear = async () => {
     .then(() => {
       window.localStorage.clear();
       alert("Logout success");
+      window.location.reload();
     })
     .catch((e) => {
       alert("Logout failed! Please try again later...");
@@ -40,7 +41,7 @@ const logoutAndClear = async () => {
 
 const AuthAppBar = (props) => {
   const myProfile = JSON.parse(localStorage.getItem("user"));
-  const [displayLogo, setDisplayLogo] = React.useState(props.logo || false);
+  const displayLogo = props.logo || false;
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);

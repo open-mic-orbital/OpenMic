@@ -20,6 +20,7 @@ const LogoutButton = () => {
       .then(() => {
         window.localStorage.clear();
         alert("Logout success");
+        window.location.reload();
       }).catch((e) => {
         alert("Logout failed! Please try again later...");
       });
