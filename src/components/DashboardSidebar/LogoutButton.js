@@ -64,7 +64,7 @@ const LogoutButton = () => {
             src={logout}
             alt="Logout Button"
             width={"25%"}
-            style={{ paddingRight: "5%" }}
+            style={{ marginRight: "5%" }}
           />
           <Box sx={{ flexGrow: 1 }}>Logout</Box>
         </Button>

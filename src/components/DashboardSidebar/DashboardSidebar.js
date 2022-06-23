@@ -71,10 +71,10 @@ const DashboardSidebar = () => {
         sx={{
           flexGrow: 1,
           marginTop: "2vh",
-          flexWrap: "wrap", 
+          flexWrap: "wrap",
           justifyContent: "center",
           alignItems: "center",
-          justifyItems: "center"
+          justifyItems: "center",
         }}
       >
         {items.map((item) => (

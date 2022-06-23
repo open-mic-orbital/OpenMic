@@ -53,17 +53,25 @@ const Dashboard = () => {
       }}
     >
       <Grid container>
-        {isMobile ? "" : <Grid item xs={2} style={{ backgroundColor: "#10182e" }}>
-          <DashboardSidebar />
-        </Grid>}
+        {isMobile ? (
+          ""
+        ) : (
+          <Grid item xs={2} style={{ backgroundColor: "#10182e" }}>
+            <DashboardSidebar />
+          </Grid>
+        )}
         <Grid item xs={isMobile ? 12 : 10}>
           <AuthAppBar />
           <h1>Dashboard</h1>
           <h2>
             Welcome,{" "}
             {JSON.parse(localStorage.getItem("user")).name ||
-              JSON.parse(localStorage.getItem("user")).userName}
+              JSON.parse(localStorage.getItem("user")).userName}.
           </h2>
+          <p>
+            Get in touch with these other users looking to connect. Click on
+            'Contact' when you notice an interesting profile!
+          </p>
           <Box
             display="flex"
             flexWrap="wrap"
@@ -71,7 +79,13 @@ const Dashboard = () => {
             marginTop="5vh"
           >
             {allUsers.map((user) => (
-              <div style={{ marginBottom: "4%", marginLeft: "4%", marginRight: "4%" }}>
+              <div
+                style={{
+                  marginBottom: "4%",
+                  marginLeft: "4%",
+                  marginRight: "4%",
+                }}
+              >
                 <ProfileCard
                   name={user.name || user.userName}
                   contact={user.contact}

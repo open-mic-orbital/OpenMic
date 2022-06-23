@@ -44,15 +44,16 @@ const Profile = () => {
           <AuthAppBar />
           {!user.enabled ? (
             <Alert severity="error">
-              Just a few more steps to complete your profile. Fill out the form
-              below!
+              Your account is <b>not</b> visible to other users in the
+              dashboard. Fill out the form below to complete your profile and
+              enable visibility.
             </Alert>
           ) : (
             ""
           )}
           <h1>Profile</h1>
           <Stack direction={isMobile ? "column" : "row"}>
-            <Box
+            <div
               style={{
                 marginLeft: "5%",
                 width: "100%",
@@ -65,16 +66,16 @@ const Profile = () => {
                 description={user.description}
                 image={user.image}
               />
-            </Box>
-            <Box
+            </div>
+            <div
               style={{
                 width: "100%",
                 marginRight: "5%",
-                marginTop: "1%",
+                marginTop: isMobile ? "5%" : "1%",
               }}
             >
               <UpdateForm props={{ user, setUser }} />
-            </Box>
+            </div>
           </Stack>
         </Grid>
       </Grid>
