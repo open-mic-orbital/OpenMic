@@ -74,6 +74,7 @@ const DashboardSidebar = () => {
           flexWrap: "wrap", 
           justifyContent: "center",
           alignItems: "center",
+          justifyItems: "center"
         }}
       >
         {items.map((item) => (

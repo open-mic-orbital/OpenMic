@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AuthAppBar from "../components/AuthAppBar/AuthAppBar";
 import DashboardSidebar from "../components/DashboardSidebar/DashboardSidebar";
 import ProfileCard from "../components/ProfileCard/ProfileCard";
@@ -8,6 +8,21 @@ import UpdateForm from "../components/UpdateProfile/UpdateForm";
 const Profile = () => {
   const myProfile = JSON.parse(localStorage.getItem("user"));
   const [user, setUser] = useState(myProfile);
+
+  const [width, setWidth] = useState(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
+
+  const isMobile = width <= 768;
+
   return (
     <Box
       sx={{
@@ -18,20 +33,25 @@ const Profile = () => {
       }}
     >
       <Grid container>
-        <Grid item xs={2} style={{ backgroundColor: "#10182e" }}>
-          <DashboardSidebar />
-        </Grid>
-        <Grid item xs={10}>
+        {isMobile ? (
+          ""
+        ) : (
+          <Grid item xs={2} style={{ backgroundColor: "#10182e" }}>
+            <DashboardSidebar />
+          </Grid>
+        )}
+        <Grid item xs={isMobile ? 12 : 10}>
           <AuthAppBar />
           {!user.enabled ? (
             <Alert severity="error">
-              Just a few more steps to complete your profile. Fill out the form below!
+              Just a few more steps to complete your profile. Fill out the form
+              below!
             </Alert>
           ) : (
             ""
           )}
           <h1>Profile</h1>
-          <Stack direction="row">
+          <Stack direction={isMobile ? "column" : "row"}>
             <Box
               style={{
                 marginLeft: "5%",

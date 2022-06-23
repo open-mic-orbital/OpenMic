@@ -20,12 +20,29 @@ const getUsers = async () => {
 
 const Dashboard = () => {
   const { user, setUser } = useContext(UserContext);
+
   const [allUsers, setAllUsers] = useState([]);
+
   useEffect(() => {
     const promise = getUsers();
     promise.then((data) => setAllUsers((allUsers) => allUsers.concat(data)));
     console.log(promise);
   }, []);
+
+  const [width, setWidth] = useState(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
+
+  const isMobile = width <= 768;
+
   return (
     <Box
       sx={{
@@ -36,10 +53,10 @@ const Dashboard = () => {
       }}
     >
       <Grid container>
-        <Grid item xs={2} style={{ backgroundColor: "#10182e" }}>
+        {isMobile ? "" : <Grid item xs={2} style={{ backgroundColor: "#10182e" }}>
           <DashboardSidebar />
-        </Grid>
-        <Grid item xs={10}>
+        </Grid>}
+        <Grid item xs={isMobile ? 12 : 10}>
           <AuthAppBar />
           <h1>Dashboard</h1>
           <h2>
@@ -54,7 +71,7 @@ const Dashboard = () => {
             marginTop="5vh"
           >
             {allUsers.map((user) => (
-              <div style={{ marginBottom: "8vh", marginLeft: "8vh" }}>
+              <div style={{ marginBottom: "4%", marginLeft: "4%", marginRight: "4%" }}>
                 <ProfileCard
                   name={user.name || user.userName}
                   contact={user.contact}

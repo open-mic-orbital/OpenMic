@@ -35,7 +35,7 @@ const DashboardButton = (props) => {
             px: 2,
             textAlign: "center",
             textTransform: "none",
-            width: "25vh",
+            width: "100%",
             "& .MuiButton-startIcon": {
               color: "#f78104",
             },
@@ -49,8 +49,8 @@ const DashboardButton = (props) => {
             fill="white"
             src={window.location.pathname === href ? selected : unselected}
             alt={title}
-            width={"17%"}
-            style={{ paddingRight: "2vh" }}
+            width={"12%"}
+            style={{ paddingRight: "5%" }}
           />
           <Box sx={{ flexGrow: 1 }}>{title}</Box>
         </Button>

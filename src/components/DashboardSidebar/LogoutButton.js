@@ -49,7 +49,7 @@ const LogoutButton = () => {
             px: 2,
             textAlign: "center",
             textTransform: "none",
-            width: "25vh",
+            width: "100%",
             "& .MuiButton-startIcon": {
               color: "#f78104",
             },
@@ -63,8 +63,8 @@ const LogoutButton = () => {
             fill="white"
             src={logout}
             alt="Logout Button"
-            width={25}
-            style={{ paddingRight: "2vh" }}
+            width={"25%"}
+            style={{ paddingRight: "5%" }}
           />
           <Box sx={{ flexGrow: 1 }}>Logout</Box>
         </Button>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Grid, Card, Button } from "@mui/material";
 import {
   Dialog,
@@ -19,6 +19,20 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const Settings = () => {
   const [open, setOpen] = React.useState(false);
+
+  const [width, setWidth] = useState(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
+
+  const isMobile = width <= 768;
 
   const handleConfirmationOpen = () => {
     setOpen(true);
@@ -43,24 +57,26 @@ const Settings = () => {
     }
     const data = await response.json();
     return data;
-  }
+  };
   const handleDeleteAccount = () => {
     setOpen(false);
-    deleteUser().then((obj) => {
-      if (obj._id) {
-        window.localStorage.clear();
-        window.location.href = "/";
-        alert("Account Deleted! You will now be redirected to the homepage.");
-      } else {
-        throw new Error("Deletion failed");
-      }
-    }).catch((e) => {
-      if (e.code) {
-        alert("Deletion failed! Please try again later.");
-      } else {
-        alert("Deletion failed! Please check your network.");
-      }
-    });
+    deleteUser()
+      .then((obj) => {
+        if (obj._id) {
+          window.localStorage.clear();
+          window.location.href = "/";
+          alert("Account Deleted! You will now be redirected to the homepage.");
+        } else {
+          throw new Error("Deletion failed");
+        }
+      })
+      .catch((e) => {
+        if (e.code) {
+          alert("Deletion failed! Please try again later.");
+        } else {
+          alert("Deletion failed! Please check your network.");
+        }
+      });
   };
 
   return (
@@ -73,10 +89,14 @@ const Settings = () => {
       }}
     >
       <Grid container>
-        <Grid item xs={2} style={{ backgroundColor: "#10182e" }}>
-          <DashboardSidebar />
-        </Grid>
-        <Grid item xs={10}>
+        {isMobile ? (
+          ""
+        ) : (
+          <Grid item xs={2} style={{ backgroundColor: "#10182e" }}>
+            <DashboardSidebar />
+          </Grid>
+        )}
+        <Grid item xs={isMobile ? 12 : 10}>
           <AuthAppBar />
           <h1>Settings</h1>
           <Box marginLeft="20%" width="60%">
