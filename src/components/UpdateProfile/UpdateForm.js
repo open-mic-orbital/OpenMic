@@ -31,18 +31,22 @@ const UpdateForm = (props, { handleClose }) => {
   };
 
   const onSubmit = (data) => {
-    const newData = {
-      name: data.DisplayName,
-      description: data.Description,
-      contact: data.Contact,
-      // image: uploadedImage,
-      enabled:
-        data.Description !== "No decription provided" &&
-        data.Contact !== "No username provided",
-    };
-    setUser(newData);
-    updateUser(newData);
-    localStorage.setItem("user", JSON.stringify(newData));
+    if (uploadedImage.size > 1000000) {
+      alert("Image size is too big. Images should be less than 1MB.");
+    } else {
+      const newData = {
+        name: data.DisplayName,
+        description: data.Description,
+        contact: data.Contact,
+        // image: uploadedImage,
+        enabled:
+          data.Description !== "No decription provided" &&
+          data.Contact !== "No username provided",
+      };
+      setUser(newData);
+      updateUser(newData);
+      localStorage.setItem("user", JSON.stringify(newData));
+    }
   };
 
   return (
@@ -152,7 +156,7 @@ const UpdateForm = (props, { handleClose }) => {
                 <input
                   type="file"
                   name="file"
-                  accept="image/*"
+                  accept="image/jpeg, image/jpg, image/png"
                   onChange={fileUploadHandler}
                   hidden
                 />
