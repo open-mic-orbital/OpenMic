@@ -31,14 +31,11 @@ const UpdateForm = (props, { handleClose }) => {
   };
 
   const onSubmit = (data) => {
-    if (uploadedImage.size > 1000000) {
-      alert("Image size is too big. Images should be less than 1MB.");
-    } else {
+    if (uploadedImage == null) {
       const newData = {
         name: data.DisplayName,
         description: data.Description,
         contact: data.Contact,
-        // image: uploadedImage,
         enabled:
           data.Description !== "No decription provided" &&
           data.Contact !== "No username provided",
@@ -46,6 +43,23 @@ const UpdateForm = (props, { handleClose }) => {
       setUser(newData);
       updateUser(newData);
       localStorage.setItem("user", JSON.stringify(newData));
+    } else {
+      if (uploadedImage.size > 1000000) {
+        alert("Image size is too big. Images should be less than 1MB.");
+      } else {
+        const newData = {
+          name: data.DisplayName,
+          description: data.Description,
+          contact: data.Contact,
+          img: uploadedImage,
+          enabled:
+            data.Description !== "No decription provided" &&
+            data.Contact !== "No username provided",
+        };
+        setUser(newData);
+        updateUser(newData);
+        localStorage.setItem("user", JSON.stringify(newData));
+      }
     }
   };
 
