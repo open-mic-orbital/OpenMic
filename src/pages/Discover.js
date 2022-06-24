@@ -59,7 +59,7 @@ const Discover = () => {
       <Box sx={{ flexGrow: 1, color: "white", overflow: "scroll" }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-          {myProfile ? <AuthAppBar logo={true} /> : <UnauthAppBar />}
+            {myProfile ? <AuthAppBar logo={true} /> : <UnauthAppBar />}
           </Grid>
         </Grid>
         <h1>Discover</h1>

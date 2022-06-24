@@ -1,9 +1,8 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import AuthAppBar from "../components/AuthAppBar/AuthAppBar";
 import DashboardSidebar from "../components/DashboardSidebar/DashboardSidebar";
-import { UserContext } from "../components/UserContext";
 import ProfileCard from "../components/ProfileCard/ProfileCard";
 import url from "../utils/url";
 
@@ -19,14 +18,11 @@ const getUsers = async () => {
 };
 
 const Dashboard = () => {
-  const { user, setUser } = useContext(UserContext);
-
   const [allUsers, setAllUsers] = useState([]);
 
   useEffect(() => {
     const promise = getUsers();
     promise.then((data) => setAllUsers((allUsers) => allUsers.concat(data)));
-    console.log(promise);
   }, []);
 
   const [width, setWidth] = useState(window.innerWidth);
@@ -66,7 +62,8 @@ const Dashboard = () => {
           <h2>
             Welcome,{" "}
             {JSON.parse(localStorage.getItem("user")).name ||
-              JSON.parse(localStorage.getItem("user")).userName}.
+              JSON.parse(localStorage.getItem("user")).userName}
+            .
           </h2>
           <p>
             Get in touch with these other users looking to connect. Click on

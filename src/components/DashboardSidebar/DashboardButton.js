@@ -61,11 +61,12 @@ const DashboardButton = (props) => {
 
 export default DashboardButton;
 
-// Suppresses warnings about duplicate keys.
+// Suppresses warnings about duplicate keys and HTML text elements
 const backup = console.error;
 console.error = function filterWarnings(msg) {
   const supressedWarnings = [
     'Each child in a list should have a unique "key" prop.',
+    "cannot appear",
   ];
   if (!supressedWarnings.some((entry) => msg.includes(entry))) {
     backup.apply(console, arguments);

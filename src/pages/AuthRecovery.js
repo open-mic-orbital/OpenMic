@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
 import UnauthAppBar from "../components/UnauthAppBar/UnauthAppBar";
 import { Box, Card, Divider, Grid, Stack } from "@mui/material";
-import { useLocation } from "react-router-dom";
-import LoginSignupTabs from "../components/Auth/LoginSignupTabs";
 import OpenMicLogo from "../utils/images/OpenMicLogoBlack.png";
 import PasswordRecoveryForm from "../components/Auth/PasswordRecoveryForm";
 
 const AuthRecovery = () => {
-  const location = useLocation();
-
   const [width, setWidth] = useState(window.innerWidth);
 
   function handleWindowSizeChange() {

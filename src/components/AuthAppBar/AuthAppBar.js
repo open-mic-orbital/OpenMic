@@ -1,16 +1,18 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
+import React, { useState, useEffect } from "react";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Avatar,
+  Button,
+  Tooltip,
+  MenuItem,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
 import openMicLogo from "../../utils/images/OpenMicLogo.png";
 import { Link } from "react-router-dom";
 import url from "../../utils/url";
@@ -61,22 +63,41 @@ const AuthAppBar = (props) => {
     setAnchorElUser(null);
   };
 
+  const [width, setWidth] = useState(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
+
+  const isMobile = width <= 768;
+
   return (
     <AppBar
       position="static"
       elevation={0}
       sx={{
         bgcolor: "#009c95",
-        paddingLeft: "5vh",
-        paddingTop: "2vh",
-        paddingBottom: "2vh",
+        paddingLeft: "6%",
+        paddingTop: "1%",
+        paddingBottom: "1%",
       }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {displayLogo && (
             <Link to="/">
-              <img src={openMicLogo} className="Logo" height={50} alt="logo" />
+              <img
+                src={openMicLogo}
+                className="Logo"
+                height={isMobile ? 30 : 50}
+                alt="logo"
+              />
             </Link>
           )}
 
@@ -88,6 +109,7 @@ const AuthAppBar = (props) => {
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
               color="inherit"
+              sx={{ marginLeft: "0%" }}
             >
               <MenuIcon />
             </IconButton>
@@ -125,6 +147,24 @@ const AuthAppBar = (props) => {
               >
                 <Typography textAlign="center">About Us</Typography>
               </MenuItem>
+              {settings.map((setting) => (
+                <MenuItem
+                  key={setting}
+                  onClick={handleCloseUserMenu}
+                  component={Link}
+                  to={"/" + setting}
+                >
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))}
+              <MenuItem
+                key="logout"
+                onClick={logoutAndClear}
+                component={Link}
+                to="/"
+              >
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
@@ -158,11 +198,12 @@ const AuthAppBar = (props) => {
             <Tooltip title="Open settings">
               <IconButton
                 onClick={handleOpenUserMenu}
-                sx={{ p: 0, paddingRight: "5vh" }}
+                sx={{ p: 0, paddingRight: isMobile ? "3vh" : "5vh" }}
               >
                 <Avatar
                   alt={myProfile.name}
                   src={myProfile.image || "/static/images/avatar/2.jpg"}
+                  sx={{ width: isMobile ? 30 : 50, height: isMobile ? 30 : 50 }}
                 />
               </IconButton>
             </Tooltip>
