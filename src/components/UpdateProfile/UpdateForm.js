@@ -20,12 +20,16 @@ const UpdateForm = (props, { handleClose }) => {
   const updateUser = async (data) => {
     const formData = new FormData();
 
-    formData.append('name', data['DisplayName']);
-    formData.append('description', data['Description']);
-    formData.append('contact', data['Contact']);
-    formData.append('enabled', true);
+    formData.append("name", data["DisplayName"]);
+    formData.append("description", data["Description"]);
+    formData.append("contact", data["Contact"]);
+    formData.append(
+      "enabled",
+      data["Description"] !== "No description provided" &&
+        data["Contact"] !== "No username provided"
+    );
     if (uploadedImage != null) {
-      formData.append('img', uploadedImage);
+      formData.append("img", uploadedImage);
     }
 
     const response = await fetch(url + "/users/me", {
@@ -33,9 +37,9 @@ const UpdateForm = (props, { handleClose }) => {
       headers: {
         Authorization: localStorage.getItem("token"),
       },
-      body: formData
+      body: formData,
     });
-    
+
     const responseJSON = await response.json();
     return responseJSON;
   };
@@ -44,13 +48,15 @@ const UpdateForm = (props, { handleClose }) => {
     if (uploadedImage == null) {
       // const newUser = updateUser(data);
       // localStorage.setItem("user", newUser);
-      updateUser(data).then(newUser => {
-        console.log(newUser);
-        localStorage.setItem("user", JSON.stringify(newUser));
-        setUser(newUser);
-      }).catch(e => {
-        alert("An error occured. Please try again later.")
-      })
+      updateUser(data)
+        .then((newUser) => {
+          console.log(newUser);
+          localStorage.setItem("user", JSON.stringify(newUser));
+          setUser(newUser);
+        })
+        .catch((e) => {
+          alert("An error occured. Please try again later.");
+        });
     } else {
       if (uploadedImage.size > 1000000) {
         alert("Image size is too big. Images should be less than 1MB.");
@@ -59,13 +65,15 @@ const UpdateForm = (props, { handleClose }) => {
         // setUser(newData);
         // const newUser = updateUser(data);
         // localStorage.setItem("user", newUser);
-        updateUser(data).then(newUser => {
-          console.log(newUser);
-          localStorage.setItem("user", JSON.stringify(newUser));
-          setUser(newUser);
-        }).catch(e => {
-          alert("An error occured. Please try again later.")
-        })
+        updateUser(data)
+          .then((newUser) => {
+            console.log(newUser);
+            localStorage.setItem("user", JSON.stringify(newUser));
+            setUser(newUser);
+          })
+          .catch((e) => {
+            alert("An error occured. Please try again later.");
+          });
       }
     }
   };

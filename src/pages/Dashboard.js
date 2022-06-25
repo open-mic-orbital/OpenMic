@@ -18,6 +18,11 @@ const getUsers = async () => {
 };
 
 const Dashboard = () => {
+  const myProfile = JSON.parse(localStorage.getItem("user"));
+  if (!myProfile.enabled) {
+    window.location.href = "/Profile";
+  }
+
   const [allUsers, setAllUsers] = useState([]);
 
   useEffect(() => {
