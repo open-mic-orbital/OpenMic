@@ -3,19 +3,6 @@ import { Card, TextField, Button, CircularProgress } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import url from "../../utils/url";
 
-const updateUser = async (user) => {
-  const response = await fetch(url + "/users/me", {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: localStorage.getItem("token"),
-    },
-    body: JSON.stringify(user),
-  });
-  const data = await response.json();
-  return data;
-};
-
 const UpdatePasswordForm = ({ handleClose }) => {
   const { handleSubmit, control } = useForm();
 
@@ -40,6 +27,24 @@ const UpdatePasswordForm = ({ handleClose }) => {
   const [submitted, setSubmitted] = React.useState(false);
   const [error, setError] = React.useState(false);
 
+  const updateUser = async () => {
+    const response = await fetch(url + "/users/me", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+      body: JSON.stringify({ password }),
+    });
+    if (!response.ok) {
+      const error = new Error(`An error occured: ${response.status}`);
+      error.code = response.status;
+      throw error;
+    }
+    const responseJSON = await response.json();
+    return responseJSON;
+  };
+
   const onSubmit = (data) => {
     setError(false);
     setLoading(true);
@@ -61,33 +66,22 @@ const UpdatePasswordForm = ({ handleClose }) => {
       setError(true);
       alert("Password must not contain the word 'password'");
     } else {
-      try {
-        // const data = postLogin();
-        // data
-        //   .then((obj) => {
-        //     if (obj.token) {
-        //       // alert("Login succesful!");
-        //       localStorage.setItem("user", JSON.stringify(obj.user));
-        //       localStorage.setItem("token", "Bearer " + obj.token);
-        //       window.location.href = obj.enabled ? "/Dashboard" : "/Profile";
-        //       setError(false);
-        //       setSubmitted(true);
-        //     } else {
-        //       setLoading(false);
-        //       throw new Error("Invalid login");
-        //     }
-        //   })
-        //   .catch((e) => {
-        //     setLoading(false);
-        //     alert("Login failed!");
-        //     console.log(e);
-        //     setError(true);
-        //   });
-      } catch (e) {
+      updateUser().then((user) => {
         setLoading(false);
-        alert("Password update unsuccesful.");
-        setError(true);
-      }
+        setError(false);
+        setSubmitted(true);
+        alert("Password update successful!");
+      }).catch((e) => {
+        if (e.code) {
+          setLoading(false);
+          alert("Password update failed! Please try again later.");
+          setError(true);
+        } else {
+          setLoading(false);
+          alert("Password update failed! Please check your network.");
+          setError(true);
+        }
+      });
     }
   };
 
