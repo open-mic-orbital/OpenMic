@@ -86,7 +86,7 @@ const Dashboard = () => {
                 <ProfileCard
                   name={user.name || user.userName}
                   contact={user.contact}
-                  desc={user.desc}
+                  description={user.description}
                 />
               </div>
             ))}
