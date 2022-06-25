@@ -39,10 +39,10 @@ const ProfileCard = (props) => {
             <CardMedia
               component="img"
               image={
-                props.image ||
+                "data:image/*;base64," + props.image ||
                 "https://cdn.costumewall.com/wp-content/uploads/2018/09/jon-arbuckle.jpg"
               }
-              alt="Profile Image"
+              alt="Upload Image"
               style={{
                 borderRadius: "50%",
                 height: "100px",

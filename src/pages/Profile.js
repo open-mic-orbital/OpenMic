@@ -64,7 +64,7 @@ const Profile = () => {
                 name={user.name || user.userName}
                 contact={user.contact}
                 description={user.description}
-                image={user.image}
+                image={user.img}
               />
             </div>
             <div

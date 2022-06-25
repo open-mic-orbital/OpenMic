@@ -87,6 +87,7 @@ const Dashboard = () => {
                   name={user.name || user.userName}
                   contact={user.contact}
                   description={user.description}
+                  image={user.img}
                 />
               </div>
             ))}

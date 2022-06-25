@@ -202,7 +202,7 @@ const AuthAppBar = (props) => {
               >
                 <Avatar
                   alt={myProfile.name}
-                  src={myProfile.image || "/static/images/avatar/2.jpg"}
+                  src={myProfile.img|| "/static/images/avatar/2.jpg"}
                   sx={{ width: isMobile ? 30 : 50, height: isMobile ? 30 : 50 }}
                 />
               </IconButton>

@@ -3,19 +3,6 @@ import { Card, TextField, Button } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import url from "../../utils/url";
 
-const updateUser = async (user) => {
-  const response = await fetch(url + "/users/me", {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: localStorage.getItem("token"),
-    },
-    body: JSON.stringify(user),
-  });
-  const data = await response.json();
-  return data;
-};
-
 const UpdateForm = (props, { handleClose }) => {
   const { handleSubmit, control } = useForm();
 
@@ -30,35 +17,55 @@ const UpdateForm = (props, { handleClose }) => {
     setUploadedImage(event.target.files[0]);
   };
 
+  const updateUser = async (data) => {
+    const formData = new FormData();
+
+    formData.append('name', data['DisplayName']);
+    formData.append('description', data['Description']);
+    formData.append('contact', data['Contact']);
+    formData.append('enabled', true);
+    if (uploadedImage != null) {
+      formData.append('img', uploadedImage);
+    }
+
+    const response = await fetch(url + "/users/me", {
+      method: "PATCH",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+      body: formData
+    });
+    
+    const responseJSON = await response.json();
+    return responseJSON;
+  };
+
   const onSubmit = (data) => {
     if (uploadedImage == null) {
-      const newData = {
-        name: data.DisplayName,
-        description: data.Description,
-        contact: data.Contact,
-        enabled:
-          data.Description !== "No decription provided" &&
-          data.Contact !== "No username provided",
-      };
-      setUser(newData);
-      updateUser(newData);
-      localStorage.setItem("user", JSON.stringify(newData));
+      // const newUser = updateUser(data);
+      // localStorage.setItem("user", newUser);
+      updateUser(data).then(newUser => {
+        console.log(newUser);
+        localStorage.setItem("user", JSON.stringify(newUser));
+        setUser(newUser);
+      }).catch(e => {
+        alert("An error occured. Please try again later.")
+      })
     } else {
       if (uploadedImage.size > 1000000) {
         alert("Image size is too big. Images should be less than 1MB.");
       } else {
-        const newData = {
-          name: data.DisplayName,
-          description: data.Description,
-          contact: data.Contact,
-          img: uploadedImage,
-          enabled:
-            data.Description !== "No decription provided" &&
-            data.Contact !== "No username provided",
-        };
-        setUser(newData);
-        updateUser(newData);
-        localStorage.setItem("user", JSON.stringify(newData));
+        console.log(uploadedImage);
+        // setUser(newData);
+        // const newUser = updateUser(data);
+        // localStorage.setItem("user", newUser);
+        updateUser(data).then(newUser => {
+          console.log(newUser);
+          localStorage.setItem("user", JSON.stringify(newUser));
+          setUser(newUser);
+        }).catch(e => {
+          alert("An error occured. Please try again later.")
+        })
       }
     }
   };
