@@ -62,9 +62,6 @@ const UpdateForm = (props, { handleClose }) => {
         alert("Image size is too big. Images should be less than 1MB.");
       } else {
         console.log(uploadedImage);
-        // setUser(newData);
-        // const newUser = updateUser(data);
-        // localStorage.setItem("user", newUser);
         updateUser(data)
           .then((newUser) => {
             console.log(newUser);
