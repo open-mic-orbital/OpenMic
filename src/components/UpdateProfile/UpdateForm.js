@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, TextField, Button } from "@mui/material";
+import { Card, TextField, Button, CircularProgress } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import url from "../../utils/url";
 
@@ -9,6 +9,10 @@ const UpdateForm = (props, { handleClose }) => {
   const myProfile = props.props.user;
   const setUser = props.props.setUser;
 
+  // State for loading indicator
+  const [loading, setLoading] = React.useState(false);
+
+  // State for description word count
   const [count, setCount] = React.useState(0);
 
   const [uploadedImage, setUploadedImage] = React.useState(null);
@@ -45,31 +49,37 @@ const UpdateForm = (props, { handleClose }) => {
   };
 
   const onSubmit = (data) => {
+    setLoading(true);
     if (uploadedImage == null) {
-      // const newUser = updateUser(data);
-      // localStorage.setItem("user", newUser);
       updateUser(data)
         .then((newUser) => {
           console.log(newUser);
           localStorage.setItem("user", JSON.stringify(newUser));
           setUser(newUser);
         })
+        .then((v) => {
+          setLoading(false);
+        })
         .catch((e) => {
           alert("An error occured. Please try again later.");
+          setLoading(false);
         });
     } else {
       if (uploadedImage.size > 1000000) {
         alert("Image size is too big. Images should be less than 1MB.");
       } else {
-        console.log(uploadedImage);
         updateUser(data)
           .then((newUser) => {
             console.log(newUser);
             localStorage.setItem("user", JSON.stringify(newUser));
             setUser(newUser);
           })
+          .then((v) => {
+            setLoading(false);
+          })
           .catch((e) => {
             alert("An error occured. Please try again later.");
+            setLoading(false);
           });
       }
     }
@@ -208,12 +218,13 @@ const UpdateForm = (props, { handleClose }) => {
             type="submit"
             variant="contained"
             color="primary"
+            disabled={loading}
             sx={{
               backgroundColor: "#009c95",
               color: "white",
             }}
           >
-            Update
+            {(!loading && "Update") || <CircularProgress size={20} />}
           </Button>
         </div>
       </form>
