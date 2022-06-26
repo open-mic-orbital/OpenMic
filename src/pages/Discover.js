@@ -1,9 +1,7 @@
-import React from "react";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import React, { useState, useEffect } from "react";
+import { Box, Grid, Tab, Tabs, Typography } from "@mui/material";
 import UnauthAppBar from "../components/UnauthAppBar/UnauthAppBar";
 import AuthAppBar from "../components/AuthAppBar/AuthAppBar";
-import { Tab, Tabs, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import ForArtistsDiscover from "../components/DiscoverContent/ForArtistsDiscover";
 import ForVenuesDiscover from "../components/DiscoverContent/ForVenuesDiscover";
@@ -54,6 +52,20 @@ const Discover = () => {
     setValue(newValue);
   };
 
+  const [width, setWidth] = useState(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
+
+  const isMobile = width <= 768;
+
   return (
     <>
       <Box sx={{ flexGrow: 1, color: "white", overflow: "scroll" }}>
@@ -62,20 +74,57 @@ const Discover = () => {
             {myProfile ? <AuthAppBar logo={true} /> : <UnauthAppBar />}
           </Grid>
         </Grid>
-        <h1>Discover</h1>
-        <Typography
-          width="50%"
-          align="center"
-          sx={{ paddingLeft: "25%", paddingBottom: "2vh" }}
+        <Box
+          sx={{
+            margin: "2%",
+            marginLeft: isMobile ? "10%" : "25%",
+            marginRight: isMobile ? "10%" : "25%",
+            bgcolor: "#009c95",
+            borderRadius: "20px",
+            border: "2px dashed #10182e",
+          }}
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </Typography>
+          <h2 style={{ color: "white" }}>Our Mission</h2>
+          <Typography
+            width="70%"
+            align="center"
+            sx={{
+              paddingLeft: "15%",
+              paddingBottom: "4%",
+              color: "white",
+            }}
+          >
+            To connect artists and venues for a smoother live entertainment
+            planning experience.
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            margin: "2%",
+            marginLeft: isMobile ? "10%" : "25%",
+            marginRight: isMobile ? "10%" : "25%",
+            bgcolor: "#f78104",
+            borderRadius: "20px",
+            border: "2px dashed #10182e",
+          }}
+        >
+          <h2 style={{ color: "#10182e" }}>The Problem</h2>
+          <Typography
+            width="70%"
+            align="justify"
+            sx={{ paddingLeft: "15%", paddingBottom: "4%", color: "#10182e" }}
+          >
+            1. Currently, success in the live entertainment industry relies on
+            personal networks. This makes it an uneven playing field for
+            up-and-coming <b>artists</b>.
+            <br />
+            2. Due to the overreliance on connections in the gigging economy, it
+            can be difficult for <b>venues</b> to find the right talent to
+            complement their ambience.
+            <br /> <br />
+            We aim to fix <b>both</b> of these issues in one go.
+          </Typography>
+        </Box>
         <Box sx={{ width: "100%" }}>
           <Box
             sx={{ borderBottom: 1, borderColor: "rgba(255, 255, 255, 0.1)" }}
