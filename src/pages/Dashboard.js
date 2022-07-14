@@ -63,7 +63,7 @@ const Dashboard = () => {
         )}
         <Grid item xs={isMobile ? 12 : 10}>
           <AuthAppBar />
-          <h1>Dashboard</h1>
+          <h1>Explore</h1>
           <h2>
             Welcome,{" "}
             {JSON.parse(localStorage.getItem("user")).name ||

@@ -16,10 +16,10 @@ import settingsSelected from "../../utils/svg/settingsSelected.svg";
 
 const items = [
   {
-    href: "/Dashboard",
+    href: "/Explore",
     unselected: dashboardUnselected,
     selected: dashboardSelected,
-    title: "Dashboard",
+    title: "Explore",
   },
   // Chat will be added in Milestone 3.
   // {

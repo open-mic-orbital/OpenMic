@@ -68,7 +68,7 @@ const LoginForm = () => {
           setUser(obj.user);
           localStorage.setItem("user", JSON.stringify(obj.user));
           localStorage.setItem("token", "Bearer " + obj.token);
-          window.location.href = obj.enabled ? "/Dashboard" : "/Profile";
+          window.location.href = obj.user.enabled ? "/Explore" : "/Profile";
           setError(false);
           setSubmitted(true);
         } else {

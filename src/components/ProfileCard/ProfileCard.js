@@ -11,8 +11,8 @@ const ProfileCard = (props) => {
   return (
     <Card
       sx={{
-        minWidth: 300,
-        maxWidth: 345,
+        minWidth: 325,
+        maxWidth: 325,
         bgcolor: "#fff",
         borderRadius: "20px",
       }}

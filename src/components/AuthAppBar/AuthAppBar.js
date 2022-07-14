@@ -17,7 +17,7 @@ import openMicLogo from "../../utils/images/OpenMicLogo.png";
 import { Link } from "react-router-dom";
 import url from "../../utils/url";
 
-const settings = ["Dashboard", "Profile", "Settings"];
+const settings = ["Explore", "Profile", "Settings"];
 
 const postLogout = async () => {
   const response = await fetch(url + "/users/logout", {

@@ -42,6 +42,28 @@ const Settings = () => {
     setOpen(false);
   };
 
+  const handleLogoutEverywhere = () => {
+    fetch(url + "/api/logoutAll", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          window.location.href = "/";
+        }
+      }
+      ).catch((err) => {
+        console.log(err);
+      }
+      );
+  }
+
   const deleteUser = async () => {
     const response = await fetch(url + "/users/me", {
       method: "DELETE",
@@ -106,6 +128,37 @@ const Settings = () => {
                 bgcolor: "#fff",
                 borderRadius: "20px",
                 marginTop: "5%",
+              }}
+            >
+              <div>
+                <h2>Logout From All Devices</h2>
+                <p style={{ marginLeft: "10%", width: "80%", color: "gray" }}>
+                  Press this button to log out from OpenMic on every device your
+                  account is currently logged into.
+                </p>
+              </div>
+              <div style={{ margin: "2vh" }}>
+                <Button
+                  disableElevation
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  onClick={handleLogoutEverywhere}
+                  sx={{
+                    backgroundColor: "#db3a37",
+                    color: "white",
+                  }}
+                >
+                  Logout All
+                </Button>
+              </div>
+            </Card>
+            <Card
+              sx={{
+                bgcolor: "#fff",
+                borderRadius: "20px",
+                marginTop: "5%",
+                marginBottom: "5%",
               }}
             >
               <div>
