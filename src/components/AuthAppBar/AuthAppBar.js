@@ -8,11 +8,9 @@ import {
   Menu,
   Container,
   Avatar,
-  Button,
   Tooltip,
   MenuItem,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import openMicLogo from "../../utils/images/OpenMicLogo.png";
 import { Link } from "react-router-dom";
 import url from "../../utils/url";

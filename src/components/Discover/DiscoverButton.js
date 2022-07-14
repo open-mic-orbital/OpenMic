@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ThemeProvider } from "@emotion/react";
 import theme from "../../theme";
 import { Link } from "react-router-dom";
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 
 const DiscoverButton = () => {
   const [width, setWidth] = useState(window.innerWidth);

@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Box, Grid, Stack } from "@mui/material";
 import UnauthAppBar from "../components/UnauthAppBar/UnauthAppBar";
-import AuthAppBar from "../components/AuthAppBar/AuthAppBar";
 import MainText from "../components/MainText/MainText";
 import Icons from "../utils/images/Icons.png";
-import ForArtistsButton from "../components/ForEachButton/ForArtistsButton";
-import ForVenuesButton from "../components/ForEachButton/ForVenuesButton";
 import DiscoverButton from "../components/Discover/DiscoverButton";
 
 function Landing() {
-  const myProfile = JSON.parse(localStorage.getItem("user"));
-
   const [width, setWidth] = useState(window.innerWidth);
 
   function handleWindowSizeChange() {

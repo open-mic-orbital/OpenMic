@@ -28,7 +28,7 @@ function MainText() {
         <h1 style={{ fontSize: isMobile ? "300%" : "445%" }}>
           Live Entertainment,<br></br>just a tap away.
         </h1>
-        <p style={{ fontSize: "150%", color: "grey" }}>Sign up now.</p>
+        <p style={{ fontSize: "150%", color: "grey" }}>Sign up today!</p>
       </Box>
     </>
   );
