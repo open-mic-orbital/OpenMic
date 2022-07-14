@@ -91,7 +91,7 @@ const AuthAppBar = (props) => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {displayLogo && (
-            <Link to="/">
+            <Link to="/Explore">
               <img
                 src={openMicLogo}
                 className="Logo"
@@ -102,96 +102,16 @@ const AuthAppBar = (props) => {
           )}
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-              sx={{ marginLeft: "0%" }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              <MenuItem
-                key={"Discover"}
-                onClick={handleCloseNavMenu}
-                component={Link}
-                to="Discover"
-              >
-                <Typography textAlign="center">Discover</Typography>
-              </MenuItem>
-              <MenuItem
-                key={"AboutUs"}
-                onClick={handleCloseNavMenu}
-                component={Link}
-                to="AboutUs"
-              >
-                <Typography textAlign="center">About Us</Typography>
-              </MenuItem>
-              {settings.map((setting) => (
-                <MenuItem
-                  key={setting}
-                  onClick={handleCloseUserMenu}
-                  component={Link}
-                  to={"/" + setting}
-                >
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-              <MenuItem
-                key="logout"
-                onClick={logoutAndClear}
-                component={Link}
-                to="/"
-              >
-                <Typography textAlign="center">Logout</Typography>
-              </MenuItem>
-            </Menu>
+          <Link to="/Explore">
+              <img
+                src={openMicLogo}
+                className="Logo"
+                height={30}
+                alt="logo"
+              />
+            </Link>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Button
-              href="Discover"
-              onClick={handleCloseNavMenu}
-              sx={{
-                marginLeft: "4vh",
-                my: 2,
-                color: "white",
-                display: "block",
-                marginRight: "4vh",
-              }}
-            >
-              Discover
-            </Button>
-            <Button
-              href="AboutUs"
-              onClick={handleCloseNavMenu}
-              sx={{
-                my: 2,
-                color: "white",
-                display: "block",
-              }}
-            >
-              About Us
-            </Button>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

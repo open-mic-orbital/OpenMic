@@ -6,6 +6,7 @@ import MainText from "../components/MainText/MainText";
 import Icons from "../utils/images/Icons.png";
 import ForArtistsButton from "../components/ForEachButton/ForArtistsButton";
 import ForVenuesButton from "../components/ForEachButton/ForVenuesButton";
+import DiscoverButton from "../components/Discover/DiscoverButton";
 
 function Landing() {
   const myProfile = JSON.parse(localStorage.getItem("user"));
@@ -28,7 +29,7 @@ function Landing() {
     <Box sx={{ flexGrow: 1, color: "white", overflow: "scroll" }}>
       <Grid container spacing={2}>
         <Grid item xs={12} sx={{ paddingBottom: "5vh" }}>
-          {myProfile ? <AuthAppBar logo={true} /> : <UnauthAppBar />}
+          <UnauthAppBar />
         </Grid>
         {isMobile ? (
           <Box>
@@ -44,8 +45,7 @@ function Landing() {
             spacing={2}
             sx={{ paddingLeft: isMobile ? "5%" : "15%" }}
           >
-            <ForArtistsButton />
-            <ForVenuesButton />
+            <DiscoverButton />
           </Stack>
         </Grid>
         <Grid item xs={6}>
