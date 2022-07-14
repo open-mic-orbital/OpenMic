@@ -1,56 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grid, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Grid, Typography, Card, Divider } from "@mui/material";
 import UnauthAppBar from "../components/UnauthAppBar/UnauthAppBar";
 import AuthAppBar from "../components/AuthAppBar/AuthAppBar";
-import PropTypes from "prop-types";
-import ForArtistsDiscover from "../components/DiscoverContent/ForArtistsDiscover";
-import ForVenuesDiscover from "../components/DiscoverContent/ForVenuesDiscover";
-import { useLocation } from "react-router-dom";
+import ProfileCard from "../components/ProfileCard/ProfileCard";
+import SocialNetwork from "../utils/images/SocialNetwork.png";
+import Stage from "../utils/images/Stage.png";
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
+const sampleUser = {
+  name: "John Appleseed",
+  contact: "johnappleseed",
+  description: "Professional guitarist of 6 years in the Bay Area!",
 };
 
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
-
 const Discover = () => {
-  const location = useLocation();
-  const { tabToDisplay } = location.state || { tabToDisplay: "artists" };
-  const current = tabToDisplay === "artists" ? 0 : 1;
-  const [value, setValue] = React.useState(current);
-
   const myProfile = JSON.parse(localStorage.getItem("user"));
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -68,106 +31,78 @@ const Discover = () => {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1, color: "white", overflow: "scroll" }}>
+      <Box
+        sx={{
+          flexGrow: 1,
+          color: "white",
+          overflow: "scroll",
+        }}
+      >
         <Grid container spacing={2}>
           <Grid item xs={12}>
             {myProfile ? <AuthAppBar logo={true} /> : <UnauthAppBar />}
           </Grid>
         </Grid>
         <Box
-          sx={{
-            margin: "2%",
-            marginLeft: isMobile ? "10%" : "25%",
-            marginRight: isMobile ? "10%" : "25%",
-            bgcolor: "#009c95",
-            borderRadius: "20px",
-            border: "2px dashed #10182e",
-          }}
+          marginLeft={isMobile ? "5%" : "20%"}
+          width={isMobile ? "90%" : "60%"}
+          marginBottom="5%"
         >
-          <h2 style={{ color: "white" }}>Our Mission</h2>
-          <Typography
-            width="70%"
-            align="center"
+          <Card
             sx={{
-              paddingLeft: "15%",
-              paddingBottom: "4%",
-              color: "white",
+              bgcolor: "#009c95",
+              borderRadius: "20px",
+              marginTop: "5%",
             }}
           >
-            To connect artists and venues for a smoother live entertainment
-            planning experience.
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            margin: "2%",
-            marginLeft: isMobile ? "10%" : "25%",
-            marginRight: isMobile ? "10%" : "25%",
-            bgcolor: "#f78104",
-            borderRadius: "20px",
-            border: "2px dashed #10182e",
-          }}
-        >
-          <h2 style={{ color: "#10182e" }}>The Problem</h2>
-          <Typography
-            width="70%"
-            align="justify"
-            sx={{ paddingLeft: "15%", paddingBottom: "4%", color: "#10182e" }}
-          >
-            1. Currently, success in the live entertainment industry relies on
-            personal networks. This makes it an uneven playing field for
-            up-and-coming <b>artists</b>.
-            <br />
-            2. Due to the overreliance on connections in the gigging economy, it
-            can be difficult for <b>venues</b> to find the right talent to
-            complement their ambience.
-            <br /> <br />
-            We aim to fix <b>both</b> of these issues in one go.
-          </Typography>
-        </Box>
-        <Box sx={{ width: "100%" }}>
-          <Box
-            sx={{ borderBottom: 1, borderColor: "rgba(255, 255, 255, 0.1)" }}
-          >
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="basic tabs example"
-              TabIndicatorProps={{
-                style: {
-                  backgroundColor: "rgba(255, 255, 255, 0.4)",
-                },
+            <h2 style={{ color: "white" }}>Our Mission</h2>
+            <Typography
+              align="center"
+              sx={{
+                marginLeft: "6%",
+                marginRight: "6%",
+                marginBottom: "4%",
+                color: "white",
               }}
-              centered
             >
-              <Tab
-                style={{
-                  color: "#f78104",
-                  paddingLeft: "5vh",
-                  paddingRight: "5vh",
-                }}
-                label="For Artists"
-                {...a11yProps(0)}
-                id="for-artists"
+              To connect artists and venues for a smoother live entertainment
+              planning experience.
+            </Typography>
+          </Card>
+          <Card
+            sx={{ bgcolor: "#009c95", borderRadius: "20px", marginTop: "5%" }}
+          >
+            <h2 style={{ color: "white" }}>Our Features</h2>
+            <h3 style={{ color: "white" }}>Profile Customisation</h3>
+            <Box
+              display="flex"
+              flexWrap="wrap"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <ProfileCard
+                name={sampleUser.name}
+                contact={sampleUser.contact}
+                description={sampleUser.description}
               />
-              <Tab
-                style={{
-                  color: "#f78104",
-                  paddingLeft: "5vh",
-                  paddingRight: "5vh",
-                }}
-                label="For Venues"
-                {...a11yProps(1)}
-                id="for-venues"
-              />
-            </Tabs>
-          </Box>
-          <TabPanel value={value} index={0}>
-            <ForArtistsDiscover />
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            <ForVenuesDiscover />
-          </TabPanel>
+              <Typography color={"white"} sx={{ margin: "4%" }}>
+                Customise your profile to attract your target audience!
+              </Typography>
+            </Box>
+            <Divider color="#10182e" />
+            <h3 style={{ color: "white" }}>Social Networking</h3>
+            <img src={SocialNetwork} alt="Social Networking" width="60%" />
+            <Typography color={"white"} sx={{ margin: "4%" }}>
+              Connect with other venues to share your performances!
+            </Typography>
+            <Divider color="#10182e" />
+            <h3 style={{ color: "white" }}>Talent Scouting</h3>
+            <img src={Stage} alt="Talent Scouting" width="60%" />
+            <Typography color={"white"} sx={{ margin: "4%" }}>
+              Find artists to perform at your stage!
+            </Typography>
+          </Card>
         </Box>
       </Box>
     </>

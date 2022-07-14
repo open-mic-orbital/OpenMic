@@ -9,7 +9,7 @@ import nav from "../../utils/images/nav.jpg";
 
 const NavCard = () => {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, margin: "2%" }}>
       <CardMedia component="img" height="200" image={nav} alt="Nav" />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">

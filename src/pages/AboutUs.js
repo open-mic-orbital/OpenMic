@@ -18,11 +18,9 @@ const AboutUs = () => {
         </Grid>
       </Grid>
       <h1>About Us</h1>
-      <Box display="flex" justifyContent="center">
-        <Stack direction="row" spacing={2}>
+      <Box display="flex" flexWrap="wrap" justifyContent="center">
           <KartikCard />
           <NavCard />
-        </Stack>
       </Box>
     </Box>
   );

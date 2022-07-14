@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions, Box } from "@mui/material";
 
 const ProfileCard = (props) => {
-  // const myProfile = JSON.parse(localStorage.getItem("user"));
 
   return (
     <Card
