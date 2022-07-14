@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import { Box, CircularProgress, Grid } from "@mui/material";
 import AuthAppBar from "../components/AuthAppBar/AuthAppBar";
 import DashboardSidebar from "../components/DashboardSidebar/DashboardSidebar";
 import ProfileCard from "../components/ProfileCard/ProfileCard";
@@ -24,10 +23,13 @@ const Dashboard = () => {
   }
 
   const [allUsers, setAllUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const promise = getUsers();
-    promise.then((data) => setAllUsers((allUsers) => allUsers.concat(data)));
+    promise
+      .then((data) => setAllUsers((allUsers) => allUsers.concat(data)))
+      .then(() => setLoading(false));
   }, []);
 
   const [width, setWidth] = useState(window.innerWidth);
@@ -80,6 +82,7 @@ const Dashboard = () => {
             justifyContent="center"
             marginTop="5vh"
           >
+            {loading ? <CircularProgress size={30} /> : ""}
             {allUsers.map((user) => (
               <div
                 style={{

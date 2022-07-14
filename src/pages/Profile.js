@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import AuthAppBar from "../components/AuthAppBar/AuthAppBar";
 import DashboardSidebar from "../components/DashboardSidebar/DashboardSidebar";
 import ProfileCard from "../components/ProfileCard/ProfileCard";
-import { Box, Grid, Stack, Alert } from "@mui/material";
+import { Box, Grid, Alert } from "@mui/material";
 import UpdateForm from "../components/UpdateProfile/UpdateForm";
 
 const Profile = () => {
@@ -44,22 +44,16 @@ const Profile = () => {
           <AuthAppBar />
           {!user.enabled ? (
             <Alert severity="error">
-              Your account is <b>not</b> visible to other users in the
-              dashboard. Fill out the form below to complete your profile and
-              enable visibility.
+              You cannot access the 'Explore' page until your profile is
+              completed. Please complete your profile with a valid <b>Display Name</b>,
+              <b>Description</b> and <b>Instagram</b> username to continue.
             </Alert>
           ) : (
             ""
           )}
           <h1>Profile</h1>
-          <Stack direction={isMobile ? "column" : "row"}>
-            <div
-              style={{
-                marginLeft: "5%",
-                width: "100%",
-                marginTop: "8%",
-              }}
-            >
+          <Box display="flex" flexWrap="wrap" justifyContent="center">
+            <div>
               <ProfileCard
                 name={user.name || user.userName}
                 contact={user.contact}
@@ -70,13 +64,12 @@ const Profile = () => {
             <div
               style={{
                 width: "100%",
-                marginRight: "5%",
-                marginTop: isMobile ? "5%" : "1%",
+                marginTop: isMobile ? "4%" : "1%",
               }}
             >
               <UpdateForm props={{ user, setUser }} />
             </div>
-          </Stack>
+          </Box>
         </Grid>
       </Grid>
     </Box>
