@@ -29,8 +29,8 @@ const UpdateForm = (props, { handleClose }) => {
     formData.append("contact", data["Contact"]);
     formData.append(
       "enabled",
-      data["Description"] !== "No description provided" &&
-        data["Contact"] !== "No username provided"
+      data["Description"] !== "" &&
+        data["Contact"] !== ""
     );
     if (uploadedImage != null) {
       formData.append("img", uploadedImage);
@@ -90,6 +90,7 @@ const UpdateForm = (props, { handleClose }) => {
       sx={{
         bgcolor: "#fff",
         borderRadius: "20px",
+        margin: "5%",
       }}
     >
       <h2 style={{ color: "black" }}>Update Profile</h2>
@@ -107,6 +108,7 @@ const UpdateForm = (props, { handleClose }) => {
                 value={value}
                 onChange={onChange}
                 sx={{
+                  width: { xs: 270, md: 450 },
                   input: { color: "#10182e" },
                 }}
                 InputLabelProps={{
@@ -120,7 +122,7 @@ const UpdateForm = (props, { handleClose }) => {
           <Controller
             name="Description"
             control={control}
-            defaultValue={myProfile.description || "No description provided"}
+            defaultValue={myProfile.description || ""}
             rules={{ required: "Description required" }}
             render={({ field: { onChange, value } }) => (
               <TextField
@@ -133,13 +135,19 @@ const UpdateForm = (props, { handleClose }) => {
                 rows={6}
                 sx={{
                   marginTop: "2vh",
+                  width: { xs: 270, md: 450 },
                   input: { color: "#10182e" },
                 }}
                 inputProps={{ maxLength: 100 }}
                 InputLabelProps={{
                   style: { color: "gray" },
                 }}
-                helperText={`${count}/100`}
+                helperText={
+                  <>
+                    Describle your desired role/experience.<br></br>
+                    {count}/100
+                  </>
+                }
               />
             )}
           />
@@ -148,7 +156,7 @@ const UpdateForm = (props, { handleClose }) => {
           <Controller
             name="Contact"
             control={control}
-            defaultValue={myProfile.contact || "No username provided"}
+            defaultValue={myProfile.contact || ""}
             rules={{ required: "Instagram username required" }}
             render={({ field: { onChange, value } }) => (
               <TextField
@@ -156,8 +164,10 @@ const UpdateForm = (props, { handleClose }) => {
                 variant="outlined"
                 value={value}
                 onChange={onChange}
+                helperText="eg. johnappleseed"
                 sx={{
                   marginTop: "2vh",
+                  width: { xs: 270, md: 450 },
                   input: { color: "#10182e" },
                 }}
                 InputLabelProps={{
@@ -224,7 +234,7 @@ const UpdateForm = (props, { handleClose }) => {
               color: "white",
             }}
           >
-            {(!loading && "Update") || <CircularProgress size={20} />}
+            {(!loading && "Submit") || <CircularProgress size={20} />}
           </Button>
         </div>
       </form>

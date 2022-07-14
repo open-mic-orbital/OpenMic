@@ -43,7 +43,7 @@ const Settings = () => {
   };
 
   const handleLogoutEverywhere = () => {
-    fetch(url + "/api/logoutAll", {
+    fetch(url + "/users/logoutAll", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
