@@ -30,16 +30,45 @@ function App() {
       <UserContext.Provider value={userMemo}>
         <Router>
           <Routes>
-              <Route path="/" element={<Landing />} />
-              <Route path="/Discover" element={<Discover />} />
-              <Route path="*" element={<Navigate to="/" />} />
-              <Route path="/AboutUs" element={<AboutUs />} />
-              <Route path="/Chat" element={myProfile ? <Chat /> : <Navigate to='/Auth' />} />
-              <Route path="/Profile" element={myProfile ? <Profile /> : <Navigate to='/Auth' />} />
-              <Route path="/Settings" element={myProfile ? <Settings /> : <Navigate to='/Auth' />} />
-              <Route path="/Auth" element={<Auth />} />
-              <Route path="/PasswordReset/:id" element={<AuthRecovery />} />
-              <Route path="/Explore" element={myProfile ? <Dashboard /> : <Navigate to='/Auth' />} />
+            <Route
+              path="/"
+              element={!myProfile ? <Landing /> : <Navigate to="/Explore" />}
+            />
+            <Route
+              path="/Discover"
+              element={!myProfile ? <Discover /> : <Navigate to="/Explore" />}
+            />
+            <Route
+              path="*"
+              element={
+                !myProfile ? <Navigate to="/" /> : <Navigate to="/Explore" />
+              }
+            />
+            <Route
+              path="/AboutUs"
+              element={!myProfile ? <AboutUs /> : <Navigate to="/Explore" />}
+            />
+            <Route
+              path="/Chat"
+              element={myProfile ? <Chat /> : <Navigate to="/Auth" />}
+            />
+            <Route
+              path="/Profile"
+              element={myProfile ? <Profile /> : <Navigate to="/Auth" />}
+            />
+            <Route
+              path="/Settings"
+              element={myProfile ? <Settings /> : <Navigate to="/Auth" />}
+            />
+            <Route
+              path="/Auth"
+              element={!myProfile ? <Auth /> : <Navigate to="/Explore" />}
+            />
+            <Route path="/PasswordReset/:id" element={<AuthRecovery />} />
+            <Route
+              path="/Explore"
+              element={myProfile ? <Dashboard /> : <Navigate to="/Auth" />}
+            />
           </Routes>
         </Router>
       </UserContext.Provider>

@@ -54,7 +54,7 @@ const DashboardSidebar = () => {
     >
       {/* Logo */}
       <Box sx={{ p: 3 }}>
-        <Link to="/Dashboard">
+        <Link to="/Explore">
           <img src={OpenMicLogo} className="Logo" height={50} alt="logo" />
         </Link>
       </Box>

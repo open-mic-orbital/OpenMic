@@ -46,7 +46,7 @@ const Profile = () => {
             <Alert severity="error">
               You cannot access the 'Explore' page until your profile is
               completed. Please complete your profile with a valid <b>Display Name</b>,
-              <b>Description</b> and <b>Instagram</b> username to continue.
+              <b> Description</b> and <b>Instagram username</b> to continue.
             </Alert>
           ) : (
             ""

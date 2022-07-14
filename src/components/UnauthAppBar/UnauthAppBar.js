@@ -96,7 +96,7 @@ const UnauthAppBar = () => {
                 key={"Discover"}
                 onClick={handleCloseNavMenu}
                 component={Link}
-                to="Discover"
+                to="/Discover"
               >
                 <Typography textAlign="center">Discover</Typography>
               </MenuItem>
@@ -104,7 +104,7 @@ const UnauthAppBar = () => {
                 key={"AboutUs"}
                 onClick={handleCloseNavMenu}
                 component={Link}
-                to="AboutUs"
+                to="/AboutUs"
               >
                 <Typography textAlign="center">About Us</Typography>
               </MenuItem>
@@ -112,7 +112,7 @@ const UnauthAppBar = () => {
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Button
-              href="Discover"
+              href="/Discover"
               onClick={handleCloseNavMenu}
               sx={{
                 marginLeft: "4vh",
@@ -125,7 +125,7 @@ const UnauthAppBar = () => {
               Discover
             </Button>
             <Button
-              href="AboutUs"
+              href="/AboutUs"
               onClick={handleCloseNavMenu}
               sx={{
                 my: 2,
@@ -137,7 +137,7 @@ const UnauthAppBar = () => {
             </Button>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <LoginSignupButton />
+            {window.location.pathname === "/Auth" ? "" : <LoginSignupButton />}
           </Box>
         </Toolbar>
       </Container>
