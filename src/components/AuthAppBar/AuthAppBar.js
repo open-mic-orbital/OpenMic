@@ -40,7 +40,7 @@ const logoutAndClear = async () => {
 };
 
 const AuthAppBar = (props) => {
-  const myProfile = JSON.parse(localStorage.getItem("user"));
+  const myProfile = JSON.parse(localStorage.getItem("user")) || { name: "", img: null };
   const displayLogo = props.logo || false;
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
