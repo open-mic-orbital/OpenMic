@@ -53,16 +53,15 @@ const Settings = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
-          window.location.href = "/";
+          window.localStorage.clear();
+          alert("Logout success");
+          window.location.reload();
         }
-      }
-      ).catch((err) => {
+      })
+      .catch((err) => {
         console.log(err);
-      }
-      );
-  }
+      });
+  };
 
   const deleteUser = async () => {
     const response = await fetch(url + "/users/me", {
