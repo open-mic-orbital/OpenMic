@@ -24,6 +24,11 @@ const postLogout = async () => {
       Authorization: localStorage.getItem("token"),
     },
   });
+  if (!response.ok) {
+    const error = new Error(`An error occured: ${response.status}`);
+    error.code = response.status;
+    throw error;
+  }
   return response;
 };
 
@@ -40,7 +45,10 @@ const logoutAndClear = async () => {
 };
 
 const AuthAppBar = (props) => {
-  const myProfile = JSON.parse(localStorage.getItem("user")) || { name: "", img: null };
+  const myProfile = JSON.parse(localStorage.getItem("user")) || {
+    name: "",
+    img: null,
+  };
   const displayLogo = props.logo || false;
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -100,17 +108,11 @@ const AuthAppBar = (props) => {
           )}
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-          <Link to="/Explore">
-              <img
-                src={openMicLogo}
-                className="Logo"
-                height={30}
-                alt="logo"
-              />
+            <Link to="/Explore">
+              <img src={openMicLogo} className="Logo" height={30} alt="logo" />
             </Link>
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-          </Box>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -120,7 +122,7 @@ const AuthAppBar = (props) => {
               >
                 <Avatar
                   alt={myProfile.name}
-                  src={myProfile.img|| "/static/images/avatar/2.jpg"}
+                  src={myProfile.img || "/static/images/avatar/2.jpg"}
                   sx={{ width: isMobile ? 30 : 50, height: isMobile ? 30 : 50 }}
                 />
               </IconButton>

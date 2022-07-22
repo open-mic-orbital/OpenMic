@@ -42,27 +42,32 @@ const Settings = () => {
     setOpen(false);
   };
 
-  const handleLogoutEverywhere = () => {
-    fetch(url + "/users/logoutAll", {
+  const postLogoutAll = async () => {
+    const response = await fetch(url + "/users/logoutAll", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: localStorage.getItem("token"),
       },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
-          window.location.href = "/";
-        }
-      }
-      ).catch((err) => {
-        console.log(err);
-      }
-      );
-  }
+    });
+    if (!response.ok) {
+      const error = new Error(`An error occured: ${response.status}`);
+      error.code = response.status;
+      throw error;
+    }
+    return response;
+  };
+
+  const handleLogoutEverywhere = () => {
+    postLogoutAll()
+      .then(() => {
+        window.localStorage.clear();
+        window.location.href = "/";
+        alert("Logout success");
+      })
+      .catch((e) => {
+        alert("Logout failed! Please try again later...");
+      });
+  };
 
   const deleteUser = async () => {
     const response = await fetch(url + "/users/me", {

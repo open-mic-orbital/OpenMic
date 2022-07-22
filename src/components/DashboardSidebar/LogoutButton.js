@@ -23,6 +23,7 @@ const LogoutButton = () => {
         window.location.reload();
       }).catch((e) => {
         alert("Logout failed! Please try again later...");
+        window.location.reload();
       });
   }
 
