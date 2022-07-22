@@ -67,6 +67,7 @@ console.error = function filterWarnings(msg) {
   const supressedWarnings = [
     'Each child in a list should have a unique "key" prop.',
     "cannot appear",
+    "Invalid"
   ];
   if (!supressedWarnings.some((entry) => msg.includes(entry))) {
     backup.apply(console, arguments);
