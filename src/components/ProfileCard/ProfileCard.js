@@ -8,7 +8,6 @@ import url from "../../utils/url";
 
 const ProfileCard = (props) => {
   const myProfile = JSON.parse(localStorage.getItem("user"));
-  console.log(props);
 
   const handleCreateChat = async () => {
     const response = await fetch(url + "/conversations/", {
@@ -16,14 +15,15 @@ const ProfileCard = (props) => {
       headers: {
         Authorization: localStorage.getItem("token"),
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({
         senderId: myProfile._id,
-        receiverId: props._id,
+        receiverId: props.id,
       }),
     });
     const data = await response.json();
-    console.log(data);
+    alert("Chat created, head over to your chats to start chatting!");
     return data;
   };
 
@@ -103,7 +103,7 @@ const ProfileCard = (props) => {
             color: "#f78104",
           }}
         >
-          Contact
+          Instagram
         </Button>
       </CardActions>
     </Card>

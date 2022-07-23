@@ -10,9 +10,9 @@ if (
   window.location.hostname === "127.0.0.1"
 ) {
   root.render(
-    <React.StrictMode>
+    // <React.StrictMode>
       <App />
-    </React.StrictMode>
+    // </React.StrictMode>
   );
 } else {
   root.render(<App />);

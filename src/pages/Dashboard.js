@@ -96,6 +96,7 @@ const Dashboard = () => {
                   contact={user.contact}
                   description={user.description}
                   image={user.img}
+                  id={user._id}
                 />
               </div>
             ))}
