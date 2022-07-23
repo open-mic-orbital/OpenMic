@@ -1,21 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Box, Divider, Typography } from "@mui/material";
 
-const ChatBoxHeader = () => {
-  const [width, setWidth] = useState(window.innerWidth);
-
-  function handleWindowSizeChange() {
-    setWidth(window.innerWidth);
-  }
-  useEffect(() => {
-    window.addEventListener("resize", handleWindowSizeChange);
-    return () => {
-      window.removeEventListener("resize", handleWindowSizeChange);
-    };
-  }, []);
-
-  const isMobile = width <= 768;
-
+const ChatBoxHeader = ({ name }) => {
   return (
     <Box
       sx={{
@@ -24,7 +10,7 @@ const ChatBoxHeader = () => {
         paddingRight: "10px",
       }}
     >
-      <Typography sx={{ padding: "2%", color: "#10182e" }}>Name</Typography>
+      <Typography sx={{ padding: "2%", color: "#10182e" }}>{name}</Typography>
       <Divider />
     </Box>
   );
