@@ -33,7 +33,7 @@ const Conversation = (props) => {
           src={
             props.user.img
               ? "data:image/*;base64," + props.user.img
-              : "https://cdn.costumewall.com/wp-content/uploads/2018/09/jon-arbuckle.jpg"
+              : "https://via.placeholder.com/32"
           }
           alt={props.user.name}
           style={{

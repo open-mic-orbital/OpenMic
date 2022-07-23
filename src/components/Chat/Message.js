@@ -1,7 +1,9 @@
 import { Typography } from "@mui/material";
 import React from "react";
+import { format } from "timeago.js";
 
-const Message = ({ own }) => {
+const Message = ({ message, own }) => {
+  const myProfile = JSON.parse(localStorage.getItem("user"));
   return (
     <div
       className="message"
@@ -14,7 +16,7 @@ const Message = ({ own }) => {
     >
       <div className="top" style={{ display: "flex" }}>
         <img
-          src="https://via.placeholder.com/50"
+          src={myProfile ? "data:image/*;base64," + myProfile.img : "https://via.placeholder.com/50"}
           alt="avatar"
           style={{
             width: "32px",
@@ -35,15 +37,12 @@ const Message = ({ own }) => {
             maxWidth: "300px",
           }}
         >
-          <Typography fontSize={14}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </Typography>
+          <Typography fontSize={14}>{message.text}</Typography>
         </div>
       </div>
       <div className="timestamp">
         <Typography fontSize={12} style={{ marginTop: "10px", color: "gray" }}>
-          1 hour ago
+          {format(message.createdAt)}
         </Typography>
       </div>
     </div>

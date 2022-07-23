@@ -4,8 +4,28 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions, Box } from "@mui/material";
+import url from "../../utils/url";
 
 const ProfileCard = (props) => {
+  const myProfile = JSON.parse(localStorage.getItem("user"));
+  console.log(props);
+
+  const handleCreateChat = async () => {
+    const response = await fetch(url + "/conversations/", {
+      method: "POST",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        senderId: myProfile._id,
+        receiverId: props._id,
+      }),
+    });
+    const data = await response.json();
+    console.log(data);
+    return data;
+  };
 
   return (
     <Card
@@ -38,8 +58,9 @@ const ProfileCard = (props) => {
             <CardMedia
               component="img"
               image={
-                props.image ? "data:image/*;base64," + props.image :
-                "https://cdn.costumewall.com/wp-content/uploads/2018/09/jon-arbuckle.jpg"
+                props.image
+                  ? "data:image/*;base64," + props.image
+                  : "https://cdn.costumewall.com/wp-content/uploads/2018/09/jon-arbuckle.jpg"
               }
               alt="Upload Image"
               style={{
@@ -60,11 +81,27 @@ const ProfileCard = (props) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
+        {window.location.pathname !== "/Profile" ? (
+          <Button
+            target="_blank"
+            onClick={handleCreateChat}
+            size="small"
+            style={{ marginLeft: "0%", width: "50%", color: "#f78104" }}
+          >
+            Create Chat
+          </Button>
+        ) : (
+          ""
+        )}
         <Button
           target="_blank"
           href={"https://instagram.com/" + (props.contact || "garfield")}
           size="small"
-          style={{ marginLeft: "20%", width: "60%", color: "#f78104" }}
+          style={{
+            marginLeft: "0%",
+            width: window.location.pathname === "/Profile" ? "100%" : "50%",
+            color: "#f78104",
+          }}
         >
           Contact
         </Button>

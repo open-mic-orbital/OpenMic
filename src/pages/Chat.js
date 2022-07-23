@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Box,
   Button,
@@ -6,6 +6,7 @@ import {
   Divider,
   CircularProgress,
   TextareaAutosize,
+  Typography,
 } from "@mui/material";
 import AuthAppBar from "../components/AuthAppBar/AuthAppBar";
 import DashboardSidebar from "../components/DashboardSidebar/DashboardSidebar";
@@ -13,7 +14,9 @@ import Conversation from "../components/Chat/Conversation";
 import ChatBoxHeader from "../components/Chat/ChatBoxHeader";
 import Message from "../components/Chat/Message";
 import url from "../utils/url";
+import { io } from "socket.io-client";
 
+// TODO remove this
 const getUsers = async () => {
   const response = await fetch(url + "/users/viewProfiles", {
     method: "GET",
@@ -26,15 +29,106 @@ const getUsers = async () => {
 };
 
 const Chat = () => {
-  const [allUsers, setAllUsers] = useState([]);
+  const myProfile = JSON.parse(localStorage.getItem("user"));
+  const [currentChat, setCurrentChat] = useState(null);
+  const [conversations, setConversations] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
+  const [arrivalMessage, setArrivalMessage] = useState(null);
+  const [allUsers, setAllUsers] = useState([]); // TODO remove this
   const [loading, setLoading] = useState(true);
+  const [loadingMessages, setLoadingMessages] = useState(false);
+  const socket = useRef();
+  const scrollRef = useRef();
 
+  // TODO remove this
   useEffect(() => {
     const promise = getUsers();
     promise
       .then((data) => setAllUsers((allUsers) => allUsers.concat(data)))
       .then(() => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    socket.current = io("ws://openmic-chat.herokuapp.com");
+    socket.current.on("getMessage", (data) => {
+      setArrivalMessage({
+        sender: data.senderId,
+        text: data.text,
+        createdAt: Date.now(),
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    // arrivalMessage && currentChat
+  }, [arrivalMessage]);
+
+  console.log(currentChat);
+
+  useEffect(() => {
+    socket.current.emit("addUser", myProfile._id);
+  }, [myProfile]);
+
+  useEffect(() => {
+    const getConversations = async () => {
+      const response = await fetch(url + "/conversations/" + myProfile._id, {
+        method: "GET",
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+      const data = await response.json();
+      setConversations(data);
+      console.log("convo", data);
+    };
+    getConversations().then(() => setLoading(false));
+  }, [myProfile._id]);
+
+  useEffect(() => {
+    const getMessages = async () => {
+      setLoadingMessages(true);
+      const response = await fetch(url + "/messages/" + currentChat?._id, {
+        method: "GET",
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+      const data = await response.json();
+      setMessages(data);
+    };
+    getMessages().then(() => setLoadingMessages(false));
+  }, [currentChat]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const message = {
+      sender: myProfile._id,
+      text: newMessage,
+      conversationId: currentChat._id,
+    };
+
+    socket.current.emit("sendMessage", {
+      senderId: myProfile._id,
+      receiverId: currentChat._id,
+      text: newMessage,
+    });
+    const response = await fetch(url + "/messages/", {
+      method: "POST",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(message),
+    });
+    const data = await response.json();
+    setMessages([...messages, data]);
+    setNewMessage("");
+  };
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -76,20 +170,23 @@ const Chat = () => {
                 style={{
                   padding: "10px",
                   backgroundColor: "#fcfcfc",
-                  height: "100vh",
+                  height: isMobile ? "90vh" : "85vh",
                   overflowX: "scroll",
                   whiteSpace: "nowrap",
                 }}
               >
                 {loading ? <CircularProgress size={20} /> : ""}
+                {/* TODO change to conversations */}
                 {allUsers.map((user) => (
-                  <Conversation user={user} />
+                  <div onClick={() => setCurrentChat(user)}>
+                    <Conversation user={user} />
+                  </div>
                 ))}
               </div>
             </div>
             <Divider orientation="vertical" flexItem />
             <div classname="chatbox" style={{ flex: 7 }}>
-              <ChatBoxHeader />
+              {currentChat ? <ChatBoxHeader name={currentChat.name} /> : ""}
               <div
                 classname="chatboxWrapper"
                 style={{
@@ -97,51 +194,86 @@ const Chat = () => {
                   paddingRight: "10px",
                   paddingBottom: "10px",
                   backgroundColor: "#fcfcfc",
+                  display: "flex",
+                  flexDirection: "column",
+                  position: "relative",
                 }}
               >
-                <div
-                  className="messages"
-                  style={{ height: "calc(100vh - 60px)", overflowX: "scroll" }}
-                >
-                  <Message />
-                  <Message own={true} />
-                  <Message />
-                  <Message own={true} />
-                  <Message />
-                  <Message own={true} />
-                  <Message />
-                </div>
-                <div
-                  className="chatBoxBottom"
-                  style={{
-                    marginTop: "5px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <TextareaAutosize
-                    type="text"
-                    placeholder="Type a message..."
-                    style={{ height: "60px", width: "80%", padding: "10px" }}
-                  />
-                  <Button
-                    sx={{
-                      width: 70,
-                      height: 40,
-                      borderRadius: 2,
-                      backgroundColor: "#009c95",
-                      marginLeft: "10px",
-                      color: "white",
-                      "&:hover": {
-                        backgroundColor: "#f78104",
-                        color: "white",
-                      },
+                {currentChat ? (
+                  <>
+                    {loadingMessages ? (
+                      <Typography color={"gray"}>Loading...</Typography>
+                    ) : (
+                      <div
+                        className="chatboxTop"
+                        style={{
+                          height: isMobile ? "75vh" : "70vh",
+                          overflowY: "scroll",
+                          paddingRight: "10px",
+                        }}
+                      >
+                        {messages.map((message) => (
+                          <div ref={scrollRef}>
+                            <Message
+                              message={message}
+                              own={message.sender === myProfile._id}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    <div
+                      className="chatBoxBottom"
+                      style={{
+                        marginTop: "5px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Divider orientation="horizontal" />
+                      <TextareaAutosize
+                        type="text"
+                        placeholder="Type a message..."
+                        onChange={(e) => setNewMessage(e.target.value)}
+                        value={newMessage}
+                        style={{
+                          height: "60px",
+                          width: "80%",
+                          padding: "10px",
+                        }}
+                      />
+                      <Button
+                        onClick={handleSubmit}
+                        sx={{
+                          width: 70,
+                          height: 40,
+                          borderRadius: 2,
+                          backgroundColor: "#009c95",
+                          marginLeft: "10px",
+                          color: "white",
+                          "&:hover": {
+                            backgroundColor: "#f78104",
+                            color: "white",
+                          },
+                        }}
+                      >
+                        Send
+                      </Button>
+                    </div>
+                  </>
+                ) : (
+                  <span
+                    style={{
+                      position: "absolute",
+                      marginTop: "5%",
+                      fontSize: "50px",
+                      color: "gray",
                     }}
                   >
-                    Send
-                  </Button>
-                </div>
+                    Open a conversation to start a text chat.
+                  </span>
+                )}
               </div>
             </div>
           </div>
