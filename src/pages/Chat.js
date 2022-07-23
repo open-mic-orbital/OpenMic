@@ -11,22 +11,9 @@ import {
 import AuthAppBar from "../components/AuthAppBar/AuthAppBar";
 import DashboardSidebar from "../components/DashboardSidebar/DashboardSidebar";
 import Conversation from "../components/Chat/Conversation";
-import ChatBoxHeader from "../components/Chat/ChatBoxHeader";
 import Message from "../components/Chat/Message";
 import url from "../utils/url";
 import { io } from "socket.io-client";
-
-// TODO remove this
-const getUsers = async () => {
-  const response = await fetch(url + "/users/viewProfiles", {
-    method: "GET",
-    headers: {
-      Authorization: localStorage.getItem("token"),
-    },
-  });
-  const data = await response.json();
-  return data;
-};
 
 const Chat = () => {
   const myProfile = JSON.parse(localStorage.getItem("user"));
@@ -35,40 +22,30 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [arrivalMessage, setArrivalMessage] = useState(null);
-  const [allUsers, setAllUsers] = useState([]); // TODO remove this
   const [loading, setLoading] = useState(true);
   const [loadingMessages, setLoadingMessages] = useState(false);
-  const socket = useRef();
+  // const socket = useRef();
   const scrollRef = useRef();
 
-  // TODO remove this
-  useEffect(() => {
-    const promise = getUsers();
-    promise
-      .then((data) => setAllUsers((allUsers) => allUsers.concat(data)))
-      .then(() => setLoading(false));
-  }, []);
+  // useEffect(() => {
+  //   socket.current = io("ws://openmic-chat.herokuapp.com");
+  //   socket.current.on("getMessage", (data) => {
+  //     setArrivalMessage({
+  //       sender: data.senderId,
+  //       text: data.text,
+  //       createdAt: Date.now(),
+  //     });
+  //   });
+  // }, []);
 
   useEffect(() => {
-    socket.current = io("ws://openmic-chat.herokuapp.com");
-    socket.current.on("getMessage", (data) => {
-      setArrivalMessage({
-        sender: data.senderId,
-        text: data.text,
-        createdAt: Date.now(),
-      });
-    });
-  }, []);
-
-  useEffect(() => {
+    // TIMESTAMP
     // arrivalMessage && currentChat
   }, [arrivalMessage]);
 
-  console.log(currentChat);
-
-  useEffect(() => {
-    socket.current.emit("addUser", myProfile._id);
-  }, [myProfile]);
+  // useEffect(() => {
+  //   socket.current.emit("addUser", myProfile._id);
+  // }, [myProfile]);
 
   useEffect(() => {
     const getConversations = async () => {
@@ -80,10 +57,9 @@ const Chat = () => {
       });
       const data = await response.json();
       setConversations(data);
-      console.log("convo", data);
     };
     getConversations().then(() => setLoading(false));
-  }, [myProfile._id]);
+  }, [myProfile._id, currentChat]);
 
   useEffect(() => {
     const getMessages = async () => {
@@ -98,6 +74,7 @@ const Chat = () => {
       setMessages(data);
     };
     getMessages().then(() => setLoadingMessages(false));
+    
   }, [currentChat]);
 
   const handleSubmit = async (e) => {
@@ -108,11 +85,11 @@ const Chat = () => {
       conversationId: currentChat._id,
     };
 
-    socket.current.emit("sendMessage", {
-      senderId: myProfile._id,
-      receiverId: currentChat._id,
-      text: newMessage,
-    });
+    // socket.current.emit("sendMessage", {
+    //   senderId: myProfile._id,
+    //   receiverId: currentChat._id,
+    //   text: newMessage,
+    // });
     const response = await fetch(url + "/messages/", {
       method: "POST",
       headers: {
@@ -176,17 +153,17 @@ const Chat = () => {
                 }}
               >
                 {loading ? <CircularProgress size={20} /> : ""}
-                {/* TODO change to conversations */}
-                {allUsers.map((user) => (
+                {conversations.map((user) => (
                   <div onClick={() => setCurrentChat(user)}>
-                    <Conversation user={user} />
+                    <Conversation
+                      convo={user.members.filter((x) => x !== myProfile._id)}
+                    />
                   </div>
                 ))}
               </div>
             </div>
             <Divider orientation="vertical" flexItem />
             <div classname="chatbox" style={{ flex: 7 }}>
-              {currentChat ? <ChatBoxHeader name={currentChat.name} /> : ""}
               <div
                 classname="chatboxWrapper"
                 style={{
@@ -202,7 +179,7 @@ const Chat = () => {
                 {currentChat ? (
                   <>
                     {loadingMessages ? (
-                      <Typography color={"gray"}>Loading...</Typography>
+                      <Typography fontSize={24} color={"gray"}>Loading...</Typography>
                     ) : (
                       <div
                         className="chatboxTop"
@@ -231,7 +208,7 @@ const Chat = () => {
                         justifyContent: "space-between",
                       }}
                     >
-                      <Divider orientation="horizontal" />
+                      <Divider orientation="horizontal" flexItem />
                       <TextareaAutosize
                         type="text"
                         placeholder="Type a message..."

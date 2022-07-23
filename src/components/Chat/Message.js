@@ -15,7 +15,7 @@ const Message = ({ message, own }) => {
       }}
     >
       <div className="top" style={{ display: "flex" }}>
-        <img
+        {own ? <img
           src={myProfile ? "data:image/*;base64," + myProfile.img : "https://via.placeholder.com/50"}
           alt="avatar"
           style={{
@@ -25,7 +25,7 @@ const Message = ({ message, own }) => {
             objectFit: "cover",
             marginRight: "10px",
           }}
-        />
+        /> : ""}
         <div
           className="bubble"
           style={{
