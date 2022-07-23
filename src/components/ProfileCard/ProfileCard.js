@@ -21,10 +21,7 @@ const ProfileCard = (props) => {
         senderId: myProfile._id,
         receiverId: props._id,
       }),
-    })
-    // .then((e) =>
-    //   alert("Chat created. Head to the Chat page to chat with this user.")
-    // );
+    });
     const data = await response.json();
     console.log(data);
     return data;
@@ -84,19 +81,27 @@ const ProfileCard = (props) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button
-          target="_blank"
-          onClick={handleCreateChat}
-          size="small"
-          style={{ marginLeft: "0%", width: "50%", color: "#f78104" }}
-        >
-          Chat
-        </Button>
+        {window.location.pathname !== "/Profile" ? (
+          <Button
+            target="_blank"
+            onClick={handleCreateChat}
+            size="small"
+            style={{ marginLeft: "0%", width: "50%", color: "#f78104" }}
+          >
+            Create Chat
+          </Button>
+        ) : (
+          ""
+        )}
         <Button
           target="_blank"
           href={"https://instagram.com/" + (props.contact || "garfield")}
           size="small"
-          style={{ marginLeft: "0%", width: "50%", color: "#f78104" }}
+          style={{
+            marginLeft: "0%",
+            width: window.location.pathname === "/Profile" ? "100%" : "50%",
+            color: "#f78104",
+          }}
         >
           Contact
         </Button>
