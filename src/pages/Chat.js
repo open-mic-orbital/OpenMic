@@ -24,28 +24,32 @@ const Chat = () => {
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const [loading, setLoading] = useState(true);
   const [loadingMessages, setLoadingMessages] = useState(false);
-  // const socket = useRef();
+  const socket = useRef();
   const scrollRef = useRef();
 
-  // useEffect(() => {
-  //   socket.current = io("ws://openmic-chat.herokuapp.com");
-  //   socket.current.on("getMessage", (data) => {
-  //     setArrivalMessage({
-  //       sender: data.senderId,
-  //       text: data.text,
-  //       createdAt: Date.now(),
-  //     });
-  //   });
-  // }, []);
+  useEffect(() => {
+    socket.current = io("https://openmic-chat.herokuapp.com");
+    socket.current.on("getMessage", (data) => {
+      setArrivalMessage({
+        sender: data.senderId,
+        text: data.text,
+        createdAt: Date.now(),
+      });
+    });
+  }, []);
 
   useEffect(() => {
-    // TIMESTAMP
-    // arrivalMessage && currentChat
-  }, [arrivalMessage]);
+    arrivalMessage &&
+      currentChat?.members.includes(arrivalMessage.sender) &&
+      setMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage, currentChat]);
 
-  // useEffect(() => {
-  //   socket.current.emit("addUser", myProfile._id);
-  // }, [myProfile]);
+  useEffect(() => {
+    socket.current.emit("addUser", myProfile._id);
+    socket.current.on("getUsers", (users) => {
+      console.log(users);
+    });
+  }, [myProfile]);
 
   useEffect(() => {
     const getConversations = async () => {
@@ -59,7 +63,7 @@ const Chat = () => {
       setConversations(data);
     };
     getConversations().then(() => setLoading(false));
-  }, [myProfile._id, currentChat]);
+  }, [myProfile._id]);
 
   useEffect(() => {
     const getMessages = async () => {
@@ -74,7 +78,6 @@ const Chat = () => {
       setMessages(data);
     };
     getMessages().then(() => setLoadingMessages(false));
-    
   }, [currentChat]);
 
   const handleSubmit = async (e) => {
@@ -85,11 +88,16 @@ const Chat = () => {
       conversationId: currentChat._id,
     };
 
-    // socket.current.emit("sendMessage", {
-    //   senderId: myProfile._id,
-    //   receiverId: currentChat._id,
-    //   text: newMessage,
-    // });
+    const receiverId = currentChat.members.find(
+      (member) => member !== myProfile._id
+    );
+
+    socket.current.emit("sendMessage", {
+      senderId: myProfile._id,
+      receiverId,
+      text: newMessage,
+    });
+
     const response = await fetch(url + "/messages/", {
       method: "POST",
       headers: {
@@ -153,10 +161,10 @@ const Chat = () => {
                 }}
               >
                 {loading ? <CircularProgress size={20} /> : ""}
-                {conversations.map((user) => (
-                  <div onClick={() => setCurrentChat(user)}>
+                {conversations.map((chat) => (
+                  <div onClick={() => setCurrentChat(chat)}>
                     <Conversation
-                      convo={user.members.filter((x) => x !== myProfile._id)}
+                      convo={chat.members.filter((x) => x !== myProfile._id)}
                     />
                   </div>
                 ))}
@@ -179,7 +187,9 @@ const Chat = () => {
                 {currentChat ? (
                   <>
                     {loadingMessages ? (
-                      <Typography fontSize={24} color={"gray"}>Loading...</Typography>
+                      <Typography fontSize={24} color={"gray"}>
+                        Loading...
+                      </Typography>
                     ) : (
                       <div
                         className="chatboxTop"
