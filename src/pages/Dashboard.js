@@ -74,7 +74,7 @@ const Dashboard = () => {
           </h2>
           <p>
             Get in touch with these other users looking to connect. Click on
-            'Contact' when you notice an interesting profile!
+            'Create Chat' when you notice an interesting profile!
           </p>
           <Box
             display="flex"
